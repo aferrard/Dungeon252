@@ -25,3 +25,5 @@ Autodesk Inventor
 Google Chrome
 
 -will add more if used
+
+Google doc: https://docs.google.com/document/d/1IOtICIfWlxniqCnKGxYeXIdQbt5FpjIVRaD5Tsppu4k/edit
