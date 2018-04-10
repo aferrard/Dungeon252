@@ -1,0 +1,12 @@
+{
+  "name": "Dungeon252",
+  "version": "0.0.1",
+  "dependencies": {
+    "body-parser": "latest",
+    "cookie-parser": "^1.4.3",
+    "ejs": "^2.5.8",
+    "express": "latest",
+    "express-ejs-layouts": "^2.4.0",
+    "mysql": "^2.15.0"
+  }
+}
