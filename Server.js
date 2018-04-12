@@ -14,7 +14,7 @@ var con = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: "sql123",
-    database: "dungeon252"
+    database: "dungeon252_data"
 });
 con.connect(function(err) {
     if(err) throw err;

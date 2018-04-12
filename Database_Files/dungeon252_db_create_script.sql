@@ -5,19 +5,19 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 -- -----------------------------------------------------
--- Schema dungeon252
+-- Schema dungeon252_data
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema dungeon252
+-- Schema dungeon252_data
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `dungeon252` DEFAULT CHARACTER SET utf8 ;
-USE `dungeon252` ;
+CREATE SCHEMA IF NOT EXISTS `dungeon252_data` DEFAULT CHARACTER SET utf8 ;
+USE `dungeon252_data` ;
 
 -- -----------------------------------------------------
--- Table `dungeon252`.`weapons`
+-- Table `dungeon252_data`.`weapons`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `dungeon252`.`weapons` (
+CREATE TABLE IF NOT EXISTS `dungeon252_data`.`weapons` (
   `weapon_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `attribute` TEXT NOT NULL,
@@ -28,9 +28,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `dungeon252`.`items`
+-- Table `dungeon252_data`.`items`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `dungeon252`.`items` (
+CREATE TABLE IF NOT EXISTS `dungeon252_data`.`items` (
   `item_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `attribute` TEXT NOT NULL,
@@ -40,9 +40,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `dungeon252`.`magiks`
+-- Table `dungeon252_data`.`magiks`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `dungeon252`.`magiks` (
+CREATE TABLE IF NOT EXISTS `dungeon252_data`.`magiks` (
   `magik_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `attribute` TEXT NOT NULL,
@@ -51,9 +51,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `dungeon252`.`users`
+-- Table `dungeon252_data`.`users`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `dungeon252`.`users` (
+CREATE TABLE IF NOT EXISTS `dungeon252_data`.`users` (
   `user_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(45) NOT NULL,
   `health` VARCHAR(45) NOT NULL,
@@ -67,37 +67,37 @@ CREATE TABLE IF NOT EXISTS `dungeon252`.`users` (
   INDEX `fk_users_magiks1_idx` (`magiks_magik_id` ASC),
   CONSTRAINT `fk_users_weapons`
     FOREIGN KEY (`weapons_weapon_id`)
-    REFERENCES `dungeon252`.`weapons` (`weapon_id`)
+    REFERENCES `dungeon252_data`.`weapons` (`weapon_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_users_items1`
     FOREIGN KEY (`items_item_id`)
-    REFERENCES `dungeon252`.`items` (`item_id`)
+    REFERENCES `dungeon252_data`.`items` (`item_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_users_magiks1`
     FOREIGN KEY (`magiks_magik_id`)
-    REFERENCES `dungeon252`.`magiks` (`magik_id`)
+    REFERENCES `dungeon252_data`.`magiks` (`magik_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `dungeon252`.`rooms`
+-- Table `dungeon252_data`.`rooms`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `dungeon252`.`rooms` (
+CREATE TABLE IF NOT EXISTS `dungeon252_data`.`rooms` (
   `room_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `image` VARCHAR(45) NULL,
+  `image` TEXT NOT NULL,
   `event` TEXT NOT NULL,
   PRIMARY KEY (`room_id`))
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `dungeon252`.`options`
+-- Table `dungeon252_data`.`options`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `dungeon252`.`options` (
+CREATE TABLE IF NOT EXISTS `dungeon252_data`.`options` (
   `option_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `option` TEXT NOT NULL,
   `rooms_room_id` INT UNSIGNED NOT NULL,
@@ -105,23 +105,23 @@ CREATE TABLE IF NOT EXISTS `dungeon252`.`options` (
   INDEX `fk_options_rooms1_idx` (`rooms_room_id` ASC),
   CONSTRAINT `fk_options_rooms1`
     FOREIGN KEY (`rooms_room_id`)
-    REFERENCES `dungeon252`.`rooms` (`room_id`)
+    REFERENCES `dungeon252_data`.`rooms` (`room_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `dungeon252`.`outcomes`
+-- Table `dungeon252_data`.`outcomes`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `dungeon252`.`outcomes` (
+CREATE TABLE IF NOT EXISTS `dungeon252_data`.`outcomes` (
+  `outcome` TEXT NOT NULL,
   `options_option_id` INT UNSIGNED NOT NULL,
   `options_rooms_room_id` INT UNSIGNED NOT NULL,
-  `outcome` TEXT NOT NULL,
   PRIMARY KEY (`options_option_id`, `options_rooms_room_id`),
   CONSTRAINT `fk_outcomes_options1`
     FOREIGN KEY (`options_option_id` , `options_rooms_room_id`)
-    REFERENCES `dungeon252`.`options` (`option_id` , `rooms_room_id`)
+    REFERENCES `dungeon252_data`.`options` (`option_id` , `rooms_room_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
