@@ -45,7 +45,8 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `dungeon252_data`.`magiks` (
   `magik_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
-  `attribute` TEXT NOT NULL,
+  `affect` TEXT NOT NULL,
+  `goodagainst` TEXT NOT NULL,
   PRIMARY KEY (`magik_id`))
 ENGINE = InnoDB;
 
