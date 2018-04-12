@@ -40,6 +40,17 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
+-- Table `dungeon252`.`magiks`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `dungeon252`.`magiks` (
+  `magik_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `attribute` TEXT NOT NULL,
+  PRIMARY KEY (`magik_id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `dungeon252`.`users`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `dungeon252`.`users` (
@@ -49,9 +60,11 @@ CREATE TABLE IF NOT EXISTS `dungeon252`.`users` (
   `money` VARCHAR(45) NOT NULL,
   `weapons_weapon_id` INT UNSIGNED NOT NULL,
   `items_item_id` INT UNSIGNED NOT NULL,
-  PRIMARY KEY (`user_id`, `weapons_weapon_id`, `items_item_id`),
+  `magiks_magik_id` INT UNSIGNED NOT NULL,
+  PRIMARY KEY (`user_id`, `weapons_weapon_id`, `items_item_id`, `magiks_magik_id`),
   INDEX `fk_users_weapons_idx` (`weapons_weapon_id` ASC),
   INDEX `fk_users_items1_idx` (`items_item_id` ASC),
+  INDEX `fk_users_magiks1_idx` (`magiks_magik_id` ASC),
   CONSTRAINT `fk_users_weapons`
     FOREIGN KEY (`weapons_weapon_id`)
     REFERENCES `dungeon252`.`weapons` (`weapon_id`)
@@ -60,6 +73,11 @@ CREATE TABLE IF NOT EXISTS `dungeon252`.`users` (
   CONSTRAINT `fk_users_items1`
     FOREIGN KEY (`items_item_id`)
     REFERENCES `dungeon252`.`items` (`item_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_users_magiks1`
+    FOREIGN KEY (`magiks_magik_id`)
+    REFERENCES `dungeon252`.`magiks` (`magik_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
