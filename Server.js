@@ -36,8 +36,10 @@ app.get('/champ', function(req,res){
     res.render('pages/champ');
 });
 app.get('/room', function(req,res){
-    console.log(req.body);
     res.render('pages/room');
+});
+app.get('/outcome', function(req,res){
+    res.render('pages/outcome');
 });
 
 app.listen(5252);
