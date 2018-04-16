@@ -35,6 +35,10 @@ app.get('/leaderboard', function(req,res){
 app.get('/champ', function(req,res){
     res.render('pages/champ');
 });
+app.get('/room', function(req,res){
+    console.log(req.body);
+    res.render('pages/room');
+});
 
 app.listen(5252);
 console.log('5252 is the magic port');
