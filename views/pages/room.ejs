@@ -5,10 +5,6 @@
 </head>
 <body class="container">
 
-<header>
-    <% include ../partials/header %>
-</header>
-
 <main>
     <div class ="container-fluid">
         <p align="center">
@@ -16,10 +12,22 @@
         </p><br>
         <p align="left">
             <font size="3">Room prompt query here</font>
-        </p><br><br>
+        </p><br>
         <form align="left" class="form-horizontal" action="/outcome">
             <input value="Option A" type="submit" class="btn btn-danger">
-            <label name="optionA" for="hero">Option A query goes here</label>
+            <label name="optionA" for="outcomeA">Option A query goes here</label>
+        </form><br>
+        <form align="left" class="form-horizontal" action="/outcome">
+            <input value="Option B" type="submit" class="btn btn-danger">
+            <label name="optionB" for="outcomeB">Option B query goes here</label>
+        </form><br>
+        <form align="left" class="form-horizontal" action="/outcome">
+            <input value="Option C" type="submit" class="btn btn-danger">
+            <label name="optionC" for="outcomeC">Option C query goes here</label>
+        </form><br>
+        <form align="left" class="form-horizontal" action="/outcome">
+            <input value="Option D" type="submit" class="btn btn-danger">
+            <label name="optionD" for="outcomeD">Option D query goes here</label>
         </form><br>
 
     </div>
