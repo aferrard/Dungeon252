@@ -50,13 +50,13 @@ function getChoices(roomid, cb) {
     });
 }
 
-exports.getOutcomes = getOutcomes;
-function getOutcomes(choiceid, path, cb) {
+exports.getOutcome = getOutcome;
+function getOutcome(choiceid, path, cb) {
     con.query("SELECT outcome FROM outcomes WHERE choices_choice_id = " + choiceid + " AND outcome_path = '" + path + "'", function(err, outcome) {
         if(err) {
             cb(err);
         } else {
-            var z = JSON.parse(JSON.stringify(outcomes[0].outcome));
+            var z = JSON.parse(JSON.stringify(outcome[0].outcome));
             cb(z);
         }
     });
