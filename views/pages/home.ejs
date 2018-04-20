@@ -9,7 +9,13 @@
             -moz-background-size: cover;
             -o-background-size: cover;
             background-size: cover;
+        }
+        h1 {
             color: darkgray;
+            font-size: 24px;
+            background-color: whitesmoke;
+            margin-right: 400px;
+            margin-left: 400px;
         }
     </style>
 </head>
@@ -21,17 +27,18 @@
 
 <main>
     <div class ="container-fluid">
-        <p align="center">
+        <h1 align="center">
           <b>Welcome to Dungeon252.<br>
               Please enjoy your stay!</b>
-            <br>
-            <br>
+        </h1>
+        <h2>
+        <br><br>
         <form align="center" class="form-horizontal" action="/start">
             <label for="hero">Your Hero: </label>
             <input id="hero" type="text" name="hero" placeholder="Enter your Hero name." required><br>
             <input value="Enter the Dungeon" type="submit" class="btn btn-danger">
         </form>
-        </p>
+        </h2>
     </div>
 </main>
 
