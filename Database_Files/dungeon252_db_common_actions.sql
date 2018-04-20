@@ -7,3 +7,6 @@ select * from rooms;
 select * from users;
 select * from choices;
 select * from outcomes;
+
+delete from outcomes;
+delete from choices;

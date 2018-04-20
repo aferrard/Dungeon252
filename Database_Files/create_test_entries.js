@@ -37,11 +37,11 @@ getRoomId("GNOME", function(room) {
                 if (err) {
                     throw err
                 } else {
-                    con.query("INSERT INTO outcomes VALUE('a','\"Correct!\" The gnome gives you 15 gold pieces. \"You may pass.\"'," + choice[0].choice_id + ")", function (err, result) {
+                    con.query("INSERT INTO outcomes VALUE('a','\\\"Correct!\\\" The gnome gives you 15 gold pieces. \\\"You may pass.\\\"'," + choice[0].choice_id + ")", function (err, result) {
                         if (err) {
                             throw err;
                         } else {
-                            con.query("b","INSERT INTO outcomes VALUE('b','The gnome laughs at you and you feel bad. Lose 2 HP.', "+choice[0].choice_id+")", function(err, result) {
+                            con.query("INSERT INTO outcomes VALUE('b','The gnome laughs at you and you feel bad. Lose 2 HP.', "+choice[0].choice_id+")", function(err, result) {
                                 if(err) {
                                     throw err;
                                 } else {
@@ -62,7 +62,7 @@ getRoomId("GNOME", function(room) {
                 if(err) {
                     throw err;
                 } else {
-                    con.query("INSERT INTO outcomes VALUE('a',\"I’m a gnome, boy. We won’t do anything except in revenge.\" He lets you go with a wave of his hand.', "+choice[0].choice_id+")", function(err, result) {
+                    con.query("INSERT INTO outcomes VALUE('a','\\\"I\\\'m a gnome, boy. We won’t do anything except in revenge.\\\" He lets you go with a wave of his hand.', "+choice[0].choice_id+")", function(err, result) {
                         if(err) {
                             throw err;
                         } else {
@@ -85,7 +85,7 @@ getRoomId("GNOME", function(room) {
                         if(err) {
                             throw err;
                         } else {
-                            con.query("INSERT INTO outcomes VALUE('b',\"Guess you don’t like riddles, scum.\" He says with an angry laugh while stabbing your leg. Lose 15 health.', "+choice[0].choice_id+")", function(err, result) {
+                            con.query("INSERT INTO outcomes VALUE('b','\\\"Guess you don\\\'t like riddles, scum.\\\" He says with an angry laugh while stabbing your leg. Lose 15 health.', "+choice[0].choice_id+")", function(err, result) {
                                 if(err) {
                                     throw err;
                                 } else {
@@ -98,11 +98,11 @@ getRoomId("GNOME", function(room) {
             });
         }
     });
-    con.query("INSERT INTO choices VALUE (NULL, 'Say \"How about no.\" and flee ... um, continue on to the next room', "+room+")",function(err, result) {
+    con.query("INSERT INTO choices VALUE (NULL, 'Say \\\"How about no.\\\" and flee ... um, continue on to the next room', "+room+")",function(err, result) {
         if(err) {
             throw err;
         } else {
-            con.query("SELECT choice_id FROM choices WHERE choice= 'Say \"How about no.\" and flee ... um, continue on to the next room'", function(err, choice) {
+            con.query("SELECT choice_id FROM choices WHERE choice= 'Say \\\"How about no.\\\" and flee ... um, continue on to the next room'", function(err, choice) {
                 if(err) {
                     throw err;
                 } else {
