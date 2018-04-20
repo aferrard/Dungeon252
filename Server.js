@@ -8,7 +8,7 @@ var cookieParser = require('cookie-parser');
 
 app.use(cookieParser());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({extended: true}));
 
 var con = mysql.createConnection({
     host: "localhost",
@@ -16,15 +16,15 @@ var con = mysql.createConnection({
     password: "sql123",
     database: "dungeon252_data"
 });
-con.connect(function(err) {
-    if(err) throw err;
+con.connect(function (err) {
+    if (err) throw err;
     console.log("Connected with Database");
 });
 //set the view engine to ejs
 app.set('view engine', 'ejs');
 //user res.render to load up an ejs view file
 
-app.get('/', function(req,res){
+app.get('/', function (req, res) {
     res.cookie('hero', '', {expires: new Date(0)}); // remove user from the cookie
     res.cookie('health', '', {expires: new Date(0)}); // remove pass from the cookie
     res.cookie('gold', '', {expires: new Date(0)});
@@ -36,16 +36,16 @@ app.get('/', function(req,res){
     res.render('pages/home');
 });
 
-app.get('/leaderboard', function(req,res){
+app.get('/leaderboard', function (req, res) {
     res.render('pages/leaderboard');
 });
 
-app.get('/champ', function(req,res){
+app.get('/champ', function (req, res) {
     res.render('pages/champ');
 });
 var roomsMaster = ["GNOME", "DOG", "HOLE", "CHEST", "POTIONS", "DARKWIZARD", "SEASHELL", "CAMPFIRE", "HELICOPTER", "SALESMAN", "FEAST", "CHOOSEAROOM"];
 
-app.get('/start', function(req,res){
+app.get('/start', function (req, res) {
     res.cookie('hero', req.query.hero, {maxAge: 9000000});
     res.cookie('health', 50, {maxAge: 9000000});
     res.cookie('gold', 50, {maxAge: 9000000});
@@ -56,16 +56,23 @@ app.get('/start', function(req,res){
     res.render('pages/start');
 });
 
-app.get('/room', function(req,res){
+app.get('/room', function (req, res) {
     console.log(req.cookies);
     var roomsCopy = req.cookies.roomsCopy;
-    var roomPick = roomsCopy.length*Math.random();
+    var roomPick = roomsCopy.length * Math.random();
     var room = roomsCopy[roomPick];
     roomsCopy.splice(roomPick, 1);
     res.cookie('roomsCopy', roomsCopy, {maxAge: 9000000});
-    res.render('pages/room');
+    res.render('pages/room', {
+        hero: req.cookies.hero,
+        health: req.cookies.health,
+        gold: req.cookies.gold,
+        weapon: req.cookies.weapon,
+        item: req.cookies.item,
+        magik: req.cookies.magik
+    });
 });
-app.get('/outcome', function(req,res){
+app.get('/outcome', function (req, res) {
     res.render('pages/outcome');
 });
 
