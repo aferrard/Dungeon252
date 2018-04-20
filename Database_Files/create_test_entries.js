@@ -26,7 +26,7 @@ function getRoomId(title, cb) {
     });
 }
 
-//choices for gnome room
+//choices and outcomes for GNOME
 getRoomId("GNOME", function(room) {
     con.query("INSERT INTO choices VALUE (NULL, 'Attempt to answer the riddle', "+room+")", function(err, result) {
         if(err) {
@@ -125,7 +125,7 @@ getRoomId("GNOME", function(room) {
     });
 });
 
-//choices for dog
+//choices and outcomes for DOG
 getRoomId("DOG", function(room) {
     con.query("INSERT INTO choices VALUE(NULL, 'Throw your weapon to distract the dog.', " + room + ")", function(err, result) {
         if(err) {
@@ -227,6 +227,128 @@ getRoomId("DOG", function(room) {
                                     throw err;
                                 } else {
                                     console.log("dog choice 4");
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    });
+});
+
+//choices and outcomes for HOLE
+getRoomId("HOLE", function(room) {
+    con.query("INSERT INTO choices VALUE(NULL, 'Attempt to jump over the hole.', " + room + ")", function(err, result) {
+        if(err) {
+            throw(err);
+        } else {
+            con.query("SELECT choice_id FROM choices WHERE choice = 'Attempt to jump over the hole.'", function(err, choice) {
+                if(err) {
+                    throw err;
+                } else {
+                    con.query("INSERT INTO outcomes VALUE('a', 'You are fat and aren\\\'t able to make it across. You fall into the hole and lose 15 HP. There\\\'s a door, and the body of another hero. Gain 10 gold.', " + choice[0].choice_id + ")", function(err, result) {
+                        if(err) {
+                            throw(err);
+                        } else {
+                            con.query("INSERT INTO outcomes VALUE('b', 'You make it across! You give yourself a pat on the back and restore 2 HP because you feel good.', " + choice[0].choice_id + ")", function(err, result) {
+                                if(err) {
+                                    throw(err);
+                                } else {
+                                    console.log("hole choice 1");
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    });
+    con.query("INSERT INTO choices VALUE(NULL, 'Try to go around', " + room + ")", function(err, result) {
+        if(err) {
+            throw err;
+        } else {
+            con.query("SELECT choice_id FROM choices WHERE choice = 'Try to go around'", function(err, choice) {
+                if(err) {
+                    throw err;
+                } else {
+                    con.query("INSERT INTO outcomes VALUE('a', 'You are heavy and not very coordinated You fall into the hole and lose 15 HP. There\\\'s a door, and the body of another hero. Gain 10 gold.', " + choice[0].choice_id + ")", function(err, result) {
+                        if(err) {
+                            throw err;
+                        } else {
+                            con.query("INSERT INTO outcomes VALUE('b', 'You light and nimble and make it around safely! You give yourself a pat on the back and restore 2 HP because you feel good.', " + choice[0].choice_id + ")", function(err, result) {
+                                if(err) {
+                                    throw err;
+                                } else {
+                                    console.log("hole choice 2");
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    });
+    con.query("INSERT INTO choices VALUE(NULL, 'Use your weapon to attempt to cross.', " + room + ")", function(err, result) {
+        if(err) {
+            throw(err);
+        } else {
+            con.query("SELECT choice_id FROM choices WHERE choice = 'Use your weapon to attempt to cross.'", function(err, choice) {
+                if(err) {
+                    throw err;
+                } else {
+                    con.query("INSERT INTO outcomes VALUE('a', 'You walk across your ~weapon~, keeping careful balance. Continue to the next room.', " + choice[0].choice_id + ")", function(err, result) {
+                        if(err) {
+                            throw(err);
+                        } else {
+                            con.query("INSERT INTO outcomes VALUE('b', 'You attempt to vault over the hole. Lose your weapon. Continue to the next room.', " + choice[0].choice_id + ")", function(err, result) {
+                                if(err) {
+                                    throw err;
+                                } else {
+                                    console.log("hole choice 3");
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    });
+    con.query("INSERT INTO choices VALUE(NULL, 'Use magik to attempt to cross', " + room + ")", function(err, result) {
+        if(err) {
+            throw err;
+        } else {
+            con.query("SELECT choice_id FROM choices WHERE choice = 'Use magik to attempt to cross'", function(err, choice) {
+                if(err) {
+                    throw err;
+                } else {
+                    con.query("INSERT INTO outcomes VALUE('a', 'You make a bridge across the hole with your magik. You give yourself a pat on the back and restore 2 HP because you feel good.', " + choice[0].choice_id + ")", function(err) {
+                        if(err) {
+                            throw err;
+                        } else {
+                            con.query("INSERT INTO outcomes VALUE('b', 'With the help of your magik, you easily float over the hole. You give yourself a pat on the back and restore 2 HP because you feel good.', " + choice[0].choice_id + ")", function(err, result) {
+                                if(err) {
+                                    throw err;
+                                } else {
+                                    con.query("INSERT INTO outcomes VALUE('c', 'You strike the ground behind you with an explosion, then fly your way across. Lose 2HP.', " + choice[0].choice_id + ")", function(err, result) {
+                                        if(err) {
+                                            throw err;
+                                        } else {
+                                            con.query("INSERT INTO outcomes VALUE('d', 'You Yoshi-Hop across the the hole, leaving your familiar to fall to its death. Rest in pieces. Lose Magik.', " + choice[0].choice_id + ")", function(err, result) {
+                                                if(err) {
+                                                    throw err;
+                                                } else {
+                                                    con.query("INSERT INTO outcomes VALUE('e', 'Your magik triggers something in the room, and you slip down the hole. Lose 15 HP. There’s a door, and the body of another hero. Gain 10 gold.', " + choice[0].choice_id + ")", function(err, result) {
+                                                        if(err) {
+                                                            throw err;
+                                                        } else {
+                                                            console.log("hole choice 4");
+                                                        }
+                                                    });
+                                                }
+                                            });
+                                        }
+                                    });
                                 }
                             });
                         }
