@@ -4,16 +4,16 @@
     <% include ../partials/head %>
     <style>
         body {
-            background-image: url('https://i.pinimg.com/originals/36/68/5e/36685e1f9923269baacab9a79383943d.jpg');
+            background-image: url('https://i.ytimg.com/vi/Vxv8Te1s3dc/maxresdefault.jpg');
             -webkit-background-size: cover;
             -moz-background-size: cover;
             -o-background-size: cover;
             background-size: cover;
         }
         h1 {
-            color: darkgray;
+            color: #757575;
             font-size: 24px;
-            background-color: whitesmoke;
+            background-color: darkgray;
             margin-right: 400px;
             margin-left: 400px;
         }
@@ -31,18 +31,28 @@
           <b>Welcome to Dungeon252.<br>
               Please enjoy your stay!</b>
         </h1>
-        <h2>
-        <br><br>
+        <h1>
         <form align="center" class="form-horizontal" action="/start">
             <label for="hero">Your Hero: </label>
-            <input id="hero" type="text" name="hero" placeholder="Enter your Hero name." required><br>
+            <input id="hero" type="text" name="hero" placeholder="Enter your hero name" required><br>
             <input value="Enter the Dungeon" type="submit" class="btn btn-danger">
         </form>
-        </h2>
+        </h1>
     </div>
 </main>
 
 <footer>
+    <style>
+        footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            color: white;
+            text-align: center;
+            font-size: 20px;
+        }
+    </style>
     <% include ../partials/footer %>
 </footer>
 
