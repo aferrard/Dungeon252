@@ -60,31 +60,53 @@ app.get('/start', function (req, res) {
 app.get('/room', function (req, res) {
     console.log(req.cookies);
     var roomsCopy = req.cookies.roomsCopy;
-    var roomPick = Math.round(roomsCopy.length-1 * Math.random());
+    var roomPick = Math.round((parseInt(roomsCopy.length)-1) * Math.random());
     var room = roomsCopy[roomPick];
-    roomsCopy.splice(roomPick, 1);
-    console.log(roomPick);
-    console.log(room);
-    res.cookie('roomsCopy', roomsCopy, {maxAge: 9000000});
-    res.cookie('room', room, {maxAge: 9000000});
-    res.render('pages/room', {
-        hero: req.cookies.hero,
-        health: req.cookies.health,
-        gold: req.cookies.gold,
-        weapon: req.cookies.weapon,
-        item: req.cookies.item,
-        magik: req.cookies.magik,
-        room: room
-    });
+    var roomCounter = parseInt(req.cookies.roomCounter) + 1;
+    if(roomCounter%10 != 0){
+        roomsCopy.splice(roomPick, 1);
+        //console.log(roomPick);
+        //console.log(room);
+        res.cookie('roomsCopy', roomsCopy, {maxAge: 9000000});
+        res.cookie('room', room, {maxAge: 9000000});
+        res.cookie('roomCounter', roomCounter, {maxAge: 9000000});
+        res.render('pages/room', {
+            hero: req.cookies.hero,
+            health: req.cookies.health,
+            gold: req.cookies.gold,
+            weapon: req.cookies.weapon,
+            item: req.cookies.item,
+            magik: req.cookies.magik,
+            room: room,
+            roomCounter: roomCounter
+        });
+    }else{
+        //do room 10 things.
+        res.cookie('roomsCopy', roomsMaster, {maxAge: 9000000});
+        res.cookie('room', room, {maxAge: 9000000});
+        res.cookie('roomCounter', roomCounter, {maxAge: 9000000});
+        res.render('pages/room', {
+            hero: req.cookies.hero,
+            health: req.cookies.health,
+            gold: req.cookies.gold,
+            weapon: req.cookies.weapon,
+            item: req.cookies.item,
+            magik: req.cookies.magik,
+            room: room,
+            roomCounter: roomCounter
+        });
+    }
 });
 app.get('/outcome', function (req, res) {
+    var roomCounter = req.cookies.roomCounter;
     res.render('pages/outcome', {
         hero: req.cookies.hero,
         health: req.cookies.health,
         gold: req.cookies.gold,
         weapon: req.cookies.weapon,
         item: req.cookies.item,
-        magik: req.cookies.magik
+        magik: req.cookies.magik,
+        roomCounter: roomCounter
     });
 });
 
