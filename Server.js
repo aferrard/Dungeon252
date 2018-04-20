@@ -53,13 +53,14 @@ app.get('/start', function (req, res) {
     res.cookie('item', "None", {maxAge: 9000000});
     res.cookie('magik', "None", {maxAge: 9000000});
     res.cookie('roomsCopy', roomsMaster, {maxAge: 9000000});
+    res.cookie('roomCounter', 0, {maxAge: 9000000});
     res.render('pages/start');
 });
 
 app.get('/room', function (req, res) {
     console.log(req.cookies);
     var roomsCopy = req.cookies.roomsCopy;
-    var roomPick = Math.round(roomsCopy.length * Math.random());
+    var roomPick = Math.round(roomsCopy.length-1 * Math.random());
     var room = roomsCopy[roomPick];
     roomsCopy.splice(roomPick, 1);
     console.log(roomPick);
@@ -77,7 +78,14 @@ app.get('/room', function (req, res) {
     });
 });
 app.get('/outcome', function (req, res) {
-    res.render('pages/outcome');
+    res.render('pages/outcome', {
+        hero: req.cookies.hero,
+        health: req.cookies.health,
+        gold: req.cookies.gold,
+        weapon: req.cookies.weapon,
+        item: req.cookies.item,
+        magik: req.cookies.magik
+    });
 });
 
 app.listen(5252);
