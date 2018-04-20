@@ -6,12 +6,20 @@
 <body class="container">
 
 <header>
-    <h4><%=hero%> : The Hero</h4>
-    <h5>HP : <%=health%></h5>
-    <h5>Gold : <%=gold%></h5>
-    <h5>Weapon : <%=weapon%></h5>
-    <h5>Item : <%=item%></h5>
-    <h5>Magik : <%=magik%></h5>
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand">The Hero : <%=hero%></a>
+            </div>
+            <div class="nav navbar-nav">
+                <li><a>HP : <%=health%></a></li>
+                <li><a>Gold : <%=gold%></a></li>
+                <li><a>Weapon : <%=weapon%></a></li>
+                <li><a>Item : <%=item%></a></li>
+                <li><a>Magik : <%=magik%></a></li>
+            </div>
+        </div>
+    </nav>
 </header>
 
 <main>
