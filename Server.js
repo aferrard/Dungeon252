@@ -43,7 +43,7 @@ app.get('/leaderboard', function (req, res) {
 app.get('/champ', function (req, res) {
     res.render('pages/champ');
 });
-var roomsMaster = ["GNOME", "DOG", "HOLE", "CHEST", "POTIONS", "DARKWIZARD", "SEASHELL", "CAMPFIRE", "HELICOPTER", "SALESMAN", "FEAST", "CHOOSEAROOM"];
+var roomsMaster = ["GNOME", "DOG", "HOLE", "CHEST", "POTIONS", "DARKWIZARD", "SEASHELL", "CAMPFIRE", "HELICOPTER", "SALESMAN", "FEAST", "CHOOSEAROOM", "LADDERS"];
 
 app.get('/start', function (req, res) {
     res.cookie('hero', req.query.hero, {maxAge: 9000000});
@@ -59,17 +59,21 @@ app.get('/start', function (req, res) {
 app.get('/room', function (req, res) {
     console.log(req.cookies);
     var roomsCopy = req.cookies.roomsCopy;
-    var roomPick = roomsCopy.length * Math.random();
+    var roomPick = Math.round(roomsCopy.length * Math.random());
     var room = roomsCopy[roomPick];
     roomsCopy.splice(roomPick, 1);
+    console.log(roomPick);
+    console.log(room);
     res.cookie('roomsCopy', roomsCopy, {maxAge: 9000000});
+    res.cookie('room', room, {maxAge: 9000000});
     res.render('pages/room', {
         hero: req.cookies.hero,
         health: req.cookies.health,
         gold: req.cookies.gold,
         weapon: req.cookies.weapon,
         item: req.cookies.item,
-        magik: req.cookies.magik
+        magik: req.cookies.magik,
+        room: room
     });
 });
 app.get('/outcome', function (req, res) {
