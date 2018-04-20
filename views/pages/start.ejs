@@ -2,19 +2,42 @@
 <html lang="en">
 <head>
     <% include ../partials/head %>
+    <style>
+        body {
+            background-image: url('https://i.pinimg.com/originals/36/68/5e/36685e1f9923269baacab9a79383943d.jpg');
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+        h1 {
+            color: #757575;
+            font-size: 36px;
+            background-color: darkgray;
+            margin-right: 325px;
+            margin-left: 325px;
+        }
+        h2 {
+            color: #757575;
+            font-size: 24px;
+            background-color: darkgray;
+            margin-right: 365px;
+            margin-left: 365px;
+        }
+    </style>
 </head>
 <body class="container">
 
 <main>
     <div class ="container-fluid">
-        <p align="center">
-            <br>
-            <font size="5">Hero! Your time has come!</font>
-        </p><br>
-        <p align="center">
-            <font size="4">For decades this Dungeon has stood the test of time, inviting hero after hero within.<br>
-            Will you be the first to conquer it? </font>
-        </p><br>
+        <br>
+        <h1 align="center">
+            Hero! Your time has come!
+        </h1><br>
+        <h2 align="center">
+            For decades this Dungeon has stood the test of time, inviting hero after hero within.<br>
+            Will you be the first to conquer it?
+        </h2><br>
         <form align="center" class="form-horizontal" action="/room">
             <input value="Enter the First Room" type="submit" class="btn btn-danger">
         </form>
