@@ -89,6 +89,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `dungeon252_data`.`rooms` (
   `room_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `title` TEXT NOT NULL,
   `image` TEXT NOT NULL,
   `event` TEXT NOT NULL,
   PRIMARY KEY (`room_id`))
@@ -96,15 +97,15 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `dungeon252_data`.`options`
+-- Table `dungeon252_data`.`choices`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `dungeon252_data`.`options` (
-  `option_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `option` TEXT NOT NULL,
+CREATE TABLE IF NOT EXISTS `dungeon252_data`.`choices` (
+  `choice_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `choice` TEXT NOT NULL,
   `rooms_room_id` INT UNSIGNED NOT NULL,
-  PRIMARY KEY (`option_id`, `rooms_room_id`),
-  INDEX `fk_options_rooms1_idx` (`rooms_room_id` ASC),
-  CONSTRAINT `fk_options_rooms1`
+  PRIMARY KEY (`choice_id`, `rooms_room_id`),
+  INDEX `fk_choices_rooms1_idx` (`rooms_room_id` ASC),
+  CONSTRAINT `fk_choices_rooms1`
     FOREIGN KEY (`rooms_room_id`)
     REFERENCES `dungeon252_data`.`rooms` (`room_id`)
     ON DELETE NO ACTION
@@ -116,13 +117,14 @@ ENGINE = InnoDB;
 -- Table `dungeon252_data`.`outcomes`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `dungeon252_data`.`outcomes` (
+  `outcome_path` VARCHAR(1) NOT NULL,
   `outcome` TEXT NOT NULL,
-  `options_option_id` INT UNSIGNED NOT NULL,
-  `options_rooms_room_id` INT UNSIGNED NOT NULL,
-  PRIMARY KEY (`options_option_id`, `options_rooms_room_id`),
-  CONSTRAINT `fk_outcomes_options1`
-    FOREIGN KEY (`options_option_id` , `options_rooms_room_id`)
-    REFERENCES `dungeon252_data`.`options` (`option_id` , `rooms_room_id`)
+  `choices_choice_id` INT UNSIGNED NOT NULL,
+  PRIMARY KEY (`outcome_path`, `choices_choice_id`),
+  INDEX `fk_outcomes_choices1_idx` (`choices_choice_id` ASC),
+  CONSTRAINT `fk_outcomes_choices1`
+    FOREIGN KEY (`choices_choice_id`)
+    REFERENCES `dungeon252_data`.`choices` (`choice_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

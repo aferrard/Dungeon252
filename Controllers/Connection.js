@@ -12,7 +12,6 @@ con.connect(function(err) {
     else {
         console.log("Connected!");
     }
-
 });
 
 exports.addWinner = addWinner;
