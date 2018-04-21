@@ -970,3 +970,175 @@ getRoomId("HELICOPTER", function(room) {
         }
     });
 });
+
+//choices and outcomes for SALESMAN
+getRoomId("SALESMAN", function(room) {
+    con.query("INSERT INTO choices VALUE(NULL, 'Agree to the sale.', " + room + ")", function(err, result) {
+        if(err) {
+            throw err;
+        } else {
+            con.query("SELECT choice_id FROM choices WHERE choice = 'Agree to the sale.'", function(err, choice) {
+                if(err) {
+                    throw err;
+                } else {
+                    con.query("INSERT INTO outcomes VALUE('a', 'You gain a warhammer and lose 30 Gold.', " + choice[0].choice_id + ")", function(err, result) {
+                        if(err) {
+                            throw err;
+                        } else {
+                            console.log("salesman choice 1");
+                        }
+                    });
+                }
+            });
+        }
+    });
+    con.query("INSERT INTO choices VALUE(NULL, 'Refuse the sale and continue on to the next room.', " + room + ")", function(err, result) {
+        if(err) {
+            throw err;
+        } else {
+            con.query("SELECT choice_id FROM choices WHERE choice = 'Refuse the sale and continue on to the next room.'", function(err, choice) {
+                if(err) {
+                    throw err;
+                } else {
+                    con.query("INSERT INTO outcomes VALUE('a', 'The salesman is insulted and throws a rock at you. Lose 5 HP.', " + choice[0].choice_id + ")", function(err, result) {
+                        if(err) {
+                            throw err;
+                        } else {
+                            console.log("salesman choice 2");
+                        }
+                    });
+                }
+            });
+        }
+    });
+    con.query("INSERT INTO choices VALUE(NULL, 'Try to steal the Frenzy Seed from the salesman', " + room + ")", function(err, result) {
+        if(err) {
+            throw err;
+        } else {
+            con.query("SELECT choice_id FROM choices WHERE choice = 'Try to steal the Frenzy Seed from the salesman'", function(err, choice) {
+                if(err) {
+                    throw err;
+                } else {
+                    con.query("INSERT INTO outcomes VALUE('a', 'You kill the salesman and gain the Frenzy Seed for free!', " + choice[0].choice_id + ")", function(err, result) {
+                        if(err) {
+                            throw err;
+                        } else {
+                            con.query("INSERT INTO outcomes VALUE('b', 'You kill the salesman and gain the Frenzy Seed for free!', " + choice[0].choice_id + ")", function(err, result) {
+                                if(err) {
+                                    throw err;
+                                } else {
+                                    console.log("salesman choice 3");
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    });
+    con.query("INSERT INTO choices VALUE(NULL, 'Try to trick the salesman by paying him less. You offer him ____ gold.', " + room + ")", function(err, result) {
+        if(err) {
+            throw err;
+        } else {
+            con.query("SELECT choice_id FROM choices WHERE choice = 'Try to trick the salesman by paying him less. You offer him ____ gold.'", function(err, choice) {
+                if(err) {
+                    throw err;
+                } else {
+                    con.query("INSERT INTO outcomes VALUE('a', 'The salesman was never too bright of a fellow, and the amount is close enough that he doesn\\\'t notice. Gain the Frenzy Seed.', " + choice[0].choice_id + ")", function(err, result) {
+                        if(err) {
+                            throw err;
+                        } else {
+                            con.query("INSERT INTO outcomes VALUE('b', 'The salesman realizes the you are trying to trick him. He gets very upset and stabs you as your guard is down. Lose 10 HP.', " + choice[0].choice_id + ")", function(err, result) {
+                                if(err) {
+                                    throw err;
+                                } else {
+                                    console.log("salesman choice 4");
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    });
+});
+
+//choices and outcomes for FEAST
+getRoomId("FEAST", function(room) {
+    con.query("INSERT INTO choices VALUE(NULL, 'Eat as much food as you can.', " + room + ")", function(err, result) {
+        if(err) {
+            throw err;
+        } else {
+            con.query("SELECT choice_id FROM choices WHERE choice = 'Eat as much food as you can.'", function(err, choice) {
+                if(err) {
+                    throw err;
+                } else {
+                    con.query("INSERT INTO outcomes VALUE('a', 'You eat the food and it restores 15 HP, but you become very drowsy and fall asleep. When you wake up, you realize that you have forgotten all magic that you know. You lose your magic.', " + choice[0].choice_id + ")", function(err, result) {
+                        if(err) {
+                            throw err;
+                        } else {
+                            console.log("feast choice 1");
+                        }
+                    });
+                }
+            });
+        }
+    });
+    con.query("INSERT INTO choices VALUE(NULL, 'Continue on to the next room.', " + room + ")", function(err, result) {
+        if(err) {
+            throw err;
+        } else {
+            con.query("SELECT choice_id FROM choices WHERE choice = 'Continue on to the next room.'", function(err, choice) {
+                if(err) {
+                    throw err;
+                } else {
+                    con.query("INSERT INTO outcomes VALUE('a', 'Nothing happens. You move to the next room.', " + choice[0].choice_id + ")", function(err, result) {
+                        if(err) {
+                            throw err;
+                        } else {
+                            console.log("feast choice 2");
+                        }
+                    });
+                }
+            });
+        }
+    });
+    con.query("INSERT INTO choices VALUE(NULL, 'You decide you\\\'re not that hungry, so you only pick up sandwich and put it into your pack.', " + room + ")", function(err, result) {
+        if(err) {
+            throw err;
+        } else {
+            con.query("SELECT choice_id FROM choices WHERE choice = 'You decide you\\\'re not that hungry, so you only pick up sandwich and put it into your pack.'", function(err, choice) {
+                if(err) {
+                    throw err;
+                } else {
+                    con.query("INSERT INTO outcomes VALUE('a', 'Gain a sandwich which can be eaten at any time, which heals 10 HP', " + choice[0].choice_id + ")", function(err, result) {
+                        if(err) {
+                            throw err;
+                        } else {
+                            console.log("feast choice 3");
+                        }
+                    });
+                }
+            });
+        }
+    });
+    con.query("INSERT INTO choices VALUE(NULL, 'You don\\\'t eat the food but search the room for anything else useful', " + room + ")", function(err, result) {
+        if(err) {
+            throw err;
+        } else {
+            con.query("SELECT choice_id FROM choices WHERE choice = 'You don\\\'t eat the food but search the room for anything else useful'", function(err, choice) {
+                if(err) {
+                    throw err;
+                } else {
+                    con.query("INSERT INTO outcomes VALUE('a', 'You find a scroll which teaches ~random~ magic.', " + choice[0].choice_id + ")", function(err, result) {
+                        if(err) {
+                            throw err;
+                        } else {
+                            console.log("feast choice 4");
+                        }
+                    });
+                }
+            });
+        }
+    });
+});
