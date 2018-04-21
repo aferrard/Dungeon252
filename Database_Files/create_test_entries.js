@@ -1228,3 +1228,107 @@ getRoomId("CHOOSEAROOM", function(room) {
         }
     });
 });
+
+//choices and outcomes for LADDER
+getRoomId("LADDER", function(room) {
+    con.query("INSERT INTO choices VALUE(NULL, 'Climb the first ladder.', " + room + ")", function(err, result){
+        if(err) {
+            throw err;
+        } else {
+            con.query("SELECT choice_id FROM choices WHERE choice = 'Climb the first ladder.'", function(err, choice) {
+                if(err) {
+                    throw err;
+                } else {
+                    con.query("INSERT INTO outcomes VALUE('a', 'You are too heavy and fall off the ladder. Lose 5 HP.', " + choice[0].choice_id + ")", function(err, result) {
+                        if(err) {
+                            throw err;
+                        } else {
+                            con.query("INSERT INTO outcomes VALUE('b', 'You climb to the top of the ladder and find strange, unrecognizable item on a pedestal. When you touch it, you feel something inside you start to swirl. Gain Magik: Air.', " + choice[0].choice_id + ")", function(err, result) {
+                                if(err) {
+                                    throw err;
+                                } else {
+                                    console.log("ladder choice 1");
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    });
+    con.query("INSERT INTO choices VALUE(NULL, 'Climb the second ladder.', " + room + ")", function(err, result){
+        if(err) {
+            throw err;
+        } else {
+            con.query("SELECT choice_id FROM choices WHERE choice = 'Climb the second ladder.'", function(err, choice) {
+                if(err) {
+                    throw err;
+                } else {
+                    con.query("INSERT INTO outcomes VALUE('a', 'You are too heavy and fall off the ladder. Lose 5 HP.', " + choice[0].choice_id + ")", function(err, result) {
+                        if(err) {
+                            throw err;
+                        } else {
+                            con.query("INSERT INTO outcomes VALUE('b', 'You climb to the top of the ladder and find a strange, unrecognizable item on a pedestal. When you touch it, you feel something inside you start to shine. Gain Magik: Light.', " + choice[0].choice_id + ")", function(err, result) {
+                                if(err) {
+                                    throw err;
+                                } else {
+                                    console.log("ladder choice 2");
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    });
+    con.query("INSERT INTO choices VALUE(NULL, 'You decide that both of the ladders look too dangerous.', " + room + ")", function(err, result){
+        if(err) {
+            throw err;
+        } else {
+            con.query("SELECT choice_id FROM choices WHERE choice = 'You decide that both of the ladders look too dangerous.'", function(err, choice) {
+                if(err) {
+                    throw err;
+                } else {
+                    con.query("INSERT INTO outcomes VALUE('a', 'Nothing happens. You continue to the next room.', " + choice[0].choice_id + ")", function(err, result) {
+                        if(err) {
+                            throw err;
+                        } else {
+                            console.log("ladder choice 3");
+                        }
+                    });
+                }
+            });
+        }
+    });
+    con.query("INSERT INTO choices VALUE(NULL, 'Try to use magik to get to the platform', " + room + ")", function(err, result){
+        if(err) {
+            throw err;
+        } else {
+            con.query("SELECT choice_id FROM choices WHERE choice = 'Try to use magik to get to the platform'", function(err, choice) {
+                if(err) {
+                    throw err;
+                } else {
+                    con.query("INSERT INTO outcomes VALUE('a', 'You fly up to the first ladder and feel yourself pass through some kind of barrier. With newfound understanding of Air, you easily notice an item floating above a pedestal. Gain item: Fluffy Cloud.', " + choice[0].choice_id + ")", function(err, result) {
+                        if(err) {
+                            throw err;
+                        } else {
+                            con.query("INSERT INTO outcomes VALUE('b', 'Activating your light magik caused a reaction on the platform above the second ladder, and within seconds you\\\'re dragged up it through some kind of invisible barrier. On a pedestal in the center of the platform, your newfound understanding of light shows you what lies upon it. Gain item: Pure Orb.', " + choice[0].choice_id + ")", function(err, result) {
+                                if(err) {
+                                    throw err;
+                                } else {
+                                    con.query("INSERT INTO outcomes VALUE('c', 'You realize that your magik is kinda worthless as getting to high places. Feeling like just as much of a moron as you, your Magik leaves your body. Lose your magiK.', " + choice[0].choice_id + ")", function(err, result) {
+                                        if(err) {
+                                            throw err;
+                                        } else {
+                                            console.log("ladder choice 4");
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    });
+});
