@@ -42,7 +42,7 @@ INSERT INTO rooms VALUE(NULL, "DOG", "default.png", "You meet a dog (7 HP). The 
 INSERT INTO rooms VALUE(NULL, "HOLE", "default.png", "You encounter a room with a large hole in the middle.");
 INSERT INTO rooms VALUE(NULL, "CHEST", "default.png", "You discover a chest in the center of the room, illuminated by a pillar of light.");
 INSERT INTO rooms VALUE(NULL, "POTIONS", "default.png", "You encounter a room filled with 3 statues, each of which appear to be holding a glass container with a potion-like liquid inside.");
-INSERT INTO rooms VALUE(NULL, "DARK WIZARD", "default.png", "You encounter a Dark Wizard! He sees you as you enter the room and immediately moves toward you.");
+INSERT INTO rooms VALUE(NULL, "DARKWIZARD", "default.png", "You encounter a Dark Wizard! He sees you as you enter the room and immediately moves toward you.");
 INSERT INTO rooms VALUE(NULL, "SEASHELL", "default.png", "You find yourself looking at a giant seashell. You don’t know why, but it ominously blocks the door.");
 INSERT INTO rooms VALUE(NULL, "CAMPFIRE", "default.png", "A campfire is lit in the center of the room. You don’t know how long it’s been burning, but the logs are all almost ash.");
 INSERT INTO rooms VALUE(NULL, "HELICOPTER", "default.png", "You stare ahead as a helicopter hovers. You don’t know how it even got in here. It’s too large to fit through the doors, and the floors and ceiling are solid stone. It only has enough space to hover a few inches off the ground before it would hit the ceiling with its enormous rotor blades. It slowly begins floating towards you.");

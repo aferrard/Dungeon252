@@ -530,3 +530,113 @@ getRoomId("POTIONS", function(room) {
         }
     });
 });
+
+//choices and outcomes for DARKWIZARD
+getRoomId("DARKWIZARD", function(room) {
+    con.query("INSERT INTO choices VALUE(NULL, 'You try to bribe him. You offer him ~ golds pieces.', " + room + ")", function(err, result) {
+        if(err) {
+            throw err;
+        } else {
+            con.query("SELECT choice_id FROM choices WHERE choice = 'You try to bribe him. You offer him ~ golds pieces.'", function(err, choice) {
+                if(err) {
+                    throw err;
+                } else {
+                    con.query("INSERT INTO outcomes VALUE('a', 'The wizard accepts your offer with a nasty smile. You continue on to the next room.', " + choice[0].choice_id + ")", function(err, result) {
+                        if(err) {
+                            throw err;
+                        } else {
+                            con.query("INSERT INTO outcomes VALUE('b', 'The wizard is disgusted by your measly offering. You are unprepared and he and launches a magikal attack on you. Lose 15 HP and offered gold, unless you have light magik. If you do, you lose your magikal ability but are unharmed.', " + choice[0].choice_id + ")", function(err, result) {
+                                if(err) {
+                                    throw err;
+                                } else {
+                                    console.log("darkwizard option 1");
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    });
+    con.query("INSERT INTO choices VALUE(NULL, 'You try to fight him.', " + room + ")", function(err, result) {
+        if(err) {
+            throw err;
+        } else {
+            con.query("SELECT choice_id FROM choices WHERE choice = 'You try to fight him.'", function(err, choice) {
+                if(err) {
+                    throw err;
+                } else {
+                    con.query("INSERT INTO outcomes VALUE('a', 'You try to attack the wizard with your weapon, but it does not harm him. Lose 15 HP.', " + choice[0].choice_id + ")", function(err, result) {
+                        if(err) {
+                            throw err;
+                        } else {
+                            con.query("INSERT INTO outcomes VALUE('b', 'You wound the wizard but do not kill him. He is scared off and you continue to the next room.', " + choice[0].choice_id + ")", function(err, result) {
+                                if(err) {
+                                    throw err;
+                                } else {
+                                    con.query("INSERT INTO outcomes VALUE('c', 'You kill the wizard! Gain the Basic Staff and Dark Magik.', " + choice[0].choice_id + ")", function(err, result) {
+                                        if(err) {
+                                            throw err;
+                                        } else {
+                                            con.query("INSERT INTO outcomes VALUE('d', '\\\"Ah, I see you are another master of the Dark Arts, my mistake. You are clearly worth of holding one of these.\\\"', " + choice[0].choice_id + ")", function(err, result) {
+                                                if(err) {
+                                                    throw err;
+                                                } else {
+                                                    console.log("darkwizard choice 2");
+                                                }
+                                            });
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    });
+    con.query("INSERT INTO choices VALUE(NULL, 'You try to run away.', " + room + ")", function(err, result) {
+        if(err) {
+            throw err;
+        } else {
+            con.query("SELECT choice_id FROM choices WHERE choice = 'You try to run away.'", function(err, choice) {
+                if(err) {
+                    throw err;
+                } else {
+                    con.query("INSERT INTO outcomes VALUE('a', 'You have your back turned as you attempt to flee and are not fast enough to escape his spells. Lose 15 HP unless you have light magik. If you do, you lose your magikal ability but are unharmed.', " + choice[0].choice_id + ")", function(err, result) {
+                        if(err) {
+                            throw err;
+                        } else {
+                            con.query("INSERT INTO outcomes VALUE('b', 'You sprint out of the room before the wizard has a chance to attack you. Nothing happens.', " + choice[0].choice_id + ")", function(err, result) {
+                                if(err) {
+                                    throw err;
+                                } else {
+                                    console.log("darkwizard choice 3");
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    });
+    con.query("INSERT INTO choices VALUE(NULL, 'You beg for the Dark Wizard for mercy.', " + room + ")", function(err, result) {
+        if(err) {
+            throw err;
+        } else {
+            con.query("SELECT choice_id FROM choices WHERE choice = 'You beg for the Dark Wizard for mercy.'", function(err, choice) {
+                if(err) {
+                    throw err;
+                } else {
+                    con.query("INSERT INTO outcomes VALUE('a', 'The wizard isn\\\'t impressed, but decides to use a less harmful spell on you. Lose 10 HP.', " + choice[0].choice_id + ")", function(err, result) {
+                        if(err) {
+                            throw err;
+                        } else {
+                            console.log("darkwizard choice 4");
+                        }
+                    });
+                }
+            });
+        }
+    });
+});
