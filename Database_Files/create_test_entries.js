@@ -745,4 +745,228 @@ getRoomId("SEASHELL", function(room) {
     });
 });
 
-//choices and outcomes for
+//choices and outcomes for CAMPFIRE
+getRoomId("CAMPFIRE", function(room) {
+    con.query("INSERT INTO choices VALUE(NULL, 'Ignore the fire and continue to the next room.', " + room + ")", function(err, result) {
+        if(err) {
+            throw err;
+        } else {
+            con.query("SELECT choice_id FROM choices WHERE choice = 'Ignore the fire and continue to the next room.'", function(err, choice) {
+                if(err) {
+                    throw err;
+                } else {
+                    con.query("INSERT INTO outcomes VALUE('a', 'As you exit the room, behind you you here the fire go out with a hiss.', " + choice[0].choice_id + ")", function(err, result) {
+                        if(err) {
+                            throw err;
+                        } else {
+                            console.log("campfire choice 1");
+                        }
+                    });
+                }
+            });
+        }
+    });
+    con.query("INSERT INTO choices VALUE(NULL, 'Offer your weapon to the flames', " + room + ")", function(err, result) {
+        if(err) {
+            throw err;
+        } else {
+            con.query("SELECT choice_id FROM choices WHERE choice = 'Offer your weapon to the flames'", function(err,choice) {
+                if(err) {
+                    throw err;
+                } else {
+                    con.query("INSERT INTO outcomes VALUE('a', 'The fire seems to be crooning happily at you. Spitting a heatless spark at your chest, you feel… enlightened. Lose weapon. Heal to Full HP. Gain Magik: Fire.', " + choice[0].choice_id + ")", function(err, result) {
+                        if(err){
+                            throw err;
+                        } else {
+                            con.query("INSERT INTO outcomes VALUE('b', 'The fire almost seems to eat your weapon, morphing the mass into something that seems to only be a handle. The fire seems stronger from the transformation, and it finishes the process by tossing the handle into your hands. Lose weapon. Gain weapon: Fire sword.', " + choice[0].choice_id + ")", function(err, result) {
+                                if(err) {
+                                    throw err;
+                                } else {
+                                    console.log("campfire choice 2");
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    });
+    con.query("INSERT INTO choices VALUE(NULL, 'Use magik on the campfire.', " + room + ")", function(err, result) {
+        if(err) {
+            throw err;
+        } else {
+            con.query("SELECT choice_id FROM choices WHERE choice = 'Use magik on the campfire.'", function(err,choice) {
+                if(err) {
+                    throw err;
+                } else {
+                    con.query("INSERT INTO outcomes VALUE('a', 'The campfire gains some strength, and with a pulse of heat, offers you power. Option to take fire magik.', " + choice[0].choice_id + ")", function(err, result) {
+                        if(err){
+                            throw err;
+                        } else {
+                            con.query("INSERT INTO outcomes VALUE('b', 'The campfire hisses at your feet, drenched into nothing but wet ashes. Nothing happens.', " + choice[0].choice_id + ")", function(err, result) {
+                                if(err) {
+                                    throw err;
+                                } else {
+                                    con.query("INSERT INTO outcomes VALUE('c', 'The campfire ignites with a massive rush of heat, turning into a twirling pillar of sparks. Holding out a hand of flame, the new, greater figure drops something into your hands. Gain item: eternal flame.', " + choice[0].choice_id + ")", function(err, result) {
+                                        if(err) {
+                                            throw err;
+                                        } else {
+                                            con.query("INSERT INTO outcomes VALUE('d', 'The campfire doesn\\\'t respond to your magik.', " + choice[0].choice_id + ")", function(err, result) {
+                                                if(err) {
+                                                    throw err;
+                                                } else {
+                                                    console.log("campfire choice 3");
+                                                }
+                                            });
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    });
+    con.query("INSERT INTO choices VALUE(NULL, 'Relax by the fire to gain some strength back.', " + room + ")", function(err, result) {
+        if(err) {
+            throw err;
+        } else {
+            con.query("SELECT choice_id FROM choices WHERE choice = 'Relax by the fire to gain some strength back.'", function(err,choice) {
+                if(err) {
+                    throw err;
+                } else {
+                    con.query("INSERT INTO outcomes VALUE('a', 'You share warmth with the campfire until it goes out a few minutes later. You are grateful for its sacrifice. Heal 50% of lost HP.', " + choice[0].choice_id + ")", function(err, result) {
+                        if(err){
+                            throw err;
+                        } else {
+                            console.log("campfire choice 4");
+                        }
+                    });
+                }
+            });
+        }
+    });
+});
+
+//choices and outcomes for HELICOPTER
+getRoomId("HELICOPTER", function(room) {
+    con.query("INSERT INTO choices VALUE(NULL, 'Use your weapon', " + room + ")", function(err, result) {
+        if(err) {
+            throw err;
+        } else {
+            con.query("SELECT choice_id FROM choices WHERE choice = 'Use your weapon'", function(err, choice) {
+                if(err) {
+                    throw err;
+                } else {
+                    con.query("INSERT INTO outcomes VALUE('a', 'Your weapon is durable and tough. You throw it into the engine intakes and it causes the whole vehicle to explode… How did you not get hit with flying debris? It doesn\\\'t make any sense, and I\\\'m just the narrator. You make it to the next room but your weapon is mangled and no longer usable.', " + choice[0].choice_id + ")", function(err, result) {
+                        if(err) {
+                            throw err;
+                        } else {
+                            con.query("INSERT INTO outcomes VALUE('b', 'Your weapon is extremely slippery and it slips out of your hand as you try to use it. It flies into the helicopter\\\'s engine air intake and makes all of the innards of the helicopter just as slippery. With all of its internals now loose, the helicopter shakes itself apart from the vibrations of its massive rotors and you can safely walk around it\\\'s metallic husk. As it turns out, your weapon was slippery enough to avoid being damaged by the engines of the helicopter. You pick it up and move on.', " + choice[0].choice_id + ")", function(err, result) {
+                                if(err) {
+                                    throw err;
+                                } else {
+                                    con.query("INSERT INTO outcomes VALUE('c', 'Your throw you weapon into the air intake of the helicopter\\\'s engine, but it does little to aid you. The helicopters powerful engines chew up your weapon and spit out a battered and unusable version of it from it’s exhaust pipe. You make a break for it, but not without avoiding a run-in with the helicopter. Perhaps you should have tried bringing a more durable weapon.', " + choice[0].choice_id + ")", function(err, result) {
+                                        if(err) {
+                                            throw err;
+                                        } else {
+                                            console.log("helicopter choice 1");
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    });
+    con.query("INSERT INTO choices VALUE(NULL, 'Attempt to evade it', " + room + ")", function(err, result) {
+        if(err) {
+            throw err;
+        } else {
+            con.query("SELECT choice_id FROM choices WHERE choice = 'Attempt to evade it'", function(err, choice) {
+                if(err) {
+                    throw err;
+                } else {
+                    con.query("INSERT INTO outcomes VALUE('a', 'Your gear is light and you thus you are quick on your feet. You make a break for the door on the other side of the room easily avoiding the helicopter\\\'s rotors as they attempt to decapitate you.', " + choice[0].choice_id + ")", function(err, result) {
+                        if(err) {
+                            throw err;
+                        } else {
+                            con.query("INSERT INTO outcomes VALUE('b', 'You attempt to run for it but your gear is heavy. You cannot outrun the machine. Though you manage to just barely avoid the massive rotors, they manage cut some of your glorious, heroic hair. You are now depressed and must spend a large amount of money getting your hairstyle fixed. At least you didn\\\'t lose your head! -50 gold', " + choice[0].choice_id + ")", function(err, result) {
+                                if(err) {
+                                    throw err;
+                                } else {
+                                    console.log("helicopter choice 2");
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    });
+    con.query("INSERT INTO choices VALUE(NULL, 'Use your magik', " + room + ")", function(err, result) {
+        if(err) {
+            throw err;
+        } else {
+            con.query("SELECT choice_id FROM choices WHERE choice = 'Use your magik'", function(err, choice) {
+                if(err) {
+                    throw err;
+                } else {
+                    con.query("INSERT INTO outcomes VALUE('a', 'You call upon your mighty explosion magik to blow the machine to bits. Among the rubble you find an Atom Bomb.', " + choice[0].choice_id + ")", function(err, result) {
+                        if(err) {
+                            throw err;
+                        } else {
+                            con.query("INSERT INTO outcomes VALUE('b', 'You conjure a torrent of water and send it straight towards the approaching machine. The water gets into every opening that it can find, shorting out the electronics and waterlogging the engines. It comes crashing to the ground as it\\\'s engines refuse to produce power. You move to the next room unharmed.', " + choice[0].choice_id + ")", function(err, result) {
+                                if(err) {
+                                    throw err;
+                                } else {
+                                    con.query("INSERT INTO outcomes VALUE('c', 'You send your familiar to try and stop the advancing machine, but it can do little to slow it down. In the end, your familiar got caught up in the rotors. You narrowly escape the helicopter on you own but not unharmed.', " + choice[0].choice_id + ")", function(err, result) {
+                                        if(err) {
+                                            throw err;
+                                        } else {
+                                            con.query("INSERT INTO outcomes VALUE('d', 'You muster all the magik you can, but it does little good. The machine is only slowed down. You manage to get around it, but not untouched. -5 health.', " + choice[0].choice_id + ")", function(err, result) {
+                                                if(err) {
+                                                    throw err;
+                                                } else {
+                                                    console.log("helicopter choice 3");
+                                                }
+                                            });
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    });
+    con.query("INSERT INTO choices VALUE(NULL, 'Hijack it!', " + room + ")", function(err, result) {
+        if(err) {
+            throw err;
+        } else {
+            con.query("SELECT choice_id FROM choices WHERE choice = 'Hijack it!'", function(err, choice) {
+                if(err) {
+                    throw err;
+                } else {
+                    con.query("INSERT INTO outcomes VALUE('a', 'You manage to easily slip into the pilot seat and are alarmed to find that there is nobody on board. As you touch the controls you feel an inviting presence responding to you. The helicopter gently touches down and powers off. You exit the aircraft to find that it has detached one of it\\\'s rotor blades for you.', " + choice[0].choice_id + ")", function(err, result) {
+                        if(err) {
+                            throw err;
+                        } else {
+                            con.query("INSERT INTO outcomes VALUE('b', 'You manage to easily slip into the pilot seat and are alarmed to find that there is nobody on board. You are worried but reluctantly go for the controls. You realize your mistake as soon as you touch them, and you feel your power being pulled out of you with you being paralyzed in the process. The machine ejects you onto the exit side of the room.', " + choice[0].choice_id + ")", function(err, result) {
+                                if(err) {
+                                    throw err;
+                                } else {
+                                    console.log("helicopter choice 4");
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    });
+});
