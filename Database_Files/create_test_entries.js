@@ -640,3 +640,109 @@ getRoomId("DARKWIZARD", function(room) {
         }
     });
 });
+
+//choices and outcomes for SEASHELL
+getRoomId("SEASHELL", function(room) {
+    con.query("INSERT INTO choices VALUE(NULL, 'Attempt to push it aside.', " + room + ")", function(err, result) {
+        if(err) {
+            throw err;
+        } else {
+            con.query("SELECT choice_id FROM choices WHERE choice = 'Attempt to push it aside.'", function(err, choice) {
+                if(err) {
+                    throw err;
+                } else {
+                    con.query("INSERT INTO outcomes VALUE('a', 'Not much heavier than the gear you normally carry, you heave the shell out of the way with ease.', " + choice[0].choice_id + ")", function(err, result) {
+                        if(err) {
+                            throw err;
+                        } else {
+                            con.query("INSERT INTO outcomes VALUE('b', 'Moving the shell is a challenge, and you cut your hands on the sharp edges, but you eventually succeed. Lose 3HP', " + choice[0].choice_id + ")", function(err, result) {
+                                if(err) {
+                                    throw err;
+                                } else {
+                                    console.log("seashell choice 1");
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    });
+    con.query("INSERT INTO choices VALUE(NULL, 'Attempt to smash the shell.', " + room + ")", function(err, result) {
+        if(err) {
+            throw err;
+        } else {
+            con.query("SELECT choice_id FROM choices WHERE choice = 'Attempt to smash the shell.'", function(err, choice) {
+                if(err) {
+                    throw err;
+                } else {
+                    con.query("INSERT INTO outcomes VALUE('a', 'The shell smashes, and a piece of paper falls from the sky reading \\\'SEGV \\\"segmentation fault\\\"\\\'. You feel shame.', " + choice[0].choice_id + ")", function(err, result) {
+                        if(err) {
+                            throw err;
+                        } else {
+                            con.query("INSERT INTO outcomes VALUE('b', 'The shell rings loudly, reverberating through the room. You feel lighter, and curiously watch the shell slide to the side. Gain Water magik', " + choice[0].choice_id + ")", function(err, result) {
+                                if(err) {
+                                    throw err;
+                                } else {
+                                    console.log("seashell option 2");
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    });
+    con.query("INSERT INTO choices VALUE(NULL, 'Use magik on the shell.', " + room + ")", function(err, result) {
+        if(err) {
+            throw err;
+        } else {
+            con.query("SELECT choice_id FROM choices WHERE choice = 'Use magik on the shell.'", function(err, choice) {
+                if(err) {
+                    throw err;
+                } else {
+                    con.query("INSERT INTO outcomes VALUE('a', 'You feel the shell probing your source of magik, before grabbing hold and twisting. Lose previous magik, Gain water magik.', " + choice[0].choice_id + ")", function(err, result) {
+                        if(err) {
+                            throw err;
+                        } else {
+                            con.query("INSERT INTO outcomes VALUE('b', 'You feel something akin to a smile from the shell, and watch as it moves to the side before spitting out a small, hand-sized seashell. Gain item: shell.', " + choice[0].choice_id + ")", function(err, result) {
+                                if(err) {
+                                    throw err;
+                                } else {
+                                    console.log("seashell choice 3");
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    });
+    con.query("INSERT INTO choices VALUE(NULL, 'Say the secret phrase', " + room + ")", function(err, result) {
+        if(err) {
+            throw err;
+        } else {
+            con.query("SELECT choice_id FROM choices WHERE choice = 'Say the secret phrase'", function(err, choice) {
+                if(err) {
+                    throw err;
+                } else {
+                    con.query("INSERT INTO outcomes VALUE('a', 'The shell screams out in pain, shattering into a thousand pieces. Gain item: Secret', " + choice[0].choice_id + ")", function(err, result) {
+                        if(err) {
+                            throw err;
+                        } else {
+                            con.query("INSERT INTO outcomes VALUE('b', 'The shell spits a fish at you, before moving aside. Lose weapon. Gain weapon: Fish.', " + choice[0].choice_id + ")", function(err, result) {
+                                if(err) {
+                                    throw err;
+                                } else {
+                                    console.log("seashell choice 4");
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    });
+});
+
+//choices and outcomes for
