@@ -1142,3 +1142,89 @@ getRoomId("FEAST", function(room) {
         }
     });
 });
+
+//choices and outcomes for CHOOSEAROOM
+getRoomId("CHOOSEAROOM", function(room) {
+    con.query("INSERT INTO choices VALUE(NULL, 'The first door.', " + room + ")", function(err, result) {
+        if(err) {
+            throw err;
+        } else {
+            con.query("SELECT choice_id FROM choices WHERE choice = 'The first door.'", function(err, choice) {
+                if(err) {
+                    throw err;
+                } else {
+                    con.query("INSERT INTO outcomes VALUE('a', 'You encounter a lava monster (HP10)!', " + choice[0].choice_id + ")", function(err) {
+                        if(err) {
+                            throw err;
+                        } else {
+                            console.log("choosearoom choice 1");
+                        }
+                    });
+                }
+            });
+        }
+    });
+    con.query("INSERT INTO choices VALUE(NULL, 'The second door. You try to answer the riddle on the door.', " + room + ")", function(err, result) {
+        if(err) {
+            throw err;
+        } else {
+            con.query("SELECT choice_id FROM choices WHERE choice = 'The second door. You try to answer the riddle on the door.'", function(err, choice) {
+                if(err) {
+                    throw err;
+                } else {
+                    con.query("INSERT INTO outcomes VALUE('a', 'The door swings open and you see an armor rack. Gain chain mail.', " + choice[0].choice_id + ")", function(err) {
+                        if(err) {
+                            throw err;
+                        } else {
+                            con.query("INSERT INTO outcomes VALUE('b', 'A hand sticks out of the door and slaps you in the face. Lose 3 HP.', " + choice[0].choice_id + ")", function(err) {
+                                if(err) {
+                                    throw err;
+                                } else {
+                                    console.log("choosearoom choice 2");
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    });
+    con.query("INSERT INTO choices VALUE(NULL, 'The third door.', " + room + ")", function(err, result) {
+        if(err) {
+            throw err;
+        } else {
+            con.query("SELECT choice_id FROM choices WHERE choice = 'The third door.'", function(err, choice) {
+                if(err) {
+                    throw err;
+                } else {
+                    con.query("INSERT INTO outcomes VALUE('a', 'You somehow stumble into the next room.', " + choice[0].choice_id + ")", function(err) {
+                        if(err) {
+                            throw err;
+                        } else {
+                            console.log("choosearoom choice 3");
+                        }
+                    });
+                }
+            });
+        }
+    });
+    con.query("INSERT INTO choices VALUE(NULL, 'The fourth door.', " + room + ")", function(err, result) {
+        if(err) {
+            throw err;
+        } else {
+            con.query("SELECT choice_id FROM choices WHERE choice = 'The fourth door.'", function(err, choice) {
+                if(err) {
+                    throw err;
+                } else {
+                    con.query("INSERT INTO outcomes VALUE('a', 'You discover that the hissing is coming from a smoke machine. Gain smoke machine.', " + choice[0].choice_id + ")", function(err) {
+                        if(err) {
+                            throw err;
+                        } else {
+                            console.log("choosearoom choice 4");
+                        }
+                    });
+                }
+            });
+        }
+    });
+});
