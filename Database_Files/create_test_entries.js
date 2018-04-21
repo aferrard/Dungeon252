@@ -107,7 +107,7 @@ getRoomId("GNOME", function(room) {
                     throw err;
                 } else {
                     con.query("INSERT INTO outcomes VALUE('a', 'He laughs at you as you leave a cloud of gas behind.', " + choice[0].choice_id + ")", function(err, result) {
-                        if(err) {``
+                        if(err) {
                             throw err;
                         } else {
                             con.query("INSERT INTO outcomes VALUE('b', 'He watches you run away with amused eyes.', " + choice[0].choice_id+")", function(err, result) {
@@ -1316,7 +1316,7 @@ getRoomId("LADDER", function(room) {
                                 if(err) {
                                     throw err;
                                 } else {
-                                    con.query("INSERT INTO outcomes VALUE('c', 'You realize that your magik is kinda worthless as getting to high places. Feeling like just as much of a moron as you, your Magik leaves your body. Lose your magiK.', " + choice[0].choice_id + ")", function(err, result) {
+                                    con.query("INSERT INTO outcomes VALUE('c', 'You realize that your magik is kinda worthless at getting to high places. Feeling just as much of a moron as you, your magik leaves your body. Lose your magik.', " + choice[0].choice_id + ")", function(err, result) {
                                         if(err) {
                                             throw err;
                                         } else {
