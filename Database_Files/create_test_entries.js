@@ -107,7 +107,7 @@ getRoomId("GNOME", function(room) {
                     throw err;
                 } else {
                     con.query("INSERT INTO outcomes VALUE('a', 'He laughs at you as you leave a cloud of gas behind.', " + choice[0].choice_id + ")", function(err, result) {
-                        if(err) {
+                        if(err) {``
                             throw err;
                         } else {
                             con.query("INSERT INTO outcomes VALUE('b', 'He watches you run away with amused eyes.', " + choice[0].choice_id+")", function(err, result) {
@@ -351,6 +351,98 @@ getRoomId("HOLE", function(room) {
                                     });
                                 }
                             });
+                        }
+                    });
+                }
+            });
+        }
+    });
+});
+
+//choices and outcomes for CHEST
+getRoomId("CHEST", function(room) {
+    con.query("INSERT INTO choices VALUE(NULL, 'Open the chest.', " + room + ")", function(err, result) {
+        if(err) {
+            throw err;
+        } else {
+            con.query("SELECT choice_id FROM choices WHERE choice = 'Open the chest.'", function(err, choice) {
+                if(err) {
+                    throw err;
+                } else {
+                    con.query("INSERT INTO outcomes VALUE('a', 'You discover an item!', " + choice[0].choice_id + ")", function(err, result) {
+                        if(err) {
+                            throw err;
+                        } else {
+                            con.query("INSERT INTO outcomes VALUE('b', 'You find an odd staff in the chest. Gain ??? Staff', " + choice[0].choice_id + ")", function(err, result) {
+                                if(err) {
+                                    throw err;
+                                } else {
+                                    console.log("chest choice 1");
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    });
+    con.query("INSERT INTO choices VALUE(NULL, 'Leave the room. It could be a trap.', " + room + ")", function(err, result) {
+        if(err) {
+            throw err;
+        } else {
+            con.query("SELECT choice_id FROM choices WHERE choice = 'Leave the room. It could be a trap.'", function(err, choice) {
+                if(err) {
+                    throw err;
+                } else {
+                    con.query("INSERT INTO outcomes VALUE('a', 'You leave without any trouble.', " + choice[0].choice_id + ")", function(err, result) {
+                        if(err) {
+                            throw err;
+                        } else {
+                            console.log("chest choice 2");
+                        }
+                    });
+                }
+            });
+        }
+    });
+    con.query("INSERT INTO choices VALUE(NULL, 'Smash the chest. It could be a mimic.', " + room + ")", function(err, result) {
+        if(err) {
+            throw err;
+        } else {
+            con.query("SELECT choice_id  FROM choices WHERE choice = 'Smash the chest. It could be a mimic.'", function(err, choice) {
+                if(err) {
+                    throw err;
+                } else {
+                    con.query("INSERT INTO outcomes VALUE('a', 'The chest breaks open when you strike it, revealing an item as well as some gold! Gain an item and 50 gold.', " + choice[0].choice_id + ")", function(err, result) {
+                        if(err) {
+                            throw err;
+                        } else {
+                            con.query("INSERT INTO outcomes VALUE('b', 'You smash the chest to pieces. Inside is a broken item, and a bag of gold. Gain 50 gold.', " + choice[0].choice_id + ")", function(err, result) {
+                                if(err) {
+                                    throw err;
+                                } else {
+                                    console.log("chest choice 3");
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    });
+    con.query("INSERT INTO choices VALUE(NULL, 'You sense something along the side of the Chest.', " + room + ")", function(err, result) {
+        if(err) {
+            throw err;
+        } else {
+            con.query("SELECT choice_id FROM choices WHERE choice = 'You sense something along the side of the Chest.'", function(err, choice) {
+                if(err) {
+                    throw err;
+                } else {
+                    con.query("INSERT INTO outcomes VALUE('a', 'A hidden compartment! Gain an item and 50 gold.', " + choice[0].choice_id + ")", function(err, result) {
+                        if(err) {
+                            throw err;
+                        } else {
+                            console.log("chest choice 4");
                         }
                     });
                 }
