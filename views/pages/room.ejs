@@ -28,23 +28,23 @@
             <font size="5">Room <%=roomCounter%>: <%=room%></font>
         </p><br>
         <p align="left">
-            <font size="3">Room prompt query here</font>
+            <font size="3"><%=event%></font>
         </p><br>
         <form align="left" class="form-horizontal" action="/outcome">
             <input value="Option A" type="submit" class="btn btn-danger">
-            <label name="optionA" for="outcomeA">Option A query goes here</label>
+            <label name="optionA" for="outcomeA"><%=choices[0].choice%></label>
         </form><br>
         <form align="left" class="form-horizontal" action="/outcome">
             <input value="Option B" type="submit" class="btn btn-danger">
-            <label name="optionB" for="outcomeB">Option B query goes here</label>
+            <label name="optionB" for="outcomeB"><%=choices[1].choice%></label>
         </form><br>
         <form align="left" class="form-horizontal" action="/outcome">
             <input value="Option C" type="submit" class="btn btn-danger">
-            <label name="optionC" for="outcomeC">Option C query goes here</label>
+            <label name="optionC" for="outcomeC"><%=choices[2].choice%></label>
         </form><br>
         <form align="left" class="form-horizontal" action="/outcome">
             <input value="Option D" type="submit" class="btn btn-danger">
-            <label name="optionD" for="outcomeD">Option D query goes here</label>
+            <label name="optionD" for="outcomeD"><%=choices[3].choice%></label>
         </form><br>
 
     </div>

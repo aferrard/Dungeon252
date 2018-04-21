@@ -5,6 +5,7 @@ var app = express();
 var bodyParser = require('body-parser');
 var mysql = require('mysql');
 var cookieParser = require('cookie-parser');
+var Connection = require(__dirname + "/Controllers/Connection.js");
 
 app.use(cookieParser());
 app.use(bodyParser.json());
@@ -66,19 +67,26 @@ app.get('/room', function (req, res) {
     if(roomCounter%10 != 0){
         roomsCopy.splice(roomPick, 1);
         //console.log(roomPick);
-        //console.log(room);
+        console.log("picked room: "+room);
         res.cookie('roomsCopy', roomsCopy, {maxAge: 9000000});
-        res.cookie('room', room, {maxAge: 9000000});
         res.cookie('roomCounter', roomCounter, {maxAge: 9000000});
-        res.render('pages/room', {
-            hero: req.cookies.hero,
-            health: req.cookies.health,
-            gold: req.cookies.gold,
-            weapon: req.cookies.weapon,
-            item: req.cookies.item,
-            magik: req.cookies.magik,
-            room: room,
-            roomCounter: roomCounter
+        Connection.getRoom(room, function(roomInfo){
+            console.log(roomInfo);
+            Connection.getChoices(roomInfo.room_id, function(choices){
+                console.log(choices);
+                res.render('pages/room', {
+                    hero: req.cookies.hero,
+                    health: req.cookies.health,
+                    gold: req.cookies.gold,
+                    weapon: req.cookies.weapon,
+                    item: req.cookies.item,
+                    magik: req.cookies.magik,
+                    room: room,
+                    roomCounter: roomCounter,
+                    event: roomInfo.event,
+                    choices: choices
+                });
+            });
         });
     }else{
         //do room 10 things.

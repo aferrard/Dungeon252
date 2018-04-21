@@ -1012,19 +1012,19 @@ getRoomId("SALESMAN", function(room) {
             });
         }
     });
-    con.query("INSERT INTO choices VALUE(NULL, 'Try to steal the Frenzy Seed from the salesman', " + room + ")", function(err, result) {
+    con.query("INSERT INTO choices VALUE(NULL, 'Try to steal the warhammer from the salesman', " + room + ")", function(err, result) {
         if(err) {
             throw err;
         } else {
-            con.query("SELECT choice_id FROM choices WHERE choice = 'Try to steal the Frenzy Seed from the salesman'", function(err, choice) {
+            con.query("SELECT choice_id FROM choices WHERE choice = 'Try to steal the warhammer from the salesman'", function(err, choice) {
                 if(err) {
                     throw err;
                 } else {
-                    con.query("INSERT INTO outcomes VALUE('a', 'You kill the salesman and gain the Frenzy Seed for free!', " + choice[0].choice_id + ")", function(err, result) {
+                    con.query("INSERT INTO outcomes VALUE('a', 'You kill the salesman and gain the warhammer for free!', " + choice[0].choice_id + ")", function(err, result) {
                         if(err) {
                             throw err;
                         } else {
-                            con.query("INSERT INTO outcomes VALUE('b', 'You kill the salesman and gain the Frenzy Seed for free!', " + choice[0].choice_id + ")", function(err, result) {
+                            con.query("INSERT INTO outcomes VALUE('b', 'You kill the salesman and gain the warhammer for free!', " + choice[0].choice_id + ")", function(err, result) {
                                 if(err) {
                                     throw err;
                                 } else {
@@ -1045,7 +1045,7 @@ getRoomId("SALESMAN", function(room) {
                 if(err) {
                     throw err;
                 } else {
-                    con.query("INSERT INTO outcomes VALUE('a', 'The salesman was never too bright of a fellow, and the amount is close enough that he doesn\\\'t notice. Gain the Frenzy Seed.', " + choice[0].choice_id + ")", function(err, result) {
+                    con.query("INSERT INTO outcomes VALUE('a', 'The salesman was never too bright of a fellow, and the amount is close enough that he doesn\\\'t notice. Gain weapon: warhammer.', " + choice[0].choice_id + ")", function(err, result) {
                         if(err) {
                             throw err;
                         } else {
