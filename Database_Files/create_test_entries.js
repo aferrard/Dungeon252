@@ -450,3 +450,83 @@ getRoomId("CHEST", function(room) {
         }
     });
 });
+
+//choices and outcomes for POTIONS
+getRoomId("POTIONS", function(room) {
+    con.query("INSERT INTO choices VALUE(NULL, 'You continue on to the next room. These potions seem very suspicious', " + room + ")", function(err, result) {
+        if(err) {
+            throw err;
+        } else {
+            con.query("SELECT choice_id FROM choices WHERE choice = 'You continue on to the next room. These potions seem very suspicious'", function(err, choice) {
+                if(err) {
+                    throw err;
+                } else {
+                    con.query("INSERT INTO outcomes VALUE('a', 'Nothing happens. You move onto the next room.', " + choice[0].choice_id + ")", function(err, result) {
+                        if(err) {
+                            throw err;
+                        } else {
+                            console.log("potions choice 1");
+                        }
+                    });
+                }
+            });
+        }
+    });
+    con.query("INSERT INTO choices VALUE(NULL, 'You decide to drink the greenish potion from the first statue. ', " + room + ")", function(err, result) {
+        if(err) {
+            throw err;
+        } else {
+            con.query("SELECT choice_id FROM choices WHERE choice = 'You decide to drink the greenish potion from the first statue. '", function(err, choice) {
+                if(err) {
+                    throw err;
+                } else {
+                    con.query("INSERT INTO outcomes VALUE('a', 'It tastes awful and you feel sick. Lose 8 HP', " + choice[0].choice_id + ")", function(err, result) {
+                        if(err) {
+                            throw err;
+                        } else {
+                            console.log("potions choice 2");
+                        }
+                    });
+                }
+            });
+        }
+    });
+    con.query("INSERT INTO choices VALUE(NULL, 'You decide to drink the bluish potion from the second statue. ', " + room + ")", function(err, result) {
+        if(err) {
+            throw err;
+        } else {
+            con.query("SELECT choice_id FROM choices WHERE choice = 'You decide to drink the bluish potion from the second statue. '", function(err, choice) {
+                if(err) {
+                    throw err;
+                } else {
+                    con.query("INSERT INTO outcomes VALUE('a', 'You feel rejuvenated. Gain 16 HP. ', " + choice[0].choice_id + ")", function(err, result) {
+                        if(err) {
+                            throw err;
+                        } else {
+                            console.log("potions choice 3");
+                        }
+                    });
+                }
+            });
+        }
+    });
+    con.query("INSERT INTO choices VALUE(NULL, 'You decide to drink the reddish potion from the third statue.', " + room + ")", function(err, result) {
+        if(err) {
+            throw err;
+        } else {
+            con.query("SELECT choice_id FROM choices WHERE choice = 'You decide to drink the reddish potion from the third statue.'", function(err, choice) {
+                if(err) {
+                    throw err;
+                } else {
+                    con.query("INSERT INTO outcomes VALUE('a', 'You feel a burning sensation as you drink it, but when the last drop is downed, you feel a wave a knowledge overcome you. You now possess ~Random~ Magik.', " + choice[0].choice_id + ")", function(err, result) {
+                        if(err) {
+                            throw err;
+                        } else {
+                            console.log("potions choice 4");
+                        }
+                    });
+                }
+            });
+        }
+    });
+});
