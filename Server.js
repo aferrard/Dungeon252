@@ -44,7 +44,7 @@ app.get('/leaderboard', function (req, res) {
 app.get('/champ', function (req, res) {
     res.render('pages/champ');
 });
-var roomsMaster = ["GNOME", "DOG", "HOLE", "CHEST", "POTIONS", "DARKWIZARD", "SEASHELL", "CAMPFIRE", "HELICOPTER", "SALESMAN", "FEAST", "CHOOSEAROOM", "LADDERS"];
+var roomsMaster = ["GNOME", "DOG", "HOLE", "CHEST", "POTIONS", "DARK WIZARD", "SEASHELL", "CAMPFIRE", "HELICOPTER", "SALESMAN", "FEAST", "CHOOSEAROOM", "LADDERS"];
 
 app.get('/start', function (req, res) {
     res.cookie('hero', req.query.hero, {maxAge: 9000000});
@@ -68,12 +68,13 @@ app.get('/room', function (req, res) {
         roomsCopy.splice(roomPick, 1);
         //console.log(roomPick);
         console.log("picked room: "+room);
+        res.cookie('curRoom', room, {maxAge: 9000000});
         res.cookie('roomsCopy', roomsCopy, {maxAge: 9000000});
         res.cookie('roomCounter', roomCounter, {maxAge: 9000000});
         Connection.getRoom(room, function(roomInfo){
-            console.log(roomInfo);
+            //console.log(roomInfo);
             Connection.getChoices(roomInfo.room_id, function(choices){
-                console.log(choices);
+                //console.log(choices);
                 res.render('pages/room', {
                     hero: req.cookies.hero,
                     health: req.cookies.health,
@@ -106,7 +107,17 @@ app.get('/room', function (req, res) {
     }
 });
 app.get('/outcome', function (req, res) {
+    //console.log(req);
     var roomCounter = req.cookies.roomCounter;
+    if(req.query.a != undefined){
+        //Connection.getOutcome()
+    }else if(req.query.b != undefined){
+
+    }else if(req.query.c != undefined){
+
+    }else if(req.query.d != undefined){
+
+    }
     res.render('pages/outcome', {
         hero: req.cookies.hero,
         health: req.cookies.health,
@@ -114,7 +125,8 @@ app.get('/outcome', function (req, res) {
         weapon: req.cookies.weapon,
         item: req.cookies.item,
         magik: req.cookies.magik,
-        roomCounter: roomCounter
+        roomCounter: roomCounter,
+        curRoom: req.cookies.curRoom
     });
 });
 
