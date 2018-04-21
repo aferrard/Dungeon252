@@ -20,6 +20,7 @@ function getRoomId(title, cb) {
         if(err) {
             throw err;
         } else {
+            //console.log(result);
             var z = JSON.parse(JSON.stringify(result[0].room_id));
             cb(z);
         }
@@ -532,7 +533,7 @@ getRoomId("POTIONS", function(room) {
 });
 
 //choices and outcomes for DARKWIZARD
-getRoomId("DARKWIZARD", function(room) {
+getRoomId("DARK WIZARD", function(room) {
     con.query("INSERT INTO choices VALUE(NULL, 'You try to bribe him. You offer him ~ golds pieces.', " + room + ")", function(err, result) {
         if(err) {
             throw err;
