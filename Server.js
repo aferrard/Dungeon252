@@ -44,7 +44,7 @@ app.get('/leaderboard', function (req, res) {
 app.get('/champ', function (req, res) {
     res.render('pages/champ');
 });
-var roomsMaster = ["GNOME", "DOG", "HOLE", "CHEST", "POTIONS", "DARK WIZARD", "SEASHELL", "CAMPFIRE", "HELICOPTER", "SALESMAN", "FEAST", "CHOOSEAROOM", "LADDERS"];
+var roomsMaster = ["GNOME", "DOG", "HOLE", "CHEST", "POTIONS", "DARKWIZARD", "SEASHELL", "CAMPFIRE", "HELICOPTER", "SALESMAN", "FEAST", "CHOOSEAROOM", "LADDERS"];
 
 app.get('/start', function (req, res) {
     res.cookie('hero', req.query.hero, {maxAge: 9000000});
@@ -118,6 +118,7 @@ app.get('/outcome', function (req, res) {
     }else if(req.query.d != undefined){
 
     }
+    //res.cookie('health', 0, {maxAge: 9000000});
     res.render('pages/outcome', {
         hero: req.cookies.hero,
         health: req.cookies.health,
@@ -128,6 +129,10 @@ app.get('/outcome', function (req, res) {
         roomCounter: roomCounter,
         curRoom: req.cookies.curRoom
     });
+});
+
+app.get('/end', function (req, res) {
+    res.render('pages/end');
 });
 
 app.listen(5252);

@@ -533,7 +533,7 @@ getRoomId("POTIONS", function(room) {
 });
 
 //choices and outcomes for DARKWIZARD
-getRoomId("DARK WIZARD", function(room) {
+getRoomId("DARKWIZARD", function(room) {
     con.query("INSERT INTO choices VALUE(NULL, 'You try to bribe him. You offer him ~ golds pieces.', " + room + ")", function(err, result) {
         if(err) {
             throw err;
@@ -1231,7 +1231,7 @@ getRoomId("CHOOSEAROOM", function(room) {
 });
 
 //choices and outcomes for LADDER
-getRoomId("LADDER", function(room) {
+getRoomId("LADDERS", function(room) {
     con.query("INSERT INTO choices VALUE(NULL, 'Climb the first ladder.', " + room + ")", function(err, result){
         if(err) {
             throw err;
