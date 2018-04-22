@@ -189,15 +189,15 @@ app.get('/outcome', function (req, res) {
                     if (req.query.solution == "Mountain" || "mountain" || "Mountains" || "mountains") {
                         option = "a";
                         effects = "Gain 15 gold";
-                        res.cookie('gold', req.cookies.gold + 15, {maxAge: 9000000});
+                        res.cookie('gold', parseInt(req.cookies.gold) + 15, {maxAge: 9000000});
                     } else {
                         option = "b";
                         if (req.cookies.item == "Chain mail") {
-                            effects = "Lose 2 health";
-                            res.cookie('health', req.cookies.health - 2, {maxAge: 9000000});
+                            effects = "Lose 2 HP.";
+                            res.cookie('health', parseInt(req.cookies.health) - 2, {maxAge: 9000000});
                         } else {
-                            effects = "Lose 3 health";
-                            res.cookie('health', req.cookies.health - 3, {maxAge: 9000000});
+                            effects = "Lose 3 HP.";
+                            res.cookie('health', parseInt(req.cookies.health) - 3, {maxAge: 9000000});
                         }
                     }
                 } else if (req.query.b != undefined) {
@@ -205,11 +205,23 @@ app.get('/outcome', function (req, res) {
                 } else if (req.query.c != undefined) {
                     if (str >= 10) {
                         option = "a";
-                        res.cookie('gold', req.cookies.gold + 55, {maxAge: 9000000});
-                        res.cookie('health', req.cookies.health - 3, {maxAge: 9000000});
+                        res.cookie('gold', parseInt(req.cookies.gold) + 55, {maxAge: 9000000});
+                        if (req.cookies.item == "Chain mail") {
+                            effects = ("Gain 55 gold. Lose 2 HP.");
+                            res.cookie('health', parseInt(req.cookies.health) - 2, {maxAge: 9000000});
+                        } else {
+                            effects = ("Gain 55 gold. Lose 3 HP.");
+                            res.cookie('health', parseInt(req.cookies.health) - 3, {maxAge: 9000000});
+                        }
                     } else {
                         option = "b";
-                        res.cookie('health', req.cookies.health - 15, {maxAge: 9000000});
+                        if (req.cookies.item == "Chain mail") {
+                            effects = ("Lose 10 HP.");
+                            res.cookie('health', parseInt(req.cookies.health) - 10, {maxAge: 9000000});
+                        } else {
+                            effects = ("Lose 15 HP.");
+                            res.cookie('health', parseInt(req.cookies.health) - 15, {maxAge: 9000000});
+                        }
                     }
                 } else if (req.query.d != undefined) {
                     if (req.cookies.item == "Smoke machine") {
