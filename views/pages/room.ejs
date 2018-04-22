@@ -2,6 +2,18 @@
 <html lang="en">
 <head>
     <% include ../partials/head %>
+
+    <style>
+        body {
+            background-size: cover;
+            background-image: url('doge.jpeg');
+            height:800px;
+            width:100%;
+            background-repeat: no-repeat;
+            overflow: hidden;
+            resize: both;
+        }
+    </style>
 </head>
 <header>
     <nav class="navbar navbar-default" role="navigation">
@@ -15,12 +27,12 @@
                 <li><a>Weapon : <b><%=weapon%></b></a></li>
                 <li><a>Item : <b><%=item%></b></a></li>
                 <li><a>Magik : <b><%=magik%></b></a></li>
+                <li><a>Image : <b><%=image%></b></a></li>
             </div>
         </div>
     </nav>
 </header>
 <body class="container">
-
 <main>
     <div class ="container-fluid">
         <p align="center">

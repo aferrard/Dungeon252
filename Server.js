@@ -89,7 +89,7 @@ app.get('/room', function (req, res) {
         res.cookie('roomsCopy', roomsCopy, {maxAge: 9000000});
         res.cookie('roomCounter', roomCounter, {maxAge: 9000000});
         Connection.getRoom(room, function(roomInfo){
-            //console.log(roomInfo);
+            console.log(roomInfo.image);
             Connection.getChoices(roomInfo.room_id, function(choices){
                 //console.log(choices);
                 res.render('pages/room', {
@@ -103,7 +103,8 @@ app.get('/room', function (req, res) {
                     roomCounter: roomCounter,
                     event: roomInfo.event,
                     choices: choices,
-                    poem: poem
+                    poem: poem,
+                    image: roomInfo.image
                 });
             });
         });
@@ -141,7 +142,7 @@ function getStrength(cookie, cb){
 app.get('/outcome', function (req, res) {
     console.log(req.query);
     var roomCounter = req.cookies.roomCounter;
-    var option = "failure";
+    var option = "a";
 
     if(req.cookies.curRoom == "GNOME"){
         if(req.query.a != undefined){
