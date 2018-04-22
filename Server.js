@@ -44,6 +44,7 @@ app.get('/leaderboard', function (req, res) {
 app.get('/champ', function (req, res) {
     res.render('pages/champ');
 });
+
 var roomsMaster = ["GNOME", "DOG", "HOLE", "CHEST", "POTIONS", "DARKWIZARD", "SEASHELL", "CAMPFIRE", "HELICOPTER", "SALESMAN", "DRYAD", "FEAST", "CHOOSEAROOM", "LADDERS"];
 
 app.get('/start', function (req, res) {
@@ -314,6 +315,10 @@ app.get('/outcome', function (req, res) {
             outcome: outcome
         });
     });
+});
+
+app.get('/end', function (req, res) {
+    res.render('pages/end');
 });
 
 app.listen(5252);

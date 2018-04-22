@@ -9,7 +9,7 @@
     <nav class="navbar navbar-default" role="navigation">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand">The Hero : <%=hero%></a>
+                <a class="navbar-brand">The Hero : <b><%=hero%></b></a>
             </div>
             <div class="nav navbar-nav">
                 <li><a>HP : <b><%=health%></b></a></li>
@@ -30,9 +30,17 @@
         <p align="left">
             <font size="3"><%=outcome%></font>
         </p><br>
-        <form align="left" class="form-horizontal" action="/room">
-        <input value="Next Room" type="submit" class="btn btn-danger">
-        </form><br>
+        <%if (health > 0) { %>
+            <form align="left" class="form-horizontal" action="/room">
+                <input value="Next Room" type="submit" class="btn btn-danger">
+            </form><br>
+        <%} else { %>
+            <form align="left" class="form-horizontal" action="/end">
+                <input value="You Died" type="submit" class="btn btn-danger">
+            </form><br>
+        <%}%>
+
+
     </div>
 </main>
 
