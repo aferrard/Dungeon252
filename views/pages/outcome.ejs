@@ -25,10 +25,10 @@
 <main>
     <div class ="container-fluid">
         <p align="center">
-            <font size="5">Outcome <%=roomCounter%></font>
+            <font size="5"><%=curRoom%> Outcome</font>
         </p><br>
         <p align="left">
-            <font size="3">Outcome query here</font>
+            <font size="3"><%=outcome%></font>
         </p><br>
         <%if (health > 0) { %>
             <form align="left" class="form-horizontal" action="/room">

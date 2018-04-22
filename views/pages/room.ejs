@@ -28,22 +28,36 @@
             <font size="5">Room <%=roomCounter%>: <%=room%></font>
         </p><br>
         <p align="left">
-            <font size="3"><%=event%></font>
+            <font size="3"><%=event%></font><br>
+            <%if(room == "GNOME" || room == "CHOOSEAROOM"){%>
+            <%=poem%>
+            <%}%>
         </p><br>
+
         <form align="left" class="form-horizontal" action="/outcome">
+            <input hidden id="choice_id" name="choice_id" value="<%=choices[0].choice_id %>">
             <input value="Option A" name="a" type="submit" class="btn btn-danger">
             <label name="optionA" for="outcomeA"><%=choices[0].choice%></label>
+            <%if(room == "GNOME"){%>
+            <input id="solution" type="text" name="solution" placeholder="Enter your answer" required>
+            <%}%>
         </form><br>
         <form align="left" class="form-horizontal" action="/outcome">
+            <input hidden id="choice_id" name="choice_id" value="<%=choices[1].choice_id %>">
             <input value="Option B" name="b" type="submit" class="btn btn-danger">
             <label name="optionB" for="outcomeB"><%=choices[1].choice%></label>
+            <%if(room == "CHOOSEAROOM"){%>
+            <input id="solution" type="text" name="solution" placeholder="Enter your answer" required>
+            <%}%>
         </form><br>
         <form align="left" class="form-horizontal" action="/outcome">
+            <input hidden id="choice_id" name="choice_id" value="<%=choices[2].choice_id %>">
             <input value="Option C" name="c" type="submit" class="btn btn-danger">
             <label name="optionC" for="outcomeC"><%=choices[2].choice%></label>
         </form><br>
         <form align="left" class="form-horizontal" action="/outcome">
-            <input value="Option D" name="d" type="submit" class="btn btn-danger">
+            <input hidden id="choice_id" name="choice_id" value="<%=choices[3].choice_id %>">
+            <input value="Option D" name="c" type="submit" class="btn btn-danger">
             <label name="optionD" for="outcomeD"><%=choices[3].choice%></label>
         </form><br>
 
