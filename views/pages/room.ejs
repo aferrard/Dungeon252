@@ -67,12 +67,16 @@
             <input value="Option C" name="c" type="submit" class="btn btn-danger">
             <label name="optionC" for="outcomeC"><%=choices[2].choice%></label>
         </form><br>
+        <%if((room != "CHEST" && room != "ROOM10") || (room == "CHEST" && magik != null) || (room == "ROOM10" && (weapon == "??? Staff"))){ %>
         <form align="left" class="form-horizontal" action="/outcome">
             <input hidden id="choice_id" name="choice_id" value="<%=choices[3].choice_id %>">
             <input value="Option D" name="c" type="submit" class="btn btn-danger">
             <label name="optionD" for="outcomeD"><%=choices[3].choice%></label>
+            <%if(room == "SEASHELL"){%>
+            <input id="solution" type="text" name="solution" placeholder="Enter the secret phrase" required>
+            <%}%>
         </form><br>
-
+        <%}%>
     </div>
 </main>
 </body>

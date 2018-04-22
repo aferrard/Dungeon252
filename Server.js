@@ -130,7 +130,7 @@ function getStrength(cookie, cb){
     if(cookie.item == "Dog tooth"){
         strength += 3;
     }
-    Connection.getWeapon(cookie.weapon, function(str){
+    Connection.getWeapon(cookie.weapon, function(wep){
         strength += wep.strength;
         if(cookie.magik != null && cookie.magik != ""){
             Connection.getMagik(cookie.magik, function(mag){
@@ -150,78 +150,47 @@ function getWeight(cookie, cb){
                 weight += item.weight;
             })
         }
+        cb(weight);
     })
 
+}
+function getRandom(type, cb){
+    var weapons = ["Stick", "Sword", "Whip", "Fish", "Basic staff"];
+    var items = ["Chain mail", "Sandwich", "Smoke machine", "Stress ball", "Dog tooth"];
+    var magiks = ["Fire", "Water", "Nature", "Air", "Light", "Dark", "Explosion"];
+    if(type == "item"){
+        var pick = Math.round((parseInt(items.length)-1) * Math.random());
+        cb(items[pick]);
+    }else if(type == "magik"){
+        var pick = Math.round((parseInt(magiks.length)-1) * Math.random());
+        cb(magiks[pick]);
+    }else if(type == "weapon"){
+        var pick = Math.round((parseInt(weapons.length)-1) * Math.random());
+        cb(weapons[pick]);
+    }
 }
 app.get('/outcome', function (req, res) {
     console.log(req.query);
     var roomCounter = req.cookies.roomCounter;
     var option = "a";
-<<<<<<< HEAD
-
-    if(req.cookies.curRoom == "GNOME"){
-        if(req.query.a != undefined){
-            if(req.query.solution == "Mountain" || "mountain" || "Mountains" || "mountains"){
-                getStrength(req.cookies, function(strength){
-
-                })
-                option = "a";
-                res.cookie('gold', req.cookies.gold+15, {maxAge: 9000000});
-            }else{
-                option = "b";
-                res.cookie('health', req.cookies.health-2, {maxAge: 9000000});
-            }
-        }else if(req.query.b != undefined){
-            option = "a";
-        }else if(req.query.c != undefined){
-            option = "a";
-            res.cookie('gold', req.cookies.gold+55, {maxAge: 9000000});
-        }else if(req.query.d != undefined){
-            if(req.cookies.item == "Smoke machine"){
-                option = "a";
-            }else{
-                option = "b";
-            }
-        }
-    }else if(req.cookies.curRoom == "DOG") {
-        if(req.query.a != undefined){
-
-        }else if(req.query.b != undefined){
-
-        }else if(req.query.c != undefined){
-
-        }else if(req.query.d != undefined){
-
-        }
-    }else if(req.cookies.curRoom == "HOLE") {
-        if(req.query.a != undefined){
-
-        }else if(req.query.b != undefined){
-
-        }else if(req.query.c != undefined){
-
-        }else if(req.query.d != undefined){
-
-        }
-    }else if(req.cookies.curRoom == "CHEST") {
-        if(req.query.a != undefined){
-
-        }else if(req.query.b != undefined){
-
-        }else if(req.query.c != undefined){
-
-        }else if(req.query.d != undefined){
-=======
+    var effects = "";
     getStrength(req.cookies, function(str) {
         getWeight(req.cookies, function (weight) {
             if(req.cookies.curRoom == "GNOME"){
                 if(req.query.a != undefined){
                     if(req.query.solution == "Mountain" || "mountain" || "Mountains" || "mountains"){
                         option = "a";
+                        effects = "Gain 15 gold";
                         res.cookie('gold', req.cookies.gold+15, {maxAge: 9000000});
                     }else{
                         option = "b";
-                        res.cookie('health', req.cookies.health-2, {maxAge: 9000000});
+                        if(req.cookies.item == "Chain mail"){
+                            effects = "Lose 2 health";
+                            res.cookie('health', req.cookies.health-2, {maxAge: 9000000});
+                        }else{
+                            effects = "Lose 3 health";
+                            res.cookie('health', req.cookies.health-3, {maxAge: 9000000});
+                        }
                     }
                 }else if(req.query.b != undefined){
                     option = "a";
@@ -229,7 +198,7 @@ app.get('/outcome', function (req, res) {
                     if(str >= 10){
                         option = "a";
                         res.cookie('gold', req.cookies.gold+55, {maxAge: 9000000});
-                        res.cookie('health', req.cookies.health-2, {maxAge: 9000000});
+                        res.cookie('health', req.cookies.health-3, {maxAge: 9000000});
                     }else{
                         option = "b";
                         res.cookie('health', req.cookies.health-15, {maxAge: 9000000});
@@ -332,13 +301,39 @@ app.get('/outcome', function (req, res) {
                 }
             }else if(req.cookies.curRoom == "CHEST") {
                 if(req.query.a != undefined){
-
+                    Connection.getWeapon(req.cookies.weapon, function(wep) {
+                        if (wep.name != "Fists"){
+                            option = "a";
+                            getRandom("item", function(item){
+                                res.cookie('item', item, {maxAge: 9000000});
+                                effects = ("Gain item: " + item);
+                            })
+                        }else{
+                            option = "b";
+                            res.cookie('weapon', "??? Staff", {maxAge: 9000000});
+                            effects = ("Gain weapon: ??? Staff");
+                        }
+                    });
                 }else if(req.query.b != undefined){
-
+                    option = "a";
                 }else if(req.query.c != undefined){
-
+                    if(str < 10){
+                        option = "a";
+                        getRandom("item", function(item){
+                            res.cookie('gold', req.cookies.gold+50, {maxAge: 9000000});
+                            res.cookie('item', item, {maxAge: 9000000});
+                            effects = ("Gain item: " + item + " and 50 gold.");
+                        });
+                    }else{
+                        res.cookie('gold', req.cookies.gold+50, {maxAge: 9000000});
+                        effects = ("Gain 50 gold.");
+                    }
                 }else if(req.query.d != undefined){
-
+                    getRandom("item", function(item){
+                        res.cookie('gold', req.cookies.gold+50, {maxAge: 9000000});
+                        res.cookie('item', item, {maxAge: 9000000});
+                        effects = ("Gain item: " + item + " and 50 gold.");
+                    });
                 }
             }else if(req.cookies.curRoom == "POTIONS") {
                 if(req.query.a != undefined){
@@ -356,7 +351,6 @@ app.get('/outcome', function (req, res) {
                 }else if(req.query.b != undefined){
 
                 }else if(req.query.c != undefined){
->>>>>>> a2083a92b82c5d441876e9937f4870567110aa73
 
                 }else if(req.query.d != undefined){
 
