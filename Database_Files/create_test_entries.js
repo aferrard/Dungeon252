@@ -986,7 +986,13 @@ getRoomId("SALESMAN", function(room) {
                         if(err) {
                             throw err;
                         } else {
-                            console.log("salesman choice 1");
+                            con.query("INSERT INTO outcomes VALUE('b', 'The salesman scoffs and tells you to leave his sight.', " + choice[0].choice_id + ")", function(err, result) {
+                                if(err) {
+                                    throw err;
+                                } else {
+                                    console.log("salesman choice 1");
+                                }
+                            });
                         }
                     });
                 }
