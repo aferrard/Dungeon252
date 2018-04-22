@@ -42,7 +42,7 @@ getRoomId("GNOME", function(room) {
                         if (err) {
                             throw err;
                         } else {
-                            con.query("INSERT INTO outcomes VALUE('b','The gnome laughs at you and you feel bad. Lose 2 HP.', "+choice[0].choice_id+")", function(err, result) {
+                            con.query("INSERT INTO outcomes VALUE('b','The gnome laughs at you and you feel bad.', "+choice[0].choice_id+")", function(err, result) {
                                 if(err) {
                                     throw err;
                                 } else {
@@ -82,11 +82,11 @@ getRoomId("GNOME", function(room) {
                 if(err) {
                     throw err;
                 } else {
-                    con.query("INSERT INTO outcomes VALUE('a','The Gnome drops to the ground, face twisted in despair. You watch him take out a picture of his family as he bleeds out on the floor. Gain 55 gold pieces. Lose 2 HP.', "+choice[0].choice_id+")", function(err, result) {
+                    con.query("INSERT INTO outcomes VALUE('a','The Gnome drops to the ground, face twisted in despair. You watch him take out a picture of his family as he bleeds out on the floor.', "+choice[0].choice_id+")", function(err, result) {
                         if(err) {
                             throw err;
                         } else {
-                            con.query("INSERT INTO outcomes VALUE('b','\\\"Guess you don\\\'t like riddles, scum.\\\" He says with an angry laugh while stabbing your leg. Lose 15 health.', "+choice[0].choice_id+")", function(err, result) {
+                            con.query("INSERT INTO outcomes VALUE('b','\\\"Guess you don\\\'t like riddles, scum.\\\" He says with an angry laugh while stabbing your leg.', "+choice[0].choice_id+")", function(err, result) {
                                 if(err) {
                                     throw err;
                                 } else {
@@ -136,15 +136,15 @@ getRoomId("DOG", function(room) {
                 if(err) {
                     throw err;
                 } else {
-                    con.query("INSERT INTO outcomes VALUE('a', 'The dog runs after the stick and comes back, wagging his tail. Lose your weapon. Gain magik: Familiar.', " + choice[0].choice_id +")", function(err, result) {
+                    con.query("INSERT INTO outcomes VALUE('a', 'The dog runs after the stick and comes back, wagging his tail.', " + choice[0].choice_id +")", function(err, result) {
                         if(err) {
                             throw err;
                         } else {
-                            con.query("INSERT INTO outcomes VALUE('b', 'The dog eats your ~weapon~ then happily joins your side. Lose your weapon. Gain magik: Familiar.', " + choice[0].choice_id + ")", function(err, result) {
+                            con.query("INSERT INTO outcomes VALUE('b', 'The dog eats your ~weapon~ then happily joins your side.', " + choice[0].choice_id + ")", function(err, result) {
                                 if(err) {
                                     throw err;
                                 } else {
-                                    con.query("INSERT INTO outcomes VALUE('c', 'The dog barks and attacks the now defenseless hero. You escape, but not without cost. Lose your weapon. Gain item: Dog tooth. Lose 7 HP', " + choice[0].choice_id + ")", function(err, result) {
+                                    con.query("INSERT INTO outcomes VALUE('c', 'The dog barks and attacks the now defenseless hero. You escape, but not without cost.', " + choice[0].choice_id + ")", function(err, result) {
                                         console.log("dog choice 1");
                                     });
                                 }
@@ -167,7 +167,7 @@ getRoomId("DOG", function(room) {
                         if(err) {
                             throw err;
                         } else {
-                            con.query("INSERT INTO outcomes VALUE('b', 'The dog bites your arm, but you make it to the next room anyway. Gain item: Dog tooth. Lose 7 HP', " + choice[0].choice_id + ")", function(err, result) {
+                            con.query("INSERT INTO outcomes VALUE('b', 'The dog bites your arm, but you make it to the next room anyway.', " + choice[0].choice_id + ")", function(err, result) {
                                 if(err) {
                                     throw err;
                                 } else {
@@ -192,7 +192,7 @@ getRoomId("DOG", function(room) {
                         if(err) {
                             throw err;
                         } else {
-                            con.query("INSERT INTO outcomes VALUE('b', 'The dog easily outruns you and nips at your feet. You eventually escape, but not without cost. Lose 4 HP.', " + choice[0].choice_id + ")", function (err, result) {
+                            con.query("INSERT INTO outcomes VALUE('b', 'The dog easily outruns you and nips at your feet. You eventually escape, but not without cost.', " + choice[0].choice_id + ")", function (err, result) {
                                 if(err) {
                                     throw err;
                                 } else {
@@ -219,11 +219,11 @@ getRoomId("DOG", function(room) {
                 if(err) {
                     throw(err);
                 } else {
-                    con.query("INSERT INTO outcomes VALUE('a', 'The dog eats your ~item~ then happily joins your side. Lose your item. Gain magik: Familiar', " + choice[0].choice_id + ")", function(err, result) {
+                    con.query("INSERT INTO outcomes VALUE('a', 'The dog eats your ~item~ then happily joins your side.', " + choice[0].choice_id + ")", function(err, result) {
                         if(err) {
                             throw err;
                         } else {
-                            con.query("INSERT INTO outcomes VALUE('b', 'While the dog bounds after your ~item~, you escape to the next room. Lose your item.', " + choice[0].choice_id + ")", function(err, result) {
+                            con.query("INSERT INTO outcomes VALUE('b', 'While the dog bounds after your ~item~, you escape to the next room.', " + choice[0].choice_id + ")", function(err, result) {
                                 if(err) {
                                     throw err;
                                 } else {
@@ -248,7 +248,7 @@ getRoomId("HOLE", function(room) {
                 if(err) {
                     throw err;
                 } else {
-                    con.query("INSERT INTO outcomes VALUE('a', 'You are fat and aren\\\'t able to make it across. You fall into the hole and lose 15 HP. There\\\'s a door, and the body of another hero. Gain 10 gold.', " + choice[0].choice_id + ")", function(err, result) {
+                    con.query("INSERT INTO outcomes VALUE('a', 'You are fat and aren\\\'t able to make it across. You fall into the hole and hurt your legs. There\\\'s a door, and the body of another hero. You find some gold in his pockets.', " + choice[0].choice_id + ")", function(err, result) {
                         if(err) {
                             throw(err);
                         } else {
@@ -273,7 +273,7 @@ getRoomId("HOLE", function(room) {
                 if(err) {
                     throw err;
                 } else {
-                    con.query("INSERT INTO outcomes VALUE('a', 'You are heavy and not very coordinated You fall into the hole and lose 15 HP. There\\\'s a door, and the body of another hero. Gain 10 gold.', " + choice[0].choice_id + ")", function(err, result) {
+                    con.query("INSERT INTO outcomes VALUE('a', 'You are heavy and not very coordinated You fall into the hole and hurt your legs. There\\\'s a door, and the body of another hero. You find some gold in his pockets.', " + choice[0].choice_id + ")", function(err, result) {
                         if(err) {
                             throw err;
                         } else {
@@ -302,7 +302,7 @@ getRoomId("HOLE", function(room) {
                         if(err) {
                             throw(err);
                         } else {
-                            con.query("INSERT INTO outcomes VALUE('b', 'You attempt to vault over the hole. Lose your weapon. Continue to the next room.', " + choice[0].choice_id + ")", function(err, result) {
+                            con.query("INSERT INTO outcomes VALUE('b', 'You attempt to vault over the hole. Your weapon falls into the pit, but you continue to the next room.', " + choice[0].choice_id + ")", function(err, result) {
                                 if(err) {
                                     throw err;
                                 } else {
@@ -331,15 +331,15 @@ getRoomId("HOLE", function(room) {
                                 if(err) {
                                     throw err;
                                 } else {
-                                    con.query("INSERT INTO outcomes VALUE('c', 'You strike the ground behind you with an explosion, then fly your way across. Lose 2HP.', " + choice[0].choice_id + ")", function(err, result) {
+                                    con.query("INSERT INTO outcomes VALUE('c', 'You strike the ground behind you with an explosion, then fly your way across.', " + choice[0].choice_id + ")", function(err, result) {
                                         if(err) {
                                             throw err;
                                         } else {
-                                            con.query("INSERT INTO outcomes VALUE('d', 'You Yoshi-Hop across the the hole, leaving your familiar to fall to its death. Rest in pieces. Lose Magik.', " + choice[0].choice_id + ")", function(err, result) {
+                                            con.query("INSERT INTO outcomes VALUE('d', 'You Yoshi-Hop across the the hole, leaving your familiar to fall to its death. Rest in pieces.', " + choice[0].choice_id + ")", function(err, result) {
                                                 if(err) {
                                                     throw err;
                                                 } else {
-                                                    con.query("INSERT INTO outcomes VALUE('e', 'Your magik triggers something in the room, and you slip down the hole. Lose 15 HP. There’s a door, and the body of another hero. Gain 10 gold.', " + choice[0].choice_id + ")", function(err, result) {
+                                                    con.query("INSERT INTO outcomes VALUE('e', 'Your magik triggers something in the room, and you slip down the hole and hurt your legs. There’s a door, and the body of another hero. You find some gold in his pockets.', " + choice[0].choice_id + ")", function(err, result) {
                                                         if(err) {
                                                             throw err;
                                                         } else {
@@ -374,7 +374,7 @@ getRoomId("CHEST", function(room) {
                         if(err) {
                             throw err;
                         } else {
-                            con.query("INSERT INTO outcomes VALUE('b', 'You find an odd staff in the chest. Gain ??? Staff', " + choice[0].choice_id + ")", function(err, result) {
+                            con.query("INSERT INTO outcomes VALUE('b', 'You find an odd staff in the chest.', " + choice[0].choice_id + ")", function(err, result) {
                                 if(err) {
                                     throw err;
                                 } else {
@@ -414,11 +414,11 @@ getRoomId("CHEST", function(room) {
                 if(err) {
                     throw err;
                 } else {
-                    con.query("INSERT INTO outcomes VALUE('a', 'The chest breaks open when you strike it, revealing an item as well as some gold! Gain an item and 50 gold.', " + choice[0].choice_id + ")", function(err, result) {
+                    con.query("INSERT INTO outcomes VALUE('a', 'The chest breaks open when you strike it, revealing an item as well as some gold!', " + choice[0].choice_id + ")", function(err, result) {
                         if(err) {
                             throw err;
                         } else {
-                            con.query("INSERT INTO outcomes VALUE('b', 'You smash the chest to pieces. Inside is a broken item, and a bag of gold. Gain 50 gold.', " + choice[0].choice_id + ")", function(err, result) {
+                            con.query("INSERT INTO outcomes VALUE('b', 'You smash the chest to pieces. Inside is a broken item, and a bag of gold.', " + choice[0].choice_id + ")", function(err, result) {
                                 if(err) {
                                     throw err;
                                 } else {
@@ -439,7 +439,7 @@ getRoomId("CHEST", function(room) {
                 if(err) {
                     throw err;
                 } else {
-                    con.query("INSERT INTO outcomes VALUE('a', 'A hidden compartment! Gain an item and 50 gold.', " + choice[0].choice_id + ")", function(err, result) {
+                    con.query("INSERT INTO outcomes VALUE('a', 'A hidden compartment!', " + choice[0].choice_id + ")", function(err, result) {
                         if(err) {
                             throw err;
                         } else {
@@ -481,7 +481,7 @@ getRoomId("POTIONS", function(room) {
                 if(err) {
                     throw err;
                 } else {
-                    con.query("INSERT INTO outcomes VALUE('a', 'It tastes awful and you feel sick. Lose 8 HP', " + choice[0].choice_id + ")", function(err, result) {
+                    con.query("INSERT INTO outcomes VALUE('a', 'It tastes awful and you feel sick.', " + choice[0].choice_id + ")", function(err, result) {
                         if(err) {
                             throw err;
                         } else {
@@ -500,7 +500,7 @@ getRoomId("POTIONS", function(room) {
                 if(err) {
                     throw err;
                 } else {
-                    con.query("INSERT INTO outcomes VALUE('a', 'You feel rejuvenated. Gain 16 HP. ', " + choice[0].choice_id + ")", function(err, result) {
+                    con.query("INSERT INTO outcomes VALUE('a', 'You feel rejuvenated.', " + choice[0].choice_id + ")", function(err, result) {
                         if(err) {
                             throw err;
                         } else {
@@ -546,7 +546,7 @@ getRoomId("DARKWIZARD", function(room) {
                         if(err) {
                             throw err;
                         } else {
-                            con.query("INSERT INTO outcomes VALUE('b', 'The wizard is disgusted by your measly offering. You are unprepared and he and launches a magikal attack on you. Lose 15 HP and offered gold, unless you have light magik. If you do, you lose your magikal ability but are unharmed.', " + choice[0].choice_id + ")", function(err, result) {
+                            con.query("INSERT INTO outcomes VALUE('b', 'The wizard is disgusted by your measly offering. You are unprepared and he and launches a magikal attack on you.', " + choice[0].choice_id + ")", function(err, result) {
                                 if(err) {
                                     throw err;
                                 } else {
@@ -567,7 +567,7 @@ getRoomId("DARKWIZARD", function(room) {
                 if(err) {
                     throw err;
                 } else {
-                    con.query("INSERT INTO outcomes VALUE('a', 'You try to attack the wizard with your weapon, but it does not harm him. Lose 15 HP.', " + choice[0].choice_id + ")", function(err, result) {
+                    con.query("INSERT INTO outcomes VALUE('a', 'You try to attack the wizard with your weapon, but it does not harm him.', " + choice[0].choice_id + ")", function(err, result) {
                         if(err) {
                             throw err;
                         } else {
@@ -575,7 +575,7 @@ getRoomId("DARKWIZARD", function(room) {
                                 if(err) {
                                     throw err;
                                 } else {
-                                    con.query("INSERT INTO outcomes VALUE('c', 'You kill the wizard! Gain the Basic Staff and Dark Magik.', " + choice[0].choice_id + ")", function(err, result) {
+                                    con.query("INSERT INTO outcomes VALUE('c', 'You kill the wizard and pick up his staff. His magik transfers itself to you.', " + choice[0].choice_id + ")", function(err, result) {
                                         if(err) {
                                             throw err;
                                         } else {
@@ -604,7 +604,7 @@ getRoomId("DARKWIZARD", function(room) {
                 if(err) {
                     throw err;
                 } else {
-                    con.query("INSERT INTO outcomes VALUE('a', 'You have your back turned as you attempt to flee and are not fast enough to escape his spells. Lose 15 HP unless you have light magik. If you do, you lose your magikal ability but are unharmed.', " + choice[0].choice_id + ")", function(err, result) {
+                    con.query("INSERT INTO outcomes VALUE('a', 'You have your back turned as you attempt to flee and are not fast enough to escape his spells.', " + choice[0].choice_id + ")", function(err, result) {
                         if(err) {
                             throw err;
                         } else {
@@ -629,7 +629,7 @@ getRoomId("DARKWIZARD", function(room) {
                 if(err) {
                     throw err;
                 } else {
-                    con.query("INSERT INTO outcomes VALUE('a', 'The wizard isn\\\'t impressed, but decides to use a less harmful spell on you. Lose 10 HP.', " + choice[0].choice_id + ")", function(err, result) {
+                    con.query("INSERT INTO outcomes VALUE('a', 'The wizard isn\\\'t impressed, but decides to use a less harmful spell on you.', " + choice[0].choice_id + ")", function(err, result) {
                         if(err) {
                             throw err;
                         } else {
@@ -656,7 +656,7 @@ getRoomId("SEASHELL", function(room) {
                         if(err) {
                             throw err;
                         } else {
-                            con.query("INSERT INTO outcomes VALUE('b', 'Moving the shell is a challenge, and you cut your hands on the sharp edges, but you eventually succeed. Lose 3HP', " + choice[0].choice_id + ")", function(err, result) {
+                            con.query("INSERT INTO outcomes VALUE('b', 'Moving the shell is a challenge, and you cut your hands on the sharp edges, but you eventually succeed.', " + choice[0].choice_id + ")", function(err, result) {
                                 if(err) {
                                     throw err;
                                 } else {
@@ -681,7 +681,7 @@ getRoomId("SEASHELL", function(room) {
                         if(err) {
                             throw err;
                         } else {
-                            con.query("INSERT INTO outcomes VALUE('b', 'The shell rings loudly, reverberating through the room. You feel lighter, and curiously watch the shell slide to the side. Gain Water magik', " + choice[0].choice_id + ")", function(err, result) {
+                            con.query("INSERT INTO outcomes VALUE('b', 'The shell rings loudly, reverberating through the room. You feel lighter, and curiously watch the shell slide to the side.', " + choice[0].choice_id + ")", function(err, result) {
                                 if(err) {
                                     throw err;
                                 } else {
@@ -702,11 +702,11 @@ getRoomId("SEASHELL", function(room) {
                 if(err) {
                     throw err;
                 } else {
-                    con.query("INSERT INTO outcomes VALUE('a', 'You feel the shell probing your source of magik, before grabbing hold and twisting. Lose previous magik, Gain water magik.', " + choice[0].choice_id + ")", function(err, result) {
+                    con.query("INSERT INTO outcomes VALUE('a', 'You feel the shell probing your source of magik, before grabbing hold and twisting.', " + choice[0].choice_id + ")", function(err, result) {
                         if(err) {
                             throw err;
                         } else {
-                            con.query("INSERT INTO outcomes VALUE('b', 'You feel something akin to a smile from the shell, and watch as it moves to the side before spitting out a small, hand-sized seashell. Gain item: shell.', " + choice[0].choice_id + ")", function(err, result) {
+                            con.query("INSERT INTO outcomes VALUE('b', 'You feel something akin to a smile from the shell, and watch as it moves to the side before spitting out a small, hand-sized seashell.', " + choice[0].choice_id + ")", function(err, result) {
                                 if(err) {
                                     throw err;
                                 } else {
@@ -727,11 +727,11 @@ getRoomId("SEASHELL", function(room) {
                 if(err) {
                     throw err;
                 } else {
-                    con.query("INSERT INTO outcomes VALUE('a', 'The shell screams out in pain, shattering into a thousand pieces. Gain item: Secret', " + choice[0].choice_id + ")", function(err, result) {
+                    con.query("INSERT INTO outcomes VALUE('a', 'The shell screams out in pain, shattering into a thousand pieces.', " + choice[0].choice_id + ")", function(err, result) {
                         if(err) {
                             throw err;
                         } else {
-                            con.query("INSERT INTO outcomes VALUE('b', 'The shell spits a fish at you, before moving aside. Lose weapon. Gain weapon: Fish.', " + choice[0].choice_id + ")", function(err, result) {
+                            con.query("INSERT INTO outcomes VALUE('b', 'The shell spits a fish at you, before moving aside.', " + choice[0].choice_id + ")", function(err, result) {
                                 if(err) {
                                     throw err;
                                 } else {
@@ -775,11 +775,11 @@ getRoomId("CAMPFIRE", function(room) {
                 if(err) {
                     throw err;
                 } else {
-                    con.query("INSERT INTO outcomes VALUE('a', 'The fire seems to be crooning happily at you. Spitting a heatless spark at your chest, you feel… enlightened. Lose weapon. Heal 20 HP. Gain Magik: Fire.', " + choice[0].choice_id + ")", function(err, result) {
+                    con.query("INSERT INTO outcomes VALUE('a', 'The fire seems to be crooning happily at you. Spitting a heatless spark at your chest, you feel… enlightened.', " + choice[0].choice_id + ")", function(err, result) {
                         if(err){
                             throw err;
                         } else {
-                            con.query("INSERT INTO outcomes VALUE('b', 'The fire almost seems to eat your weapon, morphing the mass into something that seems to only be a handle. The fire seems stronger from the transformation, and it finishes the process by tossing the handle into your hands. Lose weapon. Gain weapon: Fire sword.', " + choice[0].choice_id + ")", function(err, result) {
+                            con.query("INSERT INTO outcomes VALUE('b', 'The fire almost seems to eat your weapon, morphing the mass into something that seems to only be a handle. The fire seems stronger from the transformation, and it finishes the process by tossing the handle into your hands.', " + choice[0].choice_id + ")", function(err, result) {
                                 if(err) {
                                     throw err;
                                 } else {
@@ -808,7 +808,7 @@ getRoomId("CAMPFIRE", function(room) {
                                 if(err) {
                                     throw err;
                                 } else {
-                                    con.query("INSERT INTO outcomes VALUE('c', 'The campfire ignites with a massive rush of heat, turning into a twirling pillar of sparks. Holding out a hand of flame, the new, greater figure drops something into your hands. Gain item: eternal flame.', " + choice[0].choice_id + ")", function(err, result) {
+                                    con.query("INSERT INTO outcomes VALUE('c', 'The campfire ignites with a massive rush of heat, turning into a twirling pillar of sparks. Holding out a hand of flame, the new, greater figure drops something into your hands.', " + choice[0].choice_id + ")", function(err, result) {
                                         if(err) {
                                             throw err;
                                         } else {
@@ -895,7 +895,7 @@ getRoomId("HELICOPTER", function(room) {
                         if(err) {
                             throw err;
                         } else {
-                            con.query("INSERT INTO outcomes VALUE('b', 'You attempt to run for it but your gear is heavy. You cannot outrun the machine. Though you manage to just barely avoid the massive rotors, they manage cut some of your glorious, heroic hair. You are now depressed and must spend a large amount of money getting your hairstyle fixed. At least you didn\\\'t lose your head! -50 gold', " + choice[0].choice_id + ")", function(err, result) {
+                            con.query("INSERT INTO outcomes VALUE('b', 'You attempt to run for it but your gear is heavy. You cannot outrun the machine. Though you manage to just barely avoid the massive rotors, they manage cut some of your glorious, heroic hair. You are now depressed and must spend a large amount of money getting your hairstyle fixed. At least you didn\\\'t lose your head!', " + choice[0].choice_id + ")", function(err, result) {
                                 if(err) {
                                     throw err;
                                 } else {
@@ -982,7 +982,7 @@ getRoomId("SALESMAN", function(room) {
                 if(err) {
                     throw err;
                 } else {
-                    con.query("INSERT INTO outcomes VALUE('a', 'You gain a warhammer and lose 30 Gold.', " + choice[0].choice_id + ")", function(err, result) {
+                    con.query("INSERT INTO outcomes VALUE('a', 'You look at your shiny new warhammer and feel a little bit sad about the gold you just gave up.', " + choice[0].choice_id + ")", function(err, result) {
                         if(err) {
                             throw err;
                         } else {
@@ -1001,7 +1001,7 @@ getRoomId("SALESMAN", function(room) {
                 if(err) {
                     throw err;
                 } else {
-                    con.query("INSERT INTO outcomes VALUE('a', 'The salesman is insulted and throws a rock at you. Lose 5 HP.', " + choice[0].choice_id + ")", function(err, result) {
+                    con.query("INSERT INTO outcomes VALUE('a', 'The salesman is insulted and throws a rock at you.', " + choice[0].choice_id + ")", function(err, result) {
                         if(err) {
                             throw err;
                         } else {
@@ -1045,11 +1045,11 @@ getRoomId("SALESMAN", function(room) {
                 if(err) {
                     throw err;
                 } else {
-                    con.query("INSERT INTO outcomes VALUE('a', 'The salesman was never too bright of a fellow, and the amount is close enough that he doesn\\\'t notice. Gain weapon: warhammer.', " + choice[0].choice_id + ")", function(err, result) {
+                    con.query("INSERT INTO outcomes VALUE('a', 'The salesman was never too bright of a fellow, and the amount is close enough that he doesn\\\'t notice.', " + choice[0].choice_id + ")", function(err, result) {
                         if(err) {
                             throw err;
                         } else {
-                            con.query("INSERT INTO outcomes VALUE('b', 'The salesman realizes the you are trying to trick him. He gets very upset and stabs you as your guard is down. Lose 10 HP.', " + choice[0].choice_id + ")", function(err, result) {
+                            con.query("INSERT INTO outcomes VALUE('b', 'The salesman realizes the you are trying to trick him. He gets very upset and stabs you as your guard is down.', " + choice[0].choice_id + ")", function(err, result) {
                                 if(err) {
                                     throw err;
                                 } else {
@@ -1074,7 +1074,7 @@ getRoomId("DRYAD", function(room) {
                 if(err) {
                     throw err;
                 } else {
-                    con.query("INSERT INTO outcomes VALUE('a', 'She smiles timidly at you after handing you an apple, then goes back to taking in what little light she can get from the hole to the surface. Gain 10 HP.', " + choice[0].choice_id + ")", function(err, result) {
+                    con.query("INSERT INTO outcomes VALUE('a', 'She smiles timidly at you after handing you an apple, then goes back to taking in what little light she can get from the hole to the surface.', " + choice[0].choice_id + ")", function(err, result) {
                         if(err) {
                             throw err;
                         } else {
@@ -1093,11 +1093,11 @@ getRoomId("DRYAD", function(room) {
                 if(err) {
                     throw err;
                 } else {
-                    con.query("INSERT INTO outcomes VALUE('a', 'The Dryad cries out in pain as you rip all of the fruit from her body. You watch as her body dries up in seconds, withering away into rot. Gain 40 HP.', " + choice[0].choice_id + ")", function(err, result) {
+                    con.query("INSERT INTO outcomes VALUE('a', 'The Dryad cries out in pain as you rip all of the fruit from her body. You watch as her body dries up in seconds, withering away into rot.', " + choice[0].choice_id + ")", function(err, result) {
                         if(err) {
                             throw err;
                         } else {
-                            con.query("INSERT INTO outcomes VALUE('b', 'In a rush of green you don’t see coming, branches and roots strike towards you, driving you out of the room. Lose 15 HP, gain weapon: stick.', " + choice[0].choice_id + ")", function(err, result) {
+                            con.query("INSERT INTO outcomes VALUE('b', 'In a rush of green you don’t see coming, branches and roots strike towards you, driving you out of the room.', " + choice[0].choice_id + ")", function(err, result) {
                                 if(err) {
                                     throw err;
                                 } else {
@@ -1118,15 +1118,15 @@ getRoomId("DRYAD", function(room) {
                 if(err) {
                     throw err;
                 } else {
-                    con.query("INSERT INTO outcomes VALUE('a', 'The Dryad gasps in wonder as power flows into her, leaves and vines and flowers bursting from her skin. With her newly granted power, she shoots an arm up into the hole in the ceiling, forcing it wider open. With a massively grateful smile, she hands you an odd seed pulsing with wild energy that had grown near her head. Gain item: Frenzy Seed.', " + choice[0].choice_id + ")", function(err, result) {
+                    con.query("INSERT INTO outcomes VALUE('a', 'The Dryad gasps in wonder as power flows into her, leaves and vines and flowers bursting from her skin. With her newly granted power, she shoots an arm up into the hole in the ceiling, forcing it wider open. With a massively grateful smile, she hands you an odd seed pulsing with wild energy that had grown near her head.', " + choice[0].choice_id + ")", function(err, result) {
                         if(err) {
                             throw err;
                         } else {
-                            con.query("INSERT INTO outcomes VALUE('b', 'Taking in your magik, the Dryad smiles gratefully at you. With a little more power than she\\\'s used to, she grows an extra banana and hands it to you alongside two oranges. Gain 30 HP.', " + choice[0].choice_id + ")", function(err, result) {
+                            con.query("INSERT INTO outcomes VALUE('b', 'Taking in your magik, the Dryad smiles gratefully at you. With a little more power than she\\\'s used to, she grows an extra banana and hands it to you alongside two oranges.', " + choice[0].choice_id + ")", function(err, result) {
                                 if(err) {
                                     throw err;
                                 } else {
-                                    con.query("INSERT INTO outcomes VALUE('c', 'Wrinkling her nose as you try to pull out your magik, the Dryad spits a seed at your face before you can do anything. The seed… it crawls into your nose. Oh gods, it\\\'s inside you! You scream in misery on the ground, feeling the twitching in your head as it rips apart your magik, replacing it. Lose magik, gain magik: nature.', " + choice[0].choice_id + ")", function(err, result) {
+                                    con.query("INSERT INTO outcomes VALUE('c', 'Wrinkling her nose as you try to pull out your magik, the Dryad spits a seed at your face before you can do anything. The seed… it crawls into your nose. Oh gods, it\\\'s inside you! You scream in misery on the ground, feeling the twitching in your head as it rips apart your magik, replacing it.', " + choice[0].choice_id + ")", function(err, result) {
                                         if(err) {
                                             throw err;
                                         } else {
@@ -1172,7 +1172,7 @@ getRoomId("FEAST", function(room) {
                 if(err) {
                     throw err;
                 } else {
-                    con.query("INSERT INTO outcomes VALUE('a', 'You eat the food and it restores 15 HP, but you become very drowsy and fall asleep. When you wake up, you realize that you have forgotten all magic that you know. You lose your magic.', " + choice[0].choice_id + ")", function(err, result) {
+                    con.query("INSERT INTO outcomes VALUE('a', 'You eat the food and it restores 15 HP, but you become very drowsy and fall asleep. When you wake up, you realize that you have forgotten all magik that you know.', " + choice[0].choice_id + ")", function(err, result) {
                         if(err) {
                             throw err;
                         } else {
@@ -1271,11 +1271,11 @@ getRoomId("CHOOSEAROOM", function(room) {
                 if(err) {
                     throw err;
                 } else {
-                    con.query("INSERT INTO outcomes VALUE('a', 'The door swings open and you see an armor rack. Gain chain mail.', " + choice[0].choice_id + ")", function(err) {
+                    con.query("INSERT INTO outcomes VALUE('a', 'The door swings open and you see an armor rack.', " + choice[0].choice_id + ")", function(err) {
                         if(err) {
                             throw err;
                         } else {
-                            con.query("INSERT INTO outcomes VALUE('b', 'A hand sticks out of the door and slaps you in the face. Lose 3 HP.', " + choice[0].choice_id + ")", function(err) {
+                            con.query("INSERT INTO outcomes VALUE('b', 'A hand sticks out of the door and slaps you in the face.', " + choice[0].choice_id + ")", function(err) {
                                 if(err) {
                                     throw err;
                                 } else {
@@ -1315,7 +1315,7 @@ getRoomId("CHOOSEAROOM", function(room) {
                 if(err) {
                     throw err;
                 } else {
-                    con.query("INSERT INTO outcomes VALUE('a', 'You discover that the hissing is coming from a smoke machine. Gain smoke machine.', " + choice[0].choice_id + ")", function(err) {
+                    con.query("INSERT INTO outcomes VALUE('a', 'You discover that the hissing is coming from a smoke machine.', " + choice[0].choice_id + ")", function(err) {
                         if(err) {
                             throw err;
                         } else {
@@ -1338,11 +1338,11 @@ getRoomId("LADDERS", function(room) {
                 if(err) {
                     throw err;
                 } else {
-                    con.query("INSERT INTO outcomes VALUE('a', 'You are too heavy and fall off the ladder. Lose 5 HP.', " + choice[0].choice_id + ")", function(err, result) {
+                    con.query("INSERT INTO outcomes VALUE('a', 'You are too heavy and fall off the ladder.', " + choice[0].choice_id + ")", function(err, result) {
                         if(err) {
                             throw err;
                         } else {
-                            con.query("INSERT INTO outcomes VALUE('b', 'You climb to the top of the ladder and find strange, unrecognizable item on a pedestal. When you touch it, you feel something inside you start to swirl. Gain Magik: Air.', " + choice[0].choice_id + ")", function(err, result) {
+                            con.query("INSERT INTO outcomes VALUE('b', 'You climb to the top of the ladder and find strange, unrecognizable item on a pedestal. When you touch it, you feel something inside you start to swirl.', " + choice[0].choice_id + ")", function(err, result) {
                                 if(err) {
                                     throw err;
                                 } else {
@@ -1363,11 +1363,11 @@ getRoomId("LADDERS", function(room) {
                 if(err) {
                     throw err;
                 } else {
-                    con.query("INSERT INTO outcomes VALUE('a', 'You are too heavy and fall off the ladder. Lose 5 HP.', " + choice[0].choice_id + ")", function(err, result) {
+                    con.query("INSERT INTO outcomes VALUE('a', 'You are too heavy and fall off the ladder.', " + choice[0].choice_id + ")", function(err, result) {
                         if(err) {
                             throw err;
                         } else {
-                            con.query("INSERT INTO outcomes VALUE('b', 'You climb to the top of the ladder and find a strange, unrecognizable item on a pedestal. When you touch it, you feel something inside you start to shine. Gain Magik: Light.', " + choice[0].choice_id + ")", function(err, result) {
+                            con.query("INSERT INTO outcomes VALUE('b', 'You climb to the top of the ladder and find a strange, unrecognizable item on a pedestal. When you touch it, you feel something inside you start to shine.', " + choice[0].choice_id + ")", function(err, result) {
                                 if(err) {
                                     throw err;
                                 } else {
@@ -1407,15 +1407,15 @@ getRoomId("LADDERS", function(room) {
                 if(err) {
                     throw err;
                 } else {
-                    con.query("INSERT INTO outcomes VALUE('a', 'You fly up to the first ladder and feel yourself pass through some kind of barrier. With newfound understanding of Air, you easily notice an item floating above a pedestal. Gain item: Fluffy Cloud.', " + choice[0].choice_id + ")", function(err, result) {
+                    con.query("INSERT INTO outcomes VALUE('a', 'You fly up to the first ladder and feel yourself pass through some kind of barrier. With newfound understanding of Air, you easily notice an item floating above a pedestal.', " + choice[0].choice_id + ")", function(err, result) {
                         if(err) {
                             throw err;
                         } else {
-                            con.query("INSERT INTO outcomes VALUE('b', 'Activating your light magik caused a reaction on the platform above the second ladder, and within seconds you\\\'re dragged up it through some kind of invisible barrier. On a pedestal in the center of the platform, your newfound understanding of light shows you what lies upon it. Gain item: Pure Orb.', " + choice[0].choice_id + ")", function(err, result) {
+                            con.query("INSERT INTO outcomes VALUE('b', 'Activating your light magik caused a reaction on the platform above the second ladder, and within seconds you\\\'re dragged up it through some kind of invisible barrier. On a pedestal in the center of the platform, your newfound understanding of light shows you what lies upon it.', " + choice[0].choice_id + ")", function(err, result) {
                                 if(err) {
                                     throw err;
                                 } else {
-                                    con.query("INSERT INTO outcomes VALUE('c', 'You realize that your magik is kinda worthless at getting to high places. Feeling just as much of a moron as you, your magik leaves your body. Lose your magik.', " + choice[0].choice_id + ")", function(err, result) {
+                                    con.query("INSERT INTO outcomes VALUE('c', 'You realize that your magik is kinda worthless at getting to high places. Feeling just as much of a moron as you, your magik leaves your body.', " + choice[0].choice_id + ")", function(err, result) {
                                         if(err) {
                                             throw err;
                                         } else {
