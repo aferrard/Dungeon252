@@ -82,6 +82,7 @@ function getWeapon(name, cb) {
 exports.getMagik = getMagik;
 
 function getMagik(name, cb) {
+    //console.log("name: "+name);
     con.query("SELECT effect, goodagainst FROM magiks WHERE name = '" + name + "'", function (err, result) {
         if (err) {
             cb(err);
