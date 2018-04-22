@@ -533,7 +533,7 @@ getRoomId("POTIONS", function(room) {
 });
 
 //choices and outcomes for DARKWIZARD
-getRoomId("DARK WIZARD", function(room) {
+getRoomId("DARKWIZARD", function(room) {
     con.query("INSERT INTO choices VALUE(NULL, 'You try to bribe him. You offer him ~ golds pieces.', " + room + ")", function(err, result) {
         if(err) {
             throw err;
@@ -775,7 +775,7 @@ getRoomId("CAMPFIRE", function(room) {
                 if(err) {
                     throw err;
                 } else {
-                    con.query("INSERT INTO outcomes VALUE('a', 'The fire seems to be crooning happily at you. Spitting a heatless spark at your chest, you feel… enlightened. Lose weapon. Heal to Full HP. Gain Magik: Fire.', " + choice[0].choice_id + ")", function(err, result) {
+                    con.query("INSERT INTO outcomes VALUE('a', 'The fire seems to be crooning happily at you. Spitting a heatless spark at your chest, you feel… enlightened. Lose weapon. Heal 20 HP. Gain Magik: Fire.', " + choice[0].choice_id + ")", function(err, result) {
                         if(err){
                             throw err;
                         } else {
@@ -837,7 +837,7 @@ getRoomId("CAMPFIRE", function(room) {
                 if(err) {
                     throw err;
                 } else {
-                    con.query("INSERT INTO outcomes VALUE('a', 'You share warmth with the campfire until it goes out a few minutes later. You are grateful for its sacrifice. Heal 50% of lost HP.', " + choice[0].choice_id + ")", function(err, result) {
+                    con.query("INSERT INTO outcomes VALUE('a', 'You share warmth with the campfire until it goes out a few minutes later. You are grateful for its sacrifice. Heal 50 HP.', " + choice[0].choice_id + ")", function(err, result) {
                         if(err){
                             throw err;
                         } else {
@@ -1064,6 +1064,104 @@ getRoomId("SALESMAN", function(room) {
     });
 });
 
+//choices and outcomes for DRYAD
+getRoomId("DRYAD", function(room) {
+    con.query("INSERT INTO choices VALUE(NULL, 'Take one of the fruit.', " + room + ")", function(err, result) {
+        if(err) {
+            throw err;
+        } else {
+            con.query("SELECT choice_id FROM choices WHERE choice = 'Take one of the fruit.'", function(err, choice) {
+                if(err) {
+                    throw err;
+                } else {
+                    con.query("INSERT INTO outcomes VALUE('a', 'She smiles timidly at you after handing you an apple, then goes back to taking in what little light she can get from the hole to the surface. Gain 10 HP.', " + choice[0].choice_id + ")", function(err, result) {
+                        if(err) {
+                            throw err;
+                        } else {
+                            console.log("dryad choice 1");
+                        }
+                    });
+                }
+            });
+        }
+    });
+    con.query("INSERT INTO choices VALUE(NULL, 'Take all of the Dryad\\\'s fruit (14 HP)', " + room + ")", function(err, result) {
+        if(err) {
+            throw err;
+        } else {
+            con.query("SELECT choice_id FROM choices WHERE choice = 'Take all of the Dryad\\\'s fruit (14 HP)'", function(err, choice) {
+                if(err) {
+                    throw err;
+                } else {
+                    con.query("INSERT INTO outcomes VALUE('a', 'The Dryad cries out in pain as you rip all of the fruit from her body. You watch as her body dries up in seconds, withering away into rot. Gain 40 HP.', " + choice[0].choice_id + ")", function(err, result) {
+                        if(err) {
+                            throw err;
+                        } else {
+                            con.query("INSERT INTO outcomes VALUE('b', 'In a rush of green you don’t see coming, branches and roots strike towards you, driving you out of the room. Lose 15 HP, gain weapon: stick.', " + choice[0].choice_id + ")", function(err, result) {
+                                if(err) {
+                                    throw err;
+                                } else {
+                                    console.log("dryad choice 2");
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    });
+    con.query("INSERT INTO choices VALUE(NULL, 'Use magik on the Dryad.', " + room + ")", function(err, result) {
+        if(err) {
+            throw err;
+        } else {
+            con.query("SELECT choice_id FROM choices WHERE choice = 'Use magik on the Dryad.'", function(err, choice) {
+                if(err) {
+                    throw err;
+                } else {
+                    con.query("INSERT INTO outcomes VALUE('a', 'The Dryad gasps in wonder as power flows into her, leaves and vines and flowers bursting from her skin. With her newly granted power, she shoots an arm up into the hole in the ceiling, forcing it wider open. With a massively grateful smile, she hands you an odd seed pulsing with wild energy that had grown near her head. Gain item: Frenzy Seed.', " + choice[0].choice_id + ")", function(err, result) {
+                        if(err) {
+                            throw err;
+                        } else {
+                            con.query("INSERT INTO outcomes VALUE('b', 'Taking in your magik, the Dryad smiles gratefully at you. With a little more power than she\\\'s used to, she grows an extra banana and hands it to you alongside two oranges. Gain 30 HP.', " + choice[0].choice_id + ")", function(err, result) {
+                                if(err) {
+                                    throw err;
+                                } else {
+                                    con.query("INSERT INTO outcomes VALUE('c', 'Wrinkling her nose as you try to pull out your magik, the Dryad spits a seed at your face before you can do anything. The seed… it crawls into your nose. Oh gods, it\\\'s inside you! You scream in misery on the ground, feeling the twitching in your head as it rips apart your magik, replacing it. Lose magik, gain magik: nature.', " + choice[0].choice_id + ")", function(err, result) {
+                                        if(err) {
+                                            throw err;
+                                        } else {
+                                            console.log("dryad choice 3");
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    });
+    con.query("INSERT INTO choices VALUE(NULL, 'Decline the Dryad’s offer.', " + room + ")", function(err, result) {
+        if(err) {
+            throw err;
+        } else {
+            con.query("SELECT choice_id FROM choices WHERE choice = 'Decline the Dryad’s offer.'", function(err, choice) {
+                if(err) {
+                    throw err;
+                } else {
+                    con.query("INSERT INTO outcomes VALUE('a', 'The Dryad pouts at your response, but lets you go without trouble.', " + choice[0].choice_id + ")", function(err, result) {
+                        if(err) {
+                            throw err;
+                        } else {
+                            console.log("dryad choice 4");
+                        }
+                    });
+                }
+            });
+        }
+    });
+});
+
 //choices and outcomes for FEAST
 getRoomId("FEAST", function(room) {
     con.query("INSERT INTO choices VALUE(NULL, 'Eat as much food as you can.', " + room + ")", function(err, result) {
@@ -1112,7 +1210,7 @@ getRoomId("FEAST", function(room) {
                 if(err) {
                     throw err;
                 } else {
-                    con.query("INSERT INTO outcomes VALUE('a', 'Gain a sandwich which can be eaten at any time, which heals 10 HP', " + choice[0].choice_id + ")", function(err, result) {
+                    con.query("INSERT INTO outcomes VALUE('a', 'You decide you\\\'re not that hungry, so you only pick up sandwich and head out the door. Heal 7 HP', " + choice[0].choice_id + ")", function(err, result) {
                         if(err) {
                             throw err;
                         } else {
@@ -1231,7 +1329,7 @@ getRoomId("CHOOSEAROOM", function(room) {
 });
 
 //choices and outcomes for LADDER
-getRoomId("LADDER", function(room) {
+getRoomId("LADDERS", function(room) {
     con.query("INSERT INTO choices VALUE(NULL, 'Climb the first ladder.', " + room + ")", function(err, result){
         if(err) {
             throw err;
