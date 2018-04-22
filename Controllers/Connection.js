@@ -15,10 +15,9 @@ con.connect(function (err) {
 });
 
 exports.addWinner = addWinner;
-
 function addWinner(username, health, money, weapon, item, magik, cb) {
     //need weapon, item, magik ID number
-    con.query("INERT INTO users VALUE( NULL, '" + username + "', " + health + ", " + money + ", " + weapon + ", " + item + ", " + magik, function (err, result) {
+    con.query("INERT INTO users VALUE( NULL, '" + username + "', " + health + ", " + money + ", 1,  " + weapon + ", " + item + ", " + magik, function (err, result) {
         if (err) {
             cb(err);
         } else {
@@ -27,8 +26,31 @@ function addWinner(username, health, money, weapon, item, magik, cb) {
     });
 }
 
-exports.getRoom = getRoom;
+exports.getWinners = getWinners;
+function getWinners(cb) {
+    con.query("SELECT * FROM users WHERE winner = 1", function(err, winners) {
+        if(err) {
+            throw err;
+        } else {
+            var z = JSON.parse(JSON.stringify(winners));
+            cb(z);
+        }
+    });
+}
 
+exports.addLoser = addLoser;
+function addLoser (username, health, money, weapon, item, magik, cb) {
+    //need weapon, item, magik ID number
+    con.query("INERT INTO users VALUE( NULL, '" + username + "', " + health + ", " + money + ", 0,  " + weapon + ", " + item + ", " + magik, function (err, result) {
+        if (err) {
+            cb(err);
+        } else {
+            cb("Yet another has fallen");
+        }
+    });
+}
+
+exports.getRoom = getRoom;
 function getRoom(title, cb) {
     con.query("SELECT * FROM rooms WHERE title = '" + title + "'", function (err, room) {
         if (err) {
@@ -41,7 +63,6 @@ function getRoom(title, cb) {
 }
 
 exports.getChoices = getChoices;
-
 function getChoices(roomid, cb) {
     con.query("SELECT * FROM choices WHERE rooms_room_id = " + roomid, function (err, choices) {
         if (err) {
@@ -67,7 +88,6 @@ function getOutcome(choiceid, path, cb) {
 }
 
 exports.getWeapon = getWeapon;
-
 function getWeapon(name, cb) {
     con.query("SELECT strength, attribute, weight FROM weapons WHERE name = '" + name + "'", function (err, result) {
         if (err) {
@@ -80,7 +100,6 @@ function getWeapon(name, cb) {
 }
 
 exports.getMagik = getMagik;
-
 function getMagik(name, cb) {
     //console.log("name: "+name);
     con.query("SELECT effect, goodagainst FROM magiks WHERE name = '" + name + "'", function (err, result) {
@@ -94,13 +113,24 @@ function getMagik(name, cb) {
 }
 
 exports.getItem = getItem;
-
 function getItem(name, cb) {
     con.query("SELECT attribute, weight FROM items WHERE name = '" + name + "'", function (err, result) {
         if (err) {
             throw err;
         } else {
             var z = JSON.parse(JSON.stringify(result[0]));
+            cb(z);
+        }
+    });
+}
+
+exports.getUsers = getUsers;
+function getUsers(cb) {
+    con.query("SELECT * FROM users", function(err, users) {
+        if(err) {
+            cb(err);
+        } else {
+            var z = JSON.parse(JSON.stringify(users));
             cb(z);
         }
     });
