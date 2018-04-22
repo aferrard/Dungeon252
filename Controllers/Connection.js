@@ -61,3 +61,35 @@ function getOutcome(choiceid, path, cb) {
         }
     });
 }
+
+exports.getWeaponStr = getWeaponStr;
+function getWeaponStr(name, cb) {
+    if(name == null || name == "") {
+        cb(0);
+    } else {
+        con.query("SELECT strength FROM weapons WHERE name = '" + name + "'", function (err, result) {
+            if (err) {
+                cb(err);
+            } else {
+                var z = JSON.parse(JSON.stringify(result[0].strength));
+                cb(z);
+            }
+        });
+    }
+}
+
+exports.getMagicStr = getMagicStr;
+function getMagicStr(name, cb) {
+    if(name == null || name == "") {
+        cb(0);
+    } else {
+        con.query("SELECT effect FROM magiks WHERE name = '" + name + "'", function(err, result) {
+            if(err) {
+                cb(err);
+            } else {
+                var z = JSON.parse(JSON.stringify(result[0].effect));
+                cb(z);
+            }
+        });
+    }
+}
