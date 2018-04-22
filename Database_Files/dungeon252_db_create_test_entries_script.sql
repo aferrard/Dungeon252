@@ -12,14 +12,14 @@ INSERT INTO weapons VALUE(NULL, "Basic staff", "Long,Wood",1,7);
 INSERT INTO weapons VALUE(NULL, "Fire sword", "Metal",1,12);
 #create magiks
 #INSERT INTO magiks VALUE(NULL, "name", "attribute", "goodagainst");
-INSERT INTO magiks VALUE(NULL, "Familiar", "+7 Strength", "Dark,Light");
-INSERT INTO magiks VALUE(NULL, "Fire", "+8 Strength", "Nature,Water,Dark");
-INSERT INTO magiks VALUE(NULL, "Water", "+9 Strength", "Air,Fire");
-INSERT INTO magiks VALUE(NULL, "Nature", "+8 Strength", "Air,Water,Light");
-INSERT INTO magiks VALUE(NULL, "Air", "+9 Strength", "Nature,Fire");
-INSERT INTO magiks VALUE(NULL, "Light", "+10 Strength", "Dark");
-INSERT INTO magiks VALUE(NULL, "Dark", "+10 Strength", "Light");
-INSERT INTO magiks VALUE(NULL, "Explosion", "+15 Strength", "None");
+INSERT INTO magiks VALUE(NULL, "Familiar", 7, "Dark,Light");
+INSERT INTO magiks VALUE(NULL, "Fire", 8, "Nature,Water,Dark");
+INSERT INTO magiks VALUE(NULL, "Water", 9, "Air,Fire");
+INSERT INTO magiks VALUE(NULL, "Nature", 8, "Air,Water,Light");
+INSERT INTO magiks VALUE(NULL, "Air", 9, "Nature,Fire");
+INSERT INTO magiks VALUE(NULL, "Light", 10, "Dark");
+INSERT INTO magiks VALUE(NULL, "Dark", 10, "Light");
+INSERT INTO magiks VALUE(NULL, "Explosion", 15, "None");
 #create items
 #INSERT INTO items VALUE(NULL, "name", "attribute", weight);
 INSERT INTO items VALUE(NULL, "Chain mail", "Take 2/3 damage (rounded up)", 2);
@@ -27,13 +27,13 @@ INSERT INTO items VALUE(NULL, "Sandwhich", "Food (heal 10 hp)", 0);
 INSERT INTO items VALUE(NULL, "Smoke machine", "always able to run", 3);
 INSERT INTO items VALUE(NULL, "Stress ball", "Healing (+2 hp per room)", 1);
 INSERT INTO items VALUE(NULL, "Dog tooth", "+3 Strength", 1);
-INSERT INTO items VALUE(NULL, "Shell", "", 2);
-INSERT INTO items VALUE(NULL, "Grief Orb", "", 2);
-INSERT INTO items VALUE(NULL, "Eternal Flame", "", 2);
-INSERT INTO items VALUE(NULL, "Atomic Bomb", "", 3);
-INSERT INTO items VALUE(NULL, "Frenzy Seed", "", 2);
-INSERT INTO items VALUE(NULL, "Fluffy Cloud", "", 2);
-INSERT INTO items VALUE(NULL, "Pure Orb", "", 2);
+INSERT INTO items VALUE(NULL, "Shell", "room10", 2);
+INSERT INTO items VALUE(NULL, "Grief Orb", "room10", 2);
+INSERT INTO items VALUE(NULL, "Eternal Flame", "room10", 2);
+INSERT INTO items VALUE(NULL, "Atomic Bomb", "room10", 3);
+INSERT INTO items VALUE(NULL, "Frenzy Seed", "room10", 2);
+INSERT INTO items VALUE(NULL, "Fluffy Cloud", "room10", 2);
+INSERT INTO items VALUE(NULL, "Pure Orb", "room10", 2);
 
 #create rooms
 #INSERT INTO rooms VALUE(NULL, "image", "event");
