@@ -10,6 +10,7 @@ INSERT INTO weapons VALUE(NULL, "??? Staff", "Long,Wood", 2, 7);
 INSERT INTO weapons VALUE(NULL, "Fish", "Slippery,Food", 1, 1);
 INSERT INTO weapons VALUE(NULL, "Basic staff", "Long,Wood",1,7);
 INSERT INTO weapons VALUE(NULL, "Fire sword", "Metal",1,12);
+INSERT INTO weapons VALUE(NULl, "Rotor blade", "Metal,Long,Sharp", 3, 20);
 #create magiks
 #INSERT INTO magiks VALUE(NULL, "name", "attribute", "goodagainst");
 INSERT INTO magiks VALUE(NULL, "Familiar", 7, "Dark,Light");
