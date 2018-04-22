@@ -44,7 +44,7 @@ app.get('/leaderboard', function (req, res) {
 app.get('/champ', function (req, res) {
     res.render('pages/champ');
 });
-var roomsMaster = ["GNOME", "DOG", "HOLE", "CHEST", "POTIONS", "DARKWIZARD", "SEASHELL", "CAMPFIRE", "HELICOPTER", "SALESMAN", "FEAST", "CHOOSEAROOM", "LADDERS"];
+var roomsMaster = ["GNOME", "DOG", "HOLE", "CHEST", "POTIONS", "DARKWIZARD", "SEASHELL", "CAMPFIRE", "HELICOPTER", "SALESMAN", "FEAST", "CHOOSEAROOM", "LADDERS", "DRYAD"];
 
 app.get('/start', function (req, res) {
     res.cookie('hero', req.query.hero, {maxAge: 9000000});
