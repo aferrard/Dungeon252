@@ -129,7 +129,14 @@ function getStrength(cookie, cb){
     if(cookie.item == "Dog tooth"){
         strength += 3;
     }
-
+    Connection.getWeaponStr(function(str){
+        Connection.getMagikStr(function(mStr){
+            strength += str;
+            strength += mStr;
+        });
+    });
+    strength += parseInt(cookie.health/10);
+    cb(strength);
 }
 app.get('/outcome', function (req, res) {
     console.log(req.query);
