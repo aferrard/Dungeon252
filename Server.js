@@ -250,7 +250,7 @@ app.get('/outcome', function (req, res) {
                             if (req.cookies.item == "Chain mail") {
                                 effects = "Lose your weapon. Gain item: Dog tooth. Lose 5 HP.";
                                 res.cookie('health', parseInt(req.cookies.health) - 5, {maxAge: 9000000});
-                            }else{
+                            } else {
                                 effects = "Lose your weapon. Gain item: Dog tooth. Lose 7 HP.";
                                 res.cookie('health', parseInt(req.cookies.health) - 7, {maxAge: 9000000});
                             }
@@ -266,7 +266,7 @@ app.get('/outcome', function (req, res) {
                             if (req.cookies.item == "Chain mail") {
                                 effects = "Gain item: Dog tooth. Lose 5 HP.";
                                 res.cookie('health', parseInt(req.cookies.health) - 5, {maxAge: 9000000});
-                            }else{
+                            } else {
                                 effects = "Gain item: Dog tooth. Lose 7 HP.";
                                 res.cookie('health', parseInt(req.cookies.health) - 7, {maxAge: 9000000});
                             }
@@ -275,16 +275,16 @@ app.get('/outcome', function (req, res) {
                 } else if (req.query.c != undefined) {
                     if (req.cookies.item == "Smoke machine") {
                         option = "a";
-                    }else if (weight > 2) {
+                    } else if (weight > 2) {
                         option = "b";
                         if (req.cookies.item == "Chain mail") {
                             effects = "Lose 3 HP.";
                             res.cookie('health', parseInt(req.cookies.health) - 3, {maxAge: 9000000});
-                        }else{
+                        } else {
                             effects = "Lose 4 HP.";
                             res.cookie('health', parseInt(req.cookies.health) - 4, {maxAge: 9000000});
                         }
-                    }else {
+                    } else {
                         option = "c";
                     }
                 } else if (req.query.d != undefined) {
@@ -488,18 +488,20 @@ app.get('/outcome', function (req, res) {
 
         });
     });
-    Connection.getOutcome(req.query.choice_id, option, function (outcome) {
-        res.render('pages/outcome', {
-            hero: req.cookies.hero,
-            health: req.cookies.health,
-            gold: req.cookies.gold,
-            weapon: req.cookies.weapon,
-            item: req.cookies.item,
-            magik: req.cookies.magik,
-            roomCounter: roomCounter,
-            curRoom: req.cookies.curRoom,
-            outcome: outcome,
-            image: "images/final/corridor.jpg"
+    Connection.getRoom(req.cookies.curRoom, function (roomInfo) {
+        Connection.getOutcome(req.query.choice_id, option, function (outcome) {
+            res.render('pages/outcome', {
+                hero: req.cookies.hero,
+                health: req.cookies.health,
+                gold: req.cookies.gold,
+                weapon: req.cookies.weapon,
+                item: req.cookies.item,
+                magik: req.cookies.magik,
+                roomCounter: roomCounter,
+                curRoom: req.cookies.curRoom,
+                outcome: outcome,
+                image: roomInfo.image,
+            });
         });
     });
 });
