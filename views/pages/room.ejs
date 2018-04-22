@@ -51,6 +51,9 @@
             <%if(room == "GNOME"){%>
             <input id="solution" type="text" name="solution" placeholder="Enter your answer" required>
             <%}%>
+            <%if(room == "DARKWIZARD"){%>
+            <input id="bribe" type="text" name="bribe" placeholder="Input your bribe" required>
+            <%}%>
         </form><br>
         <form align="left" class="form-horizontal" action="/outcome">
             <input hidden id="choice_id" name="choice_id" value="<%=choices[1].choice_id %>">
