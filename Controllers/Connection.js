@@ -7,7 +7,7 @@ var con = mysql.createConnection({
     database: "dungeon252_data"
 });
 
-con.connect(function(err) {
+con.connect(function (err) {
     if (err) throw err;
     else {
         console.log("Connected!");
@@ -15,10 +15,11 @@ con.connect(function(err) {
 });
 
 exports.addWinner = addWinner;
+
 function addWinner(username, health, money, weapon, item, magik, cb) {
     //need weapon, item, magik ID number
-    con.query("INERT INTO users VALUE( NULL, '" + username + "', " + health + ", " + money + ", " + weapon + ", " + item + ", " + magik, function(err, result) {
-        if(err) {
+    con.query("INERT INTO users VALUE( NULL, '" + username + "', " + health + ", " + money + ", " + weapon + ", " + item + ", " + magik, function (err, result) {
+        if (err) {
             cb(err);
         } else {
             cb("A new Hero has joined the roster!");
@@ -27,9 +28,10 @@ function addWinner(username, health, money, weapon, item, magik, cb) {
 }
 
 exports.getRoom = getRoom;
+
 function getRoom(title, cb) {
-    con.query("SELECT * FROM rooms WHERE title = '" + title + "'", function(err, room) {
-        if(err) {
+    con.query("SELECT * FROM rooms WHERE title = '" + title + "'", function (err, room) {
+        if (err) {
             cb(err);
         } else {
             var z = JSON.parse(JSON.stringify(room[0]));
@@ -39,9 +41,10 @@ function getRoom(title, cb) {
 }
 
 exports.getChoices = getChoices;
+
 function getChoices(roomid, cb) {
-    con.query("SELECT * FROM choices WHERE rooms_room_id = " + roomid, function(err, choices) {
-        if(err) {
+    con.query("SELECT * FROM choices WHERE rooms_room_id = " + roomid, function (err, choices) {
+        if (err) {
             cb(err);
         } else {
             var z = JSON.parse(JSON.stringify(choices));
@@ -51,9 +54,10 @@ function getChoices(roomid, cb) {
 }
 
 exports.getOutcome = getOutcome;
+
 function getOutcome(choiceid, path, cb) {
-    con.query("SELECT outcome FROM outcomes WHERE choices_choice_id = " + choiceid + " AND outcome_path = '" + path + "'", function(err, outcome) {
-        if(err) {
+    con.query("SELECT outcome FROM outcomes WHERE choices_choice_id = " + choiceid + " AND outcome_path = '" + path + "'", function (err, outcome) {
+        if (err) {
             cb(err);
         } else {
             var z = JSON.parse(JSON.stringify(outcome[0].outcome));
@@ -63,25 +67,40 @@ function getOutcome(choiceid, path, cb) {
 }
 
 exports.getWeapon = getWeapon;
+
 function getWeapon(name, cb) {
-        con.query("SELECT strength, attribute, weight FROM weapons WHERE name = '" + name + "'", function (err, result) {
-            if (err) {
-                cb(err);
-            } else {
-                var z = JSON.parse(JSON.stringify(result[0]));
-                cb(z);
-            }
-        });
+    con.query("SELECT strength, attribute, weight FROM weapons WHERE name = '" + name + "'", function (err, result) {
+        if (err) {
+            cb(err);
+        } else {
+            var z = JSON.parse(JSON.stringify(result[0]));
+            cb(z);
+        }
+    });
 }
 
 exports.getMagik = getMagik;
+
 function getMagik(name, cb) {
-        con.query("SELECT effect, goodagainst FROM magiks WHERE name = '" + name + "'", function(err, result) {
-            if(err) {
-                cb(err);
-            } else {
-                var z = JSON.parse(JSON.stringify(result[0]));
-                cb(z);
-            }
-        });
+    con.query("SELECT effect, goodagainst FROM magiks WHERE name = '" + name + "'", function (err, result) {
+        if (err) {
+            cb(err);
+        } else {
+            var z = JSON.parse(JSON.stringify(result[0]));
+            cb(z);
+        }
+    });
+}
+
+exports.getItem = getItem;
+
+function getItem(name, cb) {
+    con.query("SELECT attribute, weight FROM items WHERE name = '" + name + "'", function (err, result) {
+        if (err) {
+            throw err;
+        } else {
+            var z = JSON.parse(JSON.stringify(result[0]));
+            cb(z);
+        }
+    });
 }
