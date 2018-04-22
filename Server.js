@@ -130,19 +130,34 @@ function getStrength(cookie, cb){
     if(cookie.item == "Dog tooth"){
         strength += 3;
     }
-    Connection.getWeaponStr(function(str){
-        Connection.getMagikStr(function(mStr){
-            strength += str;
-            strength += mStr;
-        });
+    Connection.getWeapon(cookie.weapon, function(str){
+        strength += wep.strength;
+        if(cookie.magik != null && cookie.magik != ""){
+            Connection.getMagik(cookie.magik, function(mag){
+                strength += mag.effect;
+            });
+        }
     });
     strength += parseInt(cookie.health/10);
     cb(strength);
+}
+function getWeight(cookie, cb){
+    var weight = 0;
+    Connection.getWeapon(cookie.weapon, function(wep){
+        weight += wep.weight;
+        if(cookie.item != null && cookie.item != ""){
+            Connection.getItem(cookie.item, function(item){
+                weight += item.weight;
+            })
+        }
+    })
+
 }
 app.get('/outcome', function (req, res) {
     console.log(req.query);
     var roomCounter = req.cookies.roomCounter;
     var option = "a";
+<<<<<<< HEAD
 
     if(req.cookies.curRoom == "GNOME"){
         if(req.query.a != undefined){
@@ -196,119 +211,250 @@ app.get('/outcome', function (req, res) {
         }else if(req.query.c != undefined){
 
         }else if(req.query.d != undefined){
+=======
+    getStrength(req.cookies, function(str) {
+        getWeight(req.cookies, function (weight) {
+            if(req.cookies.curRoom == "GNOME"){
+                if(req.query.a != undefined){
+                    if(req.query.solution == "Mountain" || "mountain" || "Mountains" || "mountains"){
+                        option = "a";
+                        res.cookie('gold', req.cookies.gold+15, {maxAge: 9000000});
+                    }else{
+                        option = "b";
+                        res.cookie('health', req.cookies.health-2, {maxAge: 9000000});
+                    }
+                }else if(req.query.b != undefined){
+                    option = "a";
+                }else if(req.query.c != undefined){
+                    if(str >= 10){
+                        option = "a";
+                        res.cookie('gold', req.cookies.gold+55, {maxAge: 9000000});
+                        res.cookie('health', req.cookies.health-2, {maxAge: 9000000});
+                    }else{
+                        option = "b";
+                        res.cookie('health', req.cookies.health-15, {maxAge: 9000000});
+                    }
+                }else if(req.query.d != undefined){
+                    if(req.cookies.item == "Smoke machine"){
+                        option = "a";
+                    }else{
+                        option = "b";
+                    }
+                }
+            }else if(req.cookies.curRoom == "DOG") {
+                if(req.query.a != undefined){
+                    Connection.getWeapon(req.cookies.weapon, function(wep){
+                        if(wep.attribute.includes("wood")){
+                            option = "a";
+                            res.cookie('weapon', "Fists", {maxAge: 9000000});
+                            res.cookie('magik', "Familiar", {maxAge: 9000000});
+                        }else if(wep.attribute.includes("food")){
+                            option = "b";
+                            res.cookie('weapon', "Fists", {maxAge: 9000000});
+                            res.cookie('magik', "Familiar", {maxAge: 9000000});
+                        }else{
+                            option = "c";
+                            res.cookie('weapon', "Fists", {maxAge: 9000000});
+                            res.cookie('item', "Dog tooth", {maxAge: 9000000});
+                            res.cookie('health', req.cookies.health-7, {maxAge: 9000000});
+                        }
+                    });
+                }else if(req.query.b != undefined){
+                    getStrength(req.cookies, function(str){
+                        if(str >= 8){
+                            option = "a";
+                        }else{
+                            option = "b";
+                            res.cookie('item', "Dog tooth", {maxAge: 9000000});
+                            res.cookie('health', req.cookies.health-7, {maxAge: 9000000});
+                        }
+                    })
+                }else if(req.query.c != undefined){
+                    if(req.cookies.item == "Smoke machine"){
+                        option = "a";
+                    }
+                    if(weight > 2){
+                        option = "b";
+                        res.cookie('health', req.cookies.health-4, {maxAge: 9000000});
+                    }else{
+                        option = "c";
+                    }
+                }else if(req.query.d != undefined){
+                    option = "a";
+                    res.cookie('item', "", {maxAge: 9000000});
+                    res.cookie('magik', "Familiar", {maxAge: 9000000});
+                }
+            }else if(req.cookies.curRoom == "HOLE") {
+                if(req.query.a != undefined){
+                    if(weight > 3){
+                        option = "a";
+                        res.cookie('health', req.cookies.health-15, {maxAge: 9000000});
+                        res.cookie('gold', req.cookies.gold+10, {maxAge: 9000000});
+                    }else{
+                        option = "b";
+                        res.cookie('health', req.cookies.health+2, {maxAge: 9000000});
+                    }
+                }else if(req.query.b != undefined){
+                    if(weight > 2){
+                        option = "a";
+                        res.cookie('health', req.cookies.health-15, {maxAge: 9000000});
+                        res.cookie('gold', req.cookies.gold+10, {maxAge: 9000000});
+                    }else{
+                        option = "b";
+                        res.cookie('health', req.cookies.health+2, {maxAge: 9000000});
+                    }
+                }else if(req.query.c != undefined){
+                    Connection.getWeapon(req.cookies.weapon, function(wep) {
+                        if (wep.attribute.includes("long")) {
+                            option = "a";
+                        }else{
+                            option = "b";
+                        }
+                    });
+                }else if(req.query.d != undefined){
+                    if(req.cookies.magik == "Earth"){
+                        option = "a";
+                        res.cookie('health', req.cookies.health+2, {maxAge: 9000000});
+                    }else if(req.cookies.magik == "Fire" || req.cookies.magik == "Air"){
+                        option = "b";
+                        res.cookie('health', req.cookies.health+2, {maxAge: 9000000});
+                    }else if(req.cookies.magik == "Explosion"){
+                        option = "c";
+                        res.cookie('health', req.cookies.health-2, {maxAge: 9000000});
+                    }else if(req.cookies.magik == "Familiar"){
+                        option = "d";
+                        res.cookie('magik', "", {maxAge: 9000000});
+                    }else{
+                        option = "e";
+                        res.cookie('health', req.cookies.health-15, {maxAge: 9000000});
+                        res.cookie('gold', req.cookies.gold+10, {maxAge: 9000000});
+                    }
+                }
+            }else if(req.cookies.curRoom == "CHEST") {
+                if(req.query.a != undefined){
 
-        }
-    }else if(req.cookies.curRoom == "POTIONS") {
-        if(req.query.a != undefined){
+                }else if(req.query.b != undefined){
 
-        }else if(req.query.b != undefined){
+                }else if(req.query.c != undefined){
 
-        }else if(req.query.c != undefined){
+                }else if(req.query.d != undefined){
 
-        }else if(req.query.d != undefined){
+                }
+            }else if(req.cookies.curRoom == "POTIONS") {
+                if(req.query.a != undefined){
 
-        }
-    }else if(req.cookies.curRoom == "DARKWIZARD") {
-        if(req.query.a != undefined){
+                }else if(req.query.b != undefined){
 
-        }else if(req.query.b != undefined){
+                }else if(req.query.c != undefined){
 
-        }else if(req.query.c != undefined){
+                }else if(req.query.d != undefined){
 
-        }else if(req.query.d != undefined){
+                }
+            }else if(req.cookies.curRoom == "DARKWIZARD") {
+                if(req.query.a != undefined){
 
-        }
-    }else if(req.cookies.curRoom == "SEASHELL") {
-        if(req.query.a != undefined){
+                }else if(req.query.b != undefined){
 
-        }else if(req.query.b != undefined){
+                }else if(req.query.c != undefined){
+>>>>>>> a2083a92b82c5d441876e9937f4870567110aa73
 
-        }else if(req.query.c != undefined){
+                }else if(req.query.d != undefined){
 
-        }else if(req.query.d != undefined){
+                }
+            }else if(req.cookies.curRoom == "SEASHELL") {
+                if(req.query.a != undefined){
 
-        }
-    }else if(req.cookies.curRoom == "CAMPFIRE") {
-        if(req.query.a != undefined){
+                }else if(req.query.b != undefined){
 
-        }else if(req.query.b != undefined){
+                }else if(req.query.c != undefined){
 
-        }else if(req.query.c != undefined){
+                }else if(req.query.d != undefined){
 
-        }else if(req.query.d != undefined){
+                }
+            }else if(req.cookies.curRoom == "CAMPFIRE") {
+                if(req.query.a != undefined){
 
-        }
-    }else if(req.cookies.curRoom == "HELICOPTER") {
-        if(req.query.a != undefined){
+                }else if(req.query.b != undefined){
 
-        }else if(req.query.b != undefined){
+                }else if(req.query.c != undefined){
 
-        }else if(req.query.c != undefined){
+                }else if(req.query.d != undefined){
 
-        }else if(req.query.d != undefined){
+                }
+            }else if(req.cookies.curRoom == "HELICOPTER") {
+                if(req.query.a != undefined){
 
-        }
-    }else if(req.cookies.curRoom == "SALESMAN") {
-        if(req.query.a != undefined){
+                }else if(req.query.b != undefined){
 
-        }else if(req.query.b != undefined){
+                }else if(req.query.c != undefined){
 
-        }else if(req.query.c != undefined){
+                }else if(req.query.d != undefined){
 
-        }else if(req.query.d != undefined){
+                }
+            }else if(req.cookies.curRoom == "SALESMAN") {
+                if(req.query.a != undefined){
 
-        }
-    }else if(req.cookies.curRoom == "DRYAD") {
-        if(req.query.a != undefined){
+                }else if(req.query.b != undefined){
 
-        }else if(req.query.b != undefined){
+                }else if(req.query.c != undefined){
 
-        }else if(req.query.c != undefined){
+                }else if(req.query.d != undefined){
 
-        }else if(req.query.d != undefined){
+                }
+            }else if(req.cookies.curRoom == "DRYAD") {
+                if(req.query.a != undefined){
 
-        }
-    }else if(req.cookies.curRoom == "FEAST") {
-        if(req.query.a != undefined){
+                }else if(req.query.b != undefined){
 
-        }else if(req.query.b != undefined){
+                }else if(req.query.c != undefined){
 
-        }else if(req.query.c != undefined){
+                }else if(req.query.d != undefined){
 
-        }else if(req.query.d != undefined){
+                }
+            }else if(req.cookies.curRoom == "FEAST") {
+                if(req.query.a != undefined){
 
-        }
-    }else if(req.cookies.curRoom == "CHOOSEAROOM") {
-        if(req.query.a != undefined){
+                }else if(req.query.b != undefined){
 
-        }else if(req.query.b != undefined){
+                }else if(req.query.c != undefined){
 
-        }else if(req.query.c != undefined){
+                }else if(req.query.d != undefined){
 
-        }else if(req.query.d != undefined){
+                }
+            }else if(req.cookies.curRoom == "CHOOSEAROOM") {
+                if(req.query.a != undefined){
 
-        }
-    }else if(req.cookies.curRoom == "LADDERS") {
-        if(req.query.a != undefined){
+                }else if(req.query.b != undefined){
 
-        }else if(req.query.b != undefined){
+                }else if(req.query.c != undefined){
 
-        }else if(req.query.c != undefined){
+                }else if(req.query.d != undefined){
 
-        }else if(req.query.d != undefined){
+                }
+            }else if(req.cookies.curRoom == "LADDERS") {
+                if(req.query.a != undefined){
 
-        }
-    }else if(req.cookies.curRoom == "ROOM10") {
-        if(req.query.a != undefined){
+                }else if(req.query.b != undefined){
 
-        }else if(req.query.b != undefined){
+                }else if(req.query.c != undefined){
 
-        }else if(req.query.c != undefined){
+                }else if(req.query.d != undefined){
 
-        }else if(req.query.d != undefined){
+                }
+            }else if(req.cookies.curRoom == "ROOM10") {
+                if(req.query.a != undefined){
 
-        }
-    }
+                }else if(req.query.b != undefined){
+
+                }else if(req.query.c != undefined){
+
+                }else if(req.query.d != undefined){
+
+                }
+            }
+        });
+    });
+
 
     Connection.getOutcome(req.query.choice_id, option, function(outcome){
         res.render('pages/outcome', {
