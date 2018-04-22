@@ -642,7 +642,8 @@ app.get('/outcome', function (req, res) {
             magik: req.cookies.magik,
             roomCounter: roomCounter,
             curRoom: req.cookies.curRoom,
-            outcome: outcome
+            outcome: outcome,
+            image: "images/final/corridor.jpg"
         });
     });
 });
