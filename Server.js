@@ -235,17 +235,25 @@ app.get('/outcome', function (req, res) {
                     Connection.getWeapon(req.cookies.weapon, function (wep) {
                         if (wep.attribute.includes("wood")) {
                             option = "a";
+                            effects = "Lose your weapon. Gain magik: Familiar.";
                             res.cookie('weapon', "Fists", {maxAge: 9000000});
                             res.cookie('magik', "Familiar", {maxAge: 9000000});
                         } else if (wep.attribute.includes("food")) {
                             option = "b";
+                            effects = "Lose your weapon. Gain magik: Familiar.";
                             res.cookie('weapon', "Fists", {maxAge: 9000000});
                             res.cookie('magik', "Familiar", {maxAge: 9000000});
                         } else {
                             option = "c";
                             res.cookie('weapon', "Fists", {maxAge: 9000000});
                             res.cookie('item', "Dog tooth", {maxAge: 9000000});
-                            res.cookie('health', req.cookies.health - 7, {maxAge: 9000000});
+                            if (req.cookies.item == "Chain mail") {
+                                effects = "Lose your weapon. Gain item: Dog tooth. Lose 5 HP.";
+                                res.cookie('health', parseInt(req.cookies.health) - 5, {maxAge: 9000000});
+                            }else{
+                                effects = "Lose your weapon. Gain item: Dog tooth. Lose 7 HP.";
+                                res.cookie('health', parseInt(req.cookies.health) - 7, {maxAge: 9000000});
+                            }
                         }
                     });
                 } else if (req.query.b != undefined) {
@@ -255,21 +263,33 @@ app.get('/outcome', function (req, res) {
                         } else {
                             option = "b";
                             res.cookie('item', "Dog tooth", {maxAge: 9000000});
-                            res.cookie('health', req.cookies.health - 7, {maxAge: 9000000});
+                            if (req.cookies.item == "Chain mail") {
+                                effects = "Gain item: Dog tooth. Lose 5 HP.";
+                                res.cookie('health', parseInt(req.cookies.health) - 5, {maxAge: 9000000});
+                            }else{
+                                effects = "Gain item: Dog tooth. Lose 7 HP.";
+                                res.cookie('health', parseInt(req.cookies.health) - 7, {maxAge: 9000000});
+                            }
                         }
                     })
                 } else if (req.query.c != undefined) {
                     if (req.cookies.item == "Smoke machine") {
                         option = "a";
-                    }
-                    if (weight > 2) {
+                    }else if (weight > 2) {
                         option = "b";
-                        res.cookie('health', req.cookies.health - 4, {maxAge: 9000000});
-                    } else {
+                        if (req.cookies.item == "Chain mail") {
+                            effects = "Lose 3 HP.";
+                            res.cookie('health', parseInt(req.cookies.health) - 3, {maxAge: 9000000});
+                        }else{
+                            effects = "Lose 4 HP.";
+                            res.cookie('health', parseInt(req.cookies.health) - 4, {maxAge: 9000000});
+                        }
+                    }else {
                         option = "c";
                     }
                 } else if (req.query.d != undefined) {
                     option = "a";
+                    effects = "Lose item. Gain magik: Familiar.";
                     res.cookie('item', "", {maxAge: 9000000});
                     res.cookie('magik', "Familiar", {maxAge: 9000000});
                 }
