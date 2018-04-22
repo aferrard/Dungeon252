@@ -290,27 +290,41 @@ app.get('/outcome', function (req, res) {
                 } else if (req.query.d != undefined) {
                     option = "a";
                     effects = "Lose item. Gain magik: Familiar.";
-                    res.cookie('item', "", {maxAge: 9000000});
+                    res.cookie('item', "None", {maxAge: 9000000});
                     res.cookie('magik', "Familiar", {maxAge: 9000000});
                 }
             } else if (req.cookies.curRoom == "HOLE") {
                 if (req.query.a != undefined) {
                     if (weight > 3) {
                         option = "a";
-                        res.cookie('health', req.cookies.health - 15, {maxAge: 9000000});
                         res.cookie('gold', req.cookies.gold + 10, {maxAge: 9000000});
+                        if (req.cookies.item == "Chain mail") {
+                            effects = "Gain 10 gold. Lose 10 HP.";
+                            res.cookie('health', parseInt(req.cookies.health) - 10, {maxAge: 9000000});
+                        }else{
+                            effects = "Gain 10 gold. Lose 15 HP.";
+                            res.cookie('health', parseInt(req.cookies.health) - 15, {maxAge: 9000000});
+                        }
                     } else {
                         option = "b";
-                        res.cookie('health', req.cookies.health + 2, {maxAge: 9000000});
+                        effects = "Gain 2 HP.";
+                        res.cookie('health', parseInt(req.cookies.health) + 2, {maxAge: 9000000});
                     }
                 } else if (req.query.b != undefined) {
                     if (weight > 2) {
                         option = "a";
-                        res.cookie('health', req.cookies.health - 15, {maxAge: 9000000});
                         res.cookie('gold', req.cookies.gold + 10, {maxAge: 9000000});
+                        if (req.cookies.item == "Chain mail") {
+                            effects = "Gain 10 gold. Lose 10 HP.";
+                            res.cookie('health', parseInt(req.cookies.health) - 10, {maxAge: 9000000});
+                        }else{
+                            effects = "Gain 10 gold. Lose 15 HP.";
+                            res.cookie('health', parseInt(req.cookies.health) - 15, {maxAge: 9000000});
+                        }
                     } else {
                         option = "b";
-                        res.cookie('health', req.cookies.health + 2, {maxAge: 9000000});
+                        effects = "Gain 2 HP.";
+                        res.cookie('health', parseInt(req.cookies.health) + 2, {maxAge: 9000000});
                     }
                 } else if (req.query.c != undefined) {
                     Connection.getWeapon(req.cookies.weapon, function (wep) {
@@ -318,25 +332,37 @@ app.get('/outcome', function (req, res) {
                             option = "a";
                         } else {
                             option = "b";
+                            effects = "Lose your weapon."
+                            res.cookie('weapon', "Fists", {maxAge: 9000000});
                         }
                     });
                 } else if (req.query.d != undefined) {
                     if (req.cookies.magik == "Earth") {
                         option = "a";
-                        res.cookie('health', req.cookies.health + 2, {maxAge: 9000000});
+                        effects = "Gain 2 HP.";
+                        res.cookie('health', parseInt(req.cookies.health) + 2, {maxAge: 9000000});
                     } else if (req.cookies.magik == "Fire" || req.cookies.magik == "Air") {
                         option = "b";
-                        res.cookie('health', req.cookies.health + 2, {maxAge: 9000000});
+                        effects = "Gain 2 HP.";
+                        res.cookie('health', parseInt(req.cookies.health) + 2, {maxAge: 9000000});
                     } else if (req.cookies.magik == "Explosion") {
                         option = "c";
-                        res.cookie('health', req.cookies.health - 2, {maxAge: 9000000});
+                        effects = "Lose 2 HP.";
+                        res.cookie('health', parseInt(req.cookies.health) - 2, {maxAge: 9000000});
                     } else if (req.cookies.magik == "Familiar") {
                         option = "d";
-                        res.cookie('magik', "", {maxAge: 9000000});
+                        effects = "Lose your magik.";
+                        res.cookie('magik', "None", {maxAge: 9000000});
                     } else {
                         option = "e";
-                        res.cookie('health', req.cookies.health - 15, {maxAge: 9000000});
                         res.cookie('gold', req.cookies.gold + 10, {maxAge: 9000000});
+                        if (req.cookies.item == "Chain mail") {
+                            effects = "Gain 10 gold. Lose 10 HP.";
+                            res.cookie('health', parseInt(req.cookies.health) - 10, {maxAge: 9000000});
+                        }else{
+                            effects = "Gain 10 gold. Lose 15 HP.";
+                            res.cookie('health', parseInt(req.cookies.health) - 15, {maxAge: 9000000});
+                        }
                     }
                 }
             } else if (req.cookies.curRoom == "CHEST") {
@@ -360,56 +386,174 @@ app.get('/outcome', function (req, res) {
                     if (str < 10) {
                         option = "a";
                         getRandom("item", function (item) {
-                            res.cookie('gold', req.cookies.gold + 50, {maxAge: 9000000});
+                            res.cookie('gold', parseInt(req.cookies.gold) + 50, {maxAge: 9000000});
                             res.cookie('item', item, {maxAge: 9000000});
                             effects = ("Gain item: " + item + " and 50 gold.");
                         });
                     } else {
-                        res.cookie('gold', req.cookies.gold + 50, {maxAge: 9000000});
+                        option = "b";
+                        res.cookie('gold', parseInt(req.cookies.gold) + 50, {maxAge: 9000000});
                         effects = ("Gain 50 gold.");
                     }
                 } else if (req.query.d != undefined) {
+                    option = "a";
                     getRandom("item", function (item) {
-                        res.cookie('gold', req.cookies.gold + 50, {maxAge: 9000000});
+                        res.cookie('gold', parseInt(req.cookies.gold) + 50, {maxAge: 9000000});
                         res.cookie('item', item, {maxAge: 9000000});
                         effects = ("Gain item: " + item + " and 50 gold.");
                     });
                 }
             } else if (req.cookies.curRoom == "POTIONS") {
                 if (req.query.a != undefined) {
+                    option = "a";
                 } else if (req.query.b != undefined) {
-
+                    option = "a";
+                    effects = "Lose 8 HP.";
+                    res.cookie('health', parseInt(req.cookies.health) - 8, {maxAge: 9000000});
                 } else if (req.query.c != undefined) {
-
+                    option = "a";
+                    effects = "Gain 16 HP.";
+                    res.cookie('health', parseInt(req.cookies.health) + 16, {maxAge: 9000000});
                 } else if (req.query.d != undefined) {
-
+                    option = "a";
+                    getRandom("magik", function(mag){
+                        res.cookie('magik', mag, {maxAge: 9000000});
+                        effects = ("Gain magik: " + mag);
+                    });
                 }
             } else if (req.cookies.curRoom == "DARKWIZARD") {
                 if (req.query.a != undefined) {
-
+                    if(parseInt(req.query.bribe) >= 30){
+                        option ="a";
+                        res.cookie('gold', (parseInt(req.cookies.gold) - parseInt(req.query.bribe)), {maxAge: 9000000});
+                        effects = "Lose "+req.query.bribe+" gold.";
+                    }else{
+                        option = "b";
+                        if(req.cookies.magik == "Light"){
+                            res.cookie('magik', "None", {maxAge: 9000000});
+                            effects = "The power of your magik protects you. Lose magik: Light";
+                        }else{
+                            res.cookie('gold', (parseInt(req.cookies.gold) - parseInt(req.query.bribe)), {maxAge: 9000000});
+                            if (req.cookies.item == "Chain mail") {
+                                effects = "Lose 10 HP. Lose "+req.query.bribe+" gold.";
+                                res.cookie('health', parseInt(req.cookies.health) - 10, {maxAge: 9000000});
+                            }else{
+                                effects = "Lose 15 HP. Lose "+req.query.bribe+" gold.";
+                                res.cookie('health', parseInt(req.cookies.health) - 15, {maxAge: 9000000});
+                            }
+                        }
+                    }
                 } else if (req.query.b != undefined) {
-
+                    if(req.cookies.magik == "None"){
+                        option = "a";
+                        if(req.cookies.item == "Chain mail") {
+                            effects = "Lose 10 HP.";
+                            res.cookie('health', parseInt(req.cookies.health) - 10, {maxAge: 9000000});
+                        }else{
+                            effects = "Lose 15 HP.";
+                            res.cookie('health', parseInt(req.cookies.health) - 15, {maxAge: 9000000});
+                        }
+                    }else if(req.cookies.magik != "Familiar" && req.cookies.magik != "Fire" && req.cookies.magik != "Light" && req.cookies.magik != "Explosion" && req.cookies.magik != "Darkr"){
+                        option = "b";
+                    }else if(req.cookies.magik == "Familiar" || req.cookies.magik == "Fire" || req.cookies.magik == "Light" || req.cookies.magik == "Explosion"){
+                        option = "c";
+                        res.cookie('weapon', "Basic staff", {maxAge: 9000000});
+                        res.cookie('magik', "Dark", {maxAge: 9000000});
+                        effects = "Gain weapon: Basic staff. Gain magik: Dark.";
+                    }else{
+                        option = "d";
+                        effects = "Gain item: Grief Orb.";
+                        res.cookie('item', "Grief Orb", {maxAge: 9000000});
+                    }
                 } else if (req.query.c != undefined) {
-
+                    if(weight > 3 && req.cookies.item != "Smoke machine"){
+                        option = "a";
+                        if(req.cookies.magik == "Light"){
+                            res.cookie('magik', "None", {maxAge: 9000000});
+                            effects = "The power of your magik protects you. Lose magik: Light";
+                        }else{
+                            if (req.cookies.item == "Chain mail") {
+                                effects = "Lose 10 HP.";
+                                res.cookie('health', parseInt(req.cookies.health) - 10, {maxAge: 9000000});
+                            }else{
+                                effects = "Lose 15 HP.";
+                                res.cookie('health', parseInt(req.cookies.health) - 15, {maxAge: 9000000});
+                            }
+                        }
+                    }else{
+                        option = "b";
+                    }
                 } else if (req.query.d != undefined) {
-
+                    option = "a";
+                    if (req.cookies.item == "Chain mail") {
+                        effects = "Lose 7 HP.";
+                        res.cookie('health', parseInt(req.cookies.health) - 7, {maxAge: 9000000});
+                    }else{
+                        effects = "Lose 10 HP.";
+                        res.cookie('health', parseInt(req.cookies.health) - 10, {maxAge: 9000000});
+                    }
                 }
             } else if (req.cookies.curRoom == "SEASHELL") {
                 if (req.query.a != undefined) {
-
+                    if(weight >= 3){
+                        option = "a";
+                    }else{
+                        option = "b";
+                        if (req.cookies.item == "Chain mail") {
+                            effects = "Lose 2 HP.";
+                            res.cookie('health', parseInt(req.cookies.health) - 2, {maxAge: 9000000});
+                        }else{
+                            effects = "Lose 3 HP.";
+                            res.cookie('health', parseInt(req.cookies.health) - 3, {maxAge: 9000000});
+                        }
+                    }
                 } else if (req.query.b != undefined) {
-
+                    if(str >=15){
+                        option = "a";
+                    }else{
+                        option = "b";
+                        res.cookie('magik', "Water", {maxAge: 9000000});
+                        effects = "Gain magik: Water.";
+                    }
                 } else if (req.query.c != undefined) {
-
+                    if(req.cookies.magik != "Water"){
+                        option = "a";
+                        res.cookie('magik', "Water", {maxAge: 9000000});
+                        effects = "Gain magik: Water.";
+                    }else{
+                        option = "b";
+                        effects = "Gain item: Shell.";
+                        res.cookie('item', "Shell", {maxAge: 9000000});
+                    }
                 } else if (req.query.d != undefined) {
-
+                    if(req.query.solution == "SEGV" || req.query.solution == "EXECVP Error" || req.query.solution == "EXECVP" || req.query.solution == "Due Tomorrow" || req.query.solution == "due tomorrow" || req.query.solution == "Due tomorrow" || req.query.solution == "Gustavo"){
+                        option = "a";
+                        effects = "Gain item: Stress ball.";
+                        res.cookie('item', "Stress ball", {maxAge: 9000000});
+                    }else{
+                        option = "b";
+                        effects = "Gain weapon: Fish.";
+                        res.cookie('weapon', "Fish", {maxAge: 9000000});
+                    }
                 }
             } else if (req.cookies.curRoom == "CAMPFIRE") {
                 if (req.query.a != undefined) {
-
+                    option = "a";
                 } else if (req.query.b != undefined) {
-
+                    Connection.getWeapon(req.cookies.weapon, function (wep) {
+                        if (wep.attribute.includes("wood")){
+                            option = "a";
+                            effects = "Gain 20 HP. Gain magik: Fire.";
+                            res.cookie('health', parseInt(req.cookies.health) +20, {maxAge: 9000000});
+                            res.cookie('magic', "Fire", {maxAge: 9000000});
+                        }else{
+                            option = "b";
+                            effects = "Gain weapon: Fire sword.";
+                            res.cookie('weapon', "Fire sword", {maxAge: 9000000});
+                        }
+                    });
                 } else if (req.query.c != undefined) {
+                    
 
                 } else if (req.query.d != undefined) {
 
