@@ -553,10 +553,23 @@ app.get('/outcome', function (req, res) {
                         }
                     });
                 } else if (req.query.c != undefined) {
-                    
-
+                    if(req.cookies.magik == "Nature" || req.cookies.magik == "Air"){
+                        option = "a";
+                        res.cookie('magik', "Fire", {maxAge: 9000000});
+                        effects = "Gain magik: Fire.";
+                    }else if(req.cookies.magik == "Water") {
+                        option = "b";
+                    }else if(req.cookies.magik == "Fire"){
+                        option = "c";
+                        effects = "Gain item: Eternal Flame.";
+                        res.cookie('item', "Eternal Flame", {maxAge: 9000000});
+                    }else{
+                        option = "d";
+                    }
                 } else if (req.query.d != undefined) {
-
+                    option = "a";
+                    effects = "Gain 50 HP.";
+                    res.cookie('health', parseInt(req.cookies.health) +50, {maxAge: 9000000});
                 }
             } else if (req.cookies.curRoom == "HELICOPTER") {
                 if (req.query.a != undefined) {
