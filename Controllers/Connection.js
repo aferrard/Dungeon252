@@ -150,3 +150,18 @@ function getBoss(cb) {
         }
     });
 }
+
+exports.addGoldToBoss = addGoldToBoss;
+function addGoldToBoss(amount, cb) {
+    getBoss(function(boss) {
+        var gold = boss.money;
+        gold += amount;
+        con.query("UPDATE users SET money = " + gold + " WHERE username = '" + boss.username + "'", function(err, result) {
+            if(err) {
+                cb(err);
+            } else {
+                cb("Added " + amount + " gold to boss. boss gold is now " + gold);
+            }
+        });
+    });
+}
