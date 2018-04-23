@@ -1439,19 +1439,67 @@ getRoomId("LADDERS", function(room) {
 });
 
 getRoomId("ROOM10", function(room) {
-    con.query("INSERT INTO choices VALUE(NULL, 'A battle of strength.', " + room + ")");
-    con.query("INSERT INTO choices VALUE(NULL, 'A battle of prosperity.', " + room + ")");
-    con.query("INSERT INTO choices VALUE(NULL, 'A battle for another day', " + room + ")");
-    con.query("INSERT INTO choices VALUE(NULL, 'A battle of secrets.', " + room + ")");
+    con.query("INSERT INTO choices VALUE(NULL, 'A battle of strength.', " + room + ")", function(err, result) {
+        if(err) {
+            throw err;
+        } else {
+            console.log("room10 choice 1");
+        }
+    });
+    con.query("INSERT INTO choices VALUE(NULL, 'A battle of prosperity.', " + room + ")", function(err, result) {
+        if(err) {
+            throw err;
+        } else {
+            console.log("room10 choice 2");
+        }
+    });
+    con.query("INSERT INTO choices VALUE(NULL, 'A battle for another day', " + room + ")", function(err, result) {
+        if(err) {
+            throw err;
+        } else {
+            console.log("room10 choice 3");
+        }
+    });
+    con.query("INSERT INTO choices VALUE(NULL, 'A battle of secrets.', " + room + ")", function(err, result) {
+        if(err) {
+            throw err;
+        } else {
+            console.log("room10 choice 4");
+        }
+    });
 });
 
 //dummy users
 function addUser(username, health, money, weapon, item, magik) {
-    con.query("INERT INTO users VALUE( NULL, '" + username + "', " + health + ", " + money + ", 0,  " + weapon + ", " + item + ", " + magik, function (err, result) {
-        if (err) {
+    con.query("SELECT weapon_id FROM weapons WHERE name = '" + weapon + "'", function(err, curweapon) {
+        if(err) {
             throw err;
         } else {
-            console.log("Added user " + username);
+            con.query("SELECT magik_id FROM magiks WHERE name = '" + magik + "'", function(err, curmagik) {
+                if(err) {
+                    throw err;
+                } else {
+                    con.query("SELECT item_id FROM items WHERE name = '" + item + "'", function(err, curitem) {
+                        if(err) {
+                            throw err;
+                        } else {
+                            con.query("INSERT INTO users VALUE(NULL, '" + username + "', " + health + ", " + money + ", 0, " + curweapon[0].weapon_id + ", " + curitem[0].item_id + ", " + curmagik[0].magik_id + ")", function (err, result) {
+                                if (err) {
+                                    throw err;
+                                } else {
+                                    console.log("Added user " + username);
+                                }
+                            });
+                        }
+                    });
+                }
+            });
         }
     });
 }
+
+//addUser("name", health, gold, "weapon", "item", "magik");
+addUser("Clementine", 0, 200, "Whip", "None", "Dark");
+addUser("Trollface", 0, 15, "Fish", "None", "Light");
+addUser("RockGoblin", 0, 72, "Stick", "Chain mail", "Nature");
+addUser("Snoop Dog", 0, 420, "Fists", "Fluffy Cloud", "Air");

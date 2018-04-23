@@ -56,9 +56,9 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `dungeon252_data`.`users` (
   `user_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `username` VARCHAR(45) NOT NULL,
-  `health` VARCHAR(45) NOT NULL,
-  `money` VARCHAR(45) NOT NULL,
+  `username` TEXT NOT NULL,
+  `health` INT NOT NULL,
+  `money` INT NOT NULL,
   `winner` INT NOT NULL,
   `weapons_weapon_id` INT UNSIGNED NOT NULL,
   `items_item_id` INT UNSIGNED NOT NULL,

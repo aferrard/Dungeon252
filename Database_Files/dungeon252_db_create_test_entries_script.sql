@@ -21,10 +21,11 @@ INSERT INTO magiks VALUE(NULL, "Air", 9, "Nature,Fire");
 INSERT INTO magiks VALUE(NULL, "Light", 10, "Dark");
 INSERT INTO magiks VALUE(NULL, "Dark", 10, "Light");
 INSERT INTO magiks VALUE(NULL, "Explosion", 15, "None");
+INSERT INTO magiks VALUE(NULL, "None", 0, "None");
 #create items
 #INSERT INTO items VALUE(NULL, "name", "attribute", weight);
 INSERT INTO items VALUE(NULL, "Chain mail", "Take 2/3 damage (rounded up)", 2);
-INSERT INTO items VALUE(NULL, "Sandwhich", "Food (heal 10 hp)", 0);
+INSERT INTO items VALUE(NULL, "Sandwich", "Food (heal 10 hp)", 0);
 INSERT INTO items VALUE(NULL, "Smoke machine", "always able to run", 3);
 INSERT INTO items VALUE(NULL, "Stress ball", "Healing (+2 hp per room)", 1);
 INSERT INTO items VALUE(NULL, "Dog tooth", "+3 Strength", 1);
@@ -35,6 +36,7 @@ INSERT INTO items VALUE(NULL, "Atomic Bomb", "room10", 3);
 INSERT INTO items VALUE(NULL, "Frenzy Seed", "room10", 2);
 INSERT INTO items VALUE(NULL, "Fluffy Cloud", "room10", 2);
 INSERT INTO items VALUE(NULL, "Pure Orb", "room10", 2);
+INSERT INTO items VALUE(NULL, "None", "None", 0);
 
 #create rooms
 #INSERT INTO rooms VALUE(NULL, "image", "event");
