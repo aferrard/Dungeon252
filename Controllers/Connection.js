@@ -77,6 +77,8 @@ function getChoices(roomid, cb) {
 exports.getOutcome = getOutcome;
 
 function getOutcome(choiceid, path, cb) {
+    //console.log("choiceid: " + choiceid);
+    //console.log("path: "+path);
     con.query("SELECT outcome FROM outcomes WHERE choices_choice_id = " + choiceid + " AND outcome_path = '" + path + "'", function (err, outcome) {
         if (err) {
             cb(err);
