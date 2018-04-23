@@ -67,6 +67,10 @@ app.get('/room', function (req, res) {
     if(nextRoom == "0"){
         var roomPick = Math.round((parseInt(roomsCopy.length) - 1) * Math.random());
         var room = roomsCopy[roomPick];
+    }else{
+        var room = nextRoom;
+        var roomPick = roomsCopy.findIndex(room);
+        nextRoom = "0";
     }
     var roomCounter = parseInt(req.cookies.roomCounter) + 1;
     var poem = "";
@@ -793,9 +797,11 @@ app.get('/outcome', function (req, res) {
                     }
                 } else if (req.query.c != undefined) {
                     option = "a";
-
+                    nextRoom = "HOLE";
                 } else if (req.query.d != undefined) {
-
+                    option = "a";
+                    effects = "Gain item: Smoke machine.";
+                    res.cookie('item', "Smoke machine", {maxAge: 9000000});
                 }
             } else if (req.cookies.curRoom == "LADDERS") {
                 if (req.query.a != undefined) {
