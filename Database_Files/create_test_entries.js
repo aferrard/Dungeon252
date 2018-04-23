@@ -1470,7 +1470,7 @@ getRoomId("ROOM10", function(room) {
 });
 
 //dummy users
-function addUser(username, health, money, weapon, item, magik) {
+function addUser(username, health, money, weapon, item, magik, strength, weight) {
     con.query("SELECT weapon_id FROM weapons WHERE name = '" + weapon + "'", function(err, curweapon) {
         if(err) {
             throw err;
@@ -1483,7 +1483,7 @@ function addUser(username, health, money, weapon, item, magik) {
                         if(err) {
                             throw err;
                         } else {
-                            con.query("INSERT INTO users VALUE(NULL, '" + username + "', " + health + ", " + money + ", 0, " + curweapon[0].weapon_id + ", " + curitem[0].item_id + ", " + curmagik[0].magik_id + ")", function (err, result) {
+                            con.query("INSERT INTO users VALUE(NULL, '" + username + "', " + health + ", " + money + ", " + strength + ", " + weight + ", 0, " + curweapon[0].weapon_id + ", " + curitem[0].item_id + ", " + curmagik[0].magik_id + ")", function (err, result) {
                                 if (err) {
                                     throw err;
                                 } else {
@@ -1499,7 +1499,7 @@ function addUser(username, health, money, weapon, item, magik) {
 }
 
 //addUser("name", health, gold, "weapon", "item", "magik");
-addUser("Clementine", 0, 200, "Whip", "None", "Dark");
-addUser("Trollface", 0, 15, "Fish", "None", "Light");
-addUser("RockGoblin", 0, 72, "Stick", "Chain mail", "Nature");
-addUser("Snoop Dog", 0, 420, "Fists", "Fluffy Cloud", "Air");
+addUser("Clementine", 0, 200, "Whip", "None", "Dark", 0, 0);
+addUser("Trollface", 0, 15, "Fish", "None", "Light", 0, 0);
+addUser("RockGoblin", 0, 72, "Stick", "Chain mail", "Nature", 0, 0);
+addUser("Snoop Dog", 0, 420, "Fists", "Fluffy Cloud", "Air", 0, 0);

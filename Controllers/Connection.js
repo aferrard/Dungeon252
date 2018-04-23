@@ -15,9 +15,9 @@ con.connect(function (err) {
 });
 
 exports.addWinner = addWinner;
-function addWinner(username, health, money, weapon, item, magik, cb) {
+function addWinner(username, health, money, strength, weight, weapon, item, magik, cb) {
     //need weapon, item, magik ID number
-    con.query("INERT INTO users VALUE( NULL, '" + username + "', " + health + ", " + money + ", 1,  " + weapon + ", " + item + ", " + magik, function (err, result) {
+    con.query("INERT INTO users VALUE( NULL, '" + username + "', " + health + ", " + money + ", " + strength + ", " + weight + ", 1,  " + weapon + ", " + item + ", " + magik, function (err, result) {
         if (err) {
             cb(err);
         } else {
@@ -39,9 +39,9 @@ function getWinners(cb) {
 }
 
 exports.addLoser = addLoser;
-function addLoser (username, health, money, weapon, item, magik, cb) {
+function addLoser (username, health, money, strength, weight, weapon, item, magik, cb) {
     //need weapon, item, magik ID number
-    con.query("INERT INTO users VALUE( NULL, '" + username + "', " + health + ", " + money + ", 0,  " + weapon + ", " + item + ", " + magik, function (err, result) {
+    con.query("INERT INTO users VALUE( NULL, '" + username + "', " + health + ", " + money + ", " + strength + ", " + weight + ", 0,  " + weapon + ", " + item + ", " + magik, function (err, result) {
         if (err) {
             cb(err);
         } else {
@@ -133,6 +133,19 @@ function getUsers(cb) {
             cb(err);
         } else {
             var z = JSON.parse(JSON.stringify(users));
+            cb(z);
+        }
+    });
+}
+
+exports.getBoss = getBoss;
+function getBoss(cb) {
+    con.query("SELECT * FROM users WHERE winner = 1 ORDER BY user_id DESC", function(err, result) {
+        if(err) {
+            cb(err);
+        } else {
+            console.log(result);
+            var z = JSON.parse(JSON.stringify(result[0]));
             cb(z);
         }
     });
