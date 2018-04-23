@@ -12,6 +12,13 @@
             overflow: hidden;
             resize: horizontal;
         }
+        h1 {
+            color: #757575;
+            font-size: 24px;
+            margin-right: 400px;
+            margin-left: 400px;
+            background-color: darkgray;
+        }
     </style>
 </head>
 <body class="container">
@@ -22,18 +29,29 @@
 
 <main>
     <div class ="container-fluid">
-        <p align="center">
+        <h1 align="center">
             <b>
             The Trials Are Rough,<br>
             But There Is An End.<br>
             All Who Are Shown Here<br>
             Have Defeated Room Ten<br>
             </b>
-        </p>
+        </h1>
     </div>
 </main>
 
 <footer>
+    <style>
+        footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            color: white;
+            text-align: center;
+            font-size: 20px;
+        }
+    </style>
     <% include ../partials/footer %>
 </footer>
 
