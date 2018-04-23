@@ -526,6 +526,7 @@ app.get('/outcome', function (req, res) {
                         res.cookie('item', "Shell", {maxAge: 9000000});
                     }
                 } else if (req.query.d != undefined) {
+                    console.log(req.query.solution);
                     if(req.query.solution == "SEGV" || req.query.solution == "EXECVP Error" || req.query.solution == "EXECVP" || req.query.solution == "Due Tomorrow" || req.query.solution == "due tomorrow" || req.query.solution == "Due tomorrow" || req.query.solution == "Gustavo"){
                         option = "a";
                         effects = "Gain item: Stress ball.";
