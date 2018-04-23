@@ -60,6 +60,7 @@ app.get('/start', function (req, res) {
     res.cookie('roomCounter', 0, {maxAge: 9000000});
     res.render('pages/start');
 });
+
 var nextRoom = "0";
 app.get('/room', function (req, res) {
     console.log(req.cookies);
@@ -69,7 +70,9 @@ app.get('/room', function (req, res) {
         var room = roomsCopy[roomPick];
     }else{
         var room = nextRoom;
-        var roomPick = roomsCopy.findIndex(room);
+            roomsCopy.findIndex(room, function(result){
+            var roomPick = result;
+        });
         nextRoom = "0";
     }
     var roomCounter = parseInt(req.cookies.roomCounter) + 1;
@@ -118,50 +121,71 @@ app.get('/room', function (req, res) {
         });
     } else {
         //do room 10 things.
+        res.cookie('curRoom', room, {maxAge: 9000000});
         res.cookie('roomsCopy', roomsMaster, {maxAge: 9000000});
-        res.cookie('room', room, {maxAge: 9000000});
         res.cookie('roomCounter', roomCounter, {maxAge: 9000000});
-        res.render('pages/room', {
-            hero: req.cookies.hero,
-            health: req.cookies.health,
-            gold: req.cookies.gold,
-            weapon: req.cookies.weapon,
-            item: req.cookies.item,
-            magik: req.cookies.magik,
-            room: room,
-            roomCounter: roomCounter
+        Connection.getRoom(room, function (roomInfo) {
+            console.log(roomInfo.image);
+            Connection.getChoices(roomInfo.room_id, function (choices) {
+                //console.log(choices);
+                res.render('pages/room', {
+                    hero: req.cookies.hero,
+                    health: req.cookies.health,
+                    gold: req.cookies.gold,
+                    weapon: req.cookies.weapon,
+                    item: req.cookies.item,
+                    magik: req.cookies.magik,
+                    room: room,
+                    roomCounter: roomCounter,
+                    event: roomInfo.event,
+                    choices: choices,
+                    poem: poem,
+                    image: roomInfo.image
+                });
+            });
         });
     }
 });
 
 function getStrength(cookie, cb) {
     var strength = 0;
+    console.log("STRENGTH");
     if (cookie.item == "Dog tooth") {
         strength += 3;
     }
-    console.log(cookie);
+    console.log(cookie.weapon);
     Connection.getWeapon(cookie.weapon, function (wep) {
+        console.log(wep);
         strength += wep.strength;
+        console.log(cookie.magik);
         if (cookie.magik != null && cookie.magik != "None") {
             Connection.getMagik(cookie.magik, function (mag) {
+                console.log(mag);
                 strength += mag.effect;
             });
         }
+        strength += parseInt(cookie.health / 10);
+        console.log(strength);
+        cb(strength);
     });
-    strength += parseInt(cookie.health / 10);
-    cb(strength);
+
 }
 
 function getWeight(cookie, cb) {
+    console.log("WEIGHT");
     var weight = 0;
-    console.log(cookie);
+    console.log(cookie.weapon);
     Connection.getWeapon(cookie.weapon, function (wep) {
+        console.log(wep);
         weight += wep.weight;
+        console.log(cookie.item);
         if (cookie.item != null && cookie.item != "None") {
             Connection.getItem(cookie.item, function (item) {
+                console.log(item);
                 weight += item.weight;
             })
         }
+        console.log(weight);
         cb(weight);
     })
 
@@ -186,8 +210,8 @@ function getRandom(type, cb) {
 app.get('/outcome', function (req, res) {
     console.log(req.query);
     var roomCounter = req.cookies.roomCounter;
-    var option = "a";
-    var effects = "";
+    var option;
+    var effects = "Nothing happens.";
     getStrength(req.cookies, function (str) {
         getWeight(req.cookies, function (weight) {
             if (req.cookies.curRoom == "GNOME") {
@@ -239,12 +263,12 @@ app.get('/outcome', function (req, res) {
             } else if (req.cookies.curRoom == "DOG") {
                 if (req.query.a != undefined) {
                     Connection.getWeapon(req.cookies.weapon, function (wep) {
-                        if (wep.attribute.includes("wood")) {
+                        if (wep.attribute.includes("Wood")) {
                             option = "a";
                             effects = "Lose your weapon. Gain magik: Familiar.";
                             res.cookie('weapon', "Fists", {maxAge: 9000000});
                             res.cookie('magik', "Familiar", {maxAge: 9000000});
-                        } else if (wep.attribute.includes("food")) {
+                        } else if (wep.attribute.includes("Food")) {
                             option = "b";
                             effects = "Lose your weapon. Gain magik: Familiar.";
                             res.cookie('weapon', "Fists", {maxAge: 9000000});
@@ -334,7 +358,7 @@ app.get('/outcome', function (req, res) {
                     }
                 } else if (req.query.c != undefined) {
                     Connection.getWeapon(req.cookies.weapon, function (wep) {
-                        if (wep.attribute.includes("long")) {
+                        if (wep.attribute.includes("Long")) {
                             option = "a";
                         } else {
                             option = "b";
@@ -343,7 +367,7 @@ app.get('/outcome', function (req, res) {
                         }
                     });
                 } else if (req.query.d != undefined) {
-                    if (req.cookies.magik == "Earth") {
+                    if (req.cookies.magik == "Nature") {
                         option = "a";
                         effects = "Gain 2 HP.";
                         res.cookie('health', parseInt(req.cookies.health) + 2, {maxAge: 9000000});
@@ -548,16 +572,18 @@ app.get('/outcome', function (req, res) {
                     option = "a";
                 } else if (req.query.b != undefined) {
                     Connection.getWeapon(req.cookies.weapon, function (wep) {
-                        if (wep.attribute.includes("wood")){
+                        if(wep.attribute.includes("Wood")){
+                            console.log(wep);
                             option = "a";
                             effects = "Gain 20 HP. Gain magik: Fire.";
                             res.cookie('health', parseInt(req.cookies.health) +20, {maxAge: 9000000});
-                            res.cookie('magic', "Fire", {maxAge: 9000000});
+                            res.cookie('magik', "Fire", {maxAge: 9000000});
                         }else{
                             option = "b";
                             effects = "Gain weapon: Fire sword.";
                             res.cookie('weapon', "Fire sword", {maxAge: 9000000});
                         }
+                        console.log(effects);
                     });
                 } else if (req.query.c != undefined) {
                     if(req.cookies.magik == "Nature" || req.cookies.magik == "Air"){
@@ -581,12 +607,12 @@ app.get('/outcome', function (req, res) {
             } else if (req.cookies.curRoom == "HELICOPTER") {
                 if (req.query.a != undefined) {
                     Connection.getWeapon(req.cookies.weapon, function (wep) {
-                        if (wep.attribute.includes("metal")){
+                        if (wep.attribute.includes("Metal")){
                             option = "a";
                             effects = "Lose weapon. Gain magik: Explosion.";
                             res.cookie('weapon', "Fists", {maxAge: 9000000});
-                            res.cookie('magic', "Explosion", {maxAge: 9000000});
-                        }else if(wep.attribute.includes("slippery")){
+                            res.cookie('magik', "Explosion", {maxAge: 9000000});
+                        }else if(wep.attribute.includes("Slippery")){
                             option = "b";
                         }else{
                             option = "c";
@@ -605,8 +631,8 @@ app.get('/outcome', function (req, res) {
                         option = "a";
                     }else{
                         option = "b";
-                        res.cookie('gold', (parseInt(req.cookies.gold) - 50), {maxAge: 9000000});
-                        effects = "Lose 50 gold.";
+                        res.cookie('gold', (parseInt(req.cookies.gold) - (parseInt(req.cookies.gold))), {maxAge: 9000000});
+                        effects = "Lose all of your gold. You want your hair to look good, right?";
                     }
                 } else if (req.query.c != undefined) {
                     if(req.cookies.magik == "Explosion"){
@@ -805,13 +831,51 @@ app.get('/outcome', function (req, res) {
                 }
             } else if (req.cookies.curRoom == "LADDERS") {
                 if (req.query.a != undefined) {
-
+                    if(weight > 3){
+                        option = "a";
+                        if (req.cookies.item == "Chain mail") {
+                            effects = "Lose 4 HP.";
+                            res.cookie('health', parseInt(req.cookies.health) - 4, {maxAge: 9000000});
+                        }else{
+                            effects = "Lose 5 HP.";
+                            res.cookie('health', parseInt(req.cookies.health) - 5, {maxAge: 9000000});
+                        }
+                    }else{
+                        option = "b";
+                        effects = "Gain magik: Air";
+                        res.cookie('magik', "Air", {maxAge: 9000000});
+                    }
                 } else if (req.query.b != undefined) {
-
+                    if(weight > 2){
+                        option = "a";
+                        if (req.cookies.item == "Chain mail") {
+                            effects = "Lose 4 HP.";
+                            res.cookie('health', parseInt(req.cookies.health) - 4, {maxAge: 9000000});
+                        }else{
+                            effects = "Lose 5 HP.";
+                            res.cookie('health', parseInt(req.cookies.health) - 5, {maxAge: 9000000});
+                        }
+                    }else{
+                        option = "b";
+                        effects = "Gain magik: Light";
+                        res.cookie('magik', "Light", {maxAge: 9000000});
+                    }
                 } else if (req.query.c != undefined) {
-
+                    option = "a";
                 } else if (req.query.d != undefined) {
-
+                    if(req.cookies.magik == "Air"){
+                        option = "a";
+                        effects = "Gain item: Fluffy Cloud.";
+                        res.cookie('item', "Fluffy Cloud", {maxAge: 9000000});
+                    }else if(req.cookies.magik == "Light"){
+                        option = "b";
+                        effects = "Gain item: Pure Orb.";
+                        res.cookie('item', "Pure Orb", {maxAge: 9000000});
+                    }else{
+                        option = "c";
+                        res.cookie('magik', "None", {maxAge: 9000000});
+                        effects = "Lose magik.";
+                    }
                 }
             } else if (req.cookies.curRoom == "ROOM10") {
                 if (req.query.a != undefined) {
@@ -824,22 +888,22 @@ app.get('/outcome', function (req, res) {
 
                 }
             }
-
-        });
-    });
-    Connection.getRoom(req.cookies.curRoom, function (roomInfo) {
-        Connection.getOutcome(req.query.choice_id, option, function (outcome) {
-            res.render('pages/outcome', {
-                hero: req.cookies.hero,
-                health: req.cookies.health,
-                gold: req.cookies.gold,
-                weapon: req.cookies.weapon,
-                item: req.cookies.item,
-                magik: req.cookies.magik,
-                roomCounter: roomCounter,
-                curRoom: req.cookies.curRoom,
-                outcome: outcome,
-                image: roomInfo.image,
+            Connection.getRoom(req.cookies.curRoom, function (roomInfo) {
+                Connection.getOutcome(req.query.choice_id, option, function (outcome) {
+                    res.render('pages/outcome', {
+                        hero: req.cookies.hero,
+                        health: req.cookies.health,
+                        gold: req.cookies.gold,
+                        weapon: req.cookies.weapon,
+                        item: req.cookies.item,
+                        magik: req.cookies.magik,
+                        roomCounter: roomCounter,
+                        curRoom: req.cookies.curRoom,
+                        outcome: outcome,
+                        image: roomInfo.image,
+                        effects: effects
+                    });
+                });
             });
         });
     });
@@ -850,4 +914,4 @@ app.get('/end', function (req, res) {
 });
 
 app.listen(5252);
-console.log('5252 is the magic port');
+console.log('5252 is the magik port');
