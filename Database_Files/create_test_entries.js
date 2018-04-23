@@ -1437,3 +1437,21 @@ getRoomId("LADDERS", function(room) {
         }
     });
 });
+
+getRoomId("ROOM10", function(room) {
+    con.query("INSERT INTO choices VALUE(NULL, 'A battle of strength.', " + room + ")");
+    con.query("INSERT INTO choices VALUE(NULL, 'A battle of prosperity.', " + room + ")");
+    con.query("INSERT INTO choices VALUE(NULL, 'A battle for another day', " + room + ")");
+    con.query("INSERT INTO choices VALUE(NULL, 'A battle of secrets.', " + room + ")");
+});
+
+//dummy users
+function addUser(username, health, money, weapon, item, magik) {
+    con.query("INERT INTO users VALUE( NULL, '" + username + "', " + health + ", " + money + ", 0,  " + weapon + ", " + item + ", " + magik, function (err, result) {
+        if (err) {
+            throw err;
+        } else {
+            console.log("Added user " + username);
+        }
+    });
+}
