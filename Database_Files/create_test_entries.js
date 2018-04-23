@@ -621,11 +621,11 @@ getRoomId("DARKWIZARD", function(room) {
             });
         }
     });
-    con.query("INSERT INTO choices VALUE(NULL, 'You beg for the Dark Wizard for mercy.', " + room + ")", function(err, result) {
+    con.query("INSERT INTO choices VALUE(NULL, 'You beg the Dark Wizard for mercy.', " + room + ")", function(err, result) {
         if(err) {
             throw err;
         } else {
-            con.query("SELECT choice_id FROM choices WHERE choice = 'You beg for the Dark Wizard for mercy.'", function(err, choice) {
+            con.query("SELECT choice_id FROM choices WHERE choice = 'You beg the Dark Wizard for mercy.'", function(err, choice) {
                 if(err) {
                     throw err;
                 } else {
