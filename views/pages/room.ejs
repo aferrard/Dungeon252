@@ -63,6 +63,9 @@
             <%if(room == "CHOOSEAROOM"){%>
             <input id="solution" type="text" name="solution" placeholder="Enter your answer" required>
             <%}%>
+            <%if(room == "ROOM10"){%>
+            <input id="bribe" type="text" name="bribe" placeholder="Enter your offer" required>
+            <%}%>
         </form><br>
         <form align="left" class="form-horizontal" action="/outcome">
             <input hidden id="choice_id" name="choice_id" value="<%=choices[2].choice_id %>">
