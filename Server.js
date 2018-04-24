@@ -307,7 +307,9 @@ function roomTen(boss, str, weight, cookie, query, ret) {
             });
         }
     } else if (query.c != undefined) {
-
+        outcome = "The shadowed being waves his hand at you with a pleasant smile.\n \"I may not be the one you see ten rooms from now, but good luck.\"";
+        effects = "You continue on to the next room, determined to improve for next time.";
+        ret(outcome, effects, newGold, newWep, false);
     } else if (query.d != undefined) {
 
     }
