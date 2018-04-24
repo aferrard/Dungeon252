@@ -8,5 +8,7 @@ select * from users;
 select * from choices;
 select * from outcomes;
 
+delete from users;
+
 delete from outcomes;
 delete from choices;

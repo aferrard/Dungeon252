@@ -42,8 +42,7 @@ app.get('/', function (req, res) {
 app.get('/leaderboard', function (req, res) {
     Connection.getUsers(function (userInfo) {
         res.render('pages/leaderboard', {
-            username: userInfo.username,
-            money: userInfo.money,
+            userInfo: userInfo
 
         });
 
@@ -53,8 +52,7 @@ app.get('/leaderboard', function (req, res) {
 app.get('/champ', function (req, res) {
     Connection.getWinners(function (winnerInfo) {
         res.render('pages/champ', {
-            username: winnerInfo.username,
-            money: winnerInfo.money
+            winnerInfo: winnerInfo
         });
 
     });
@@ -1413,7 +1411,10 @@ app.get('/outcome', function (req, res) {
 app.get('/end', function (req, res) {
     Connection.addLoser(req.cookies.hero, req.cookies.health, req.cookies.gold, 0, 0, req.cookies.weapon, req.cookies.item, req.cookies.magik, function (loserInfo) {
         console.log("I'M HERE PEOPLE");
-        res.render('pages/end');
+        console.log(loserInfo);
+        res.render('pages/end', {
+            loserInfo: loserInfo
+        });
     });
 });
 

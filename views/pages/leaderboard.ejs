@@ -5,7 +5,7 @@
     <style>
         body {
             background-size: cover;
-            background-image: url('https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/0kjHIH6/dark-and-spooky-dungeon-with-torches-hanging-on-a-brick-wall_4bqefvc9l__F0000.png');
+            background-image: url('images/extras/leaderboard.png');
             height:800px;
             width:100%;
             background-repeat: no-repeat;
@@ -13,8 +13,34 @@
             resize: horizontal;
         }
         h1 {
-            color: whitesmoke;
-            font-size: 36px;
+            color: #E3C495;
+            font-size: 40px;
+            font-family: "Apple Chancery";
+        }
+        th {
+            text-align: left;
+            font-weight: bold;
+            font-size: 24px;
+            color: #E3C495;
+            font-family: "Bodoni 72 Oldstyle";
+            text-align: center;
+            text-decoration: underline;
+        }
+        td {
+            text-align: left;
+            font-size: 18px;
+            color: #E3C495;
+            font-family: "Bodoni 72 Oldstyle";
+            text-align: center;
+        }
+        table {
+            border-collapse: collapse;
+            width: 40%;
+            border: none;
+
+        }
+        th, td {
+            padding: 2px;
         }
     </style>
 </head>
@@ -27,9 +53,20 @@
 <main>
     <div class ="container-fluid">
         <h1 align="center">
-            <b>Top Heroes:</b><br>
-            <%=username%> <%=money%><br>
+            <b>Top Heroes</b><br>
         </h1>
+        <table align="center">
+            <tr>
+                <th>Username</th>
+                <th>Money</th>
+                <th>Strength</th>
+            </tr>
+            <%for (var i = 0; i < userInfo.length; i++) {%>
+            <tr><td text-align="left"><%=userInfo[i].username%></td>
+                <td text-align="left"><%=userInfo[i].money%></td>
+                <td text-align="left"><%=userInfo[i].strength%></td></tr>
+            <%}%>
+        </table>
     </div>
 </main>
 
