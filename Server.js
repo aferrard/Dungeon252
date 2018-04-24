@@ -307,7 +307,7 @@ function roomTen(boss, str, weight, cookie, query, ret) {
             });
         }
     } else if (query.c != undefined) {
-        
+
     } else if (query.d != undefined) {
 
     }
