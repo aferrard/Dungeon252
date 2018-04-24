@@ -73,7 +73,7 @@ function addWinner(username, health, money, strength, weight, weapon, item, magi
 
 exports.getWinners = getWinners;
 function getWinners(cb) {
-    con.query("SELECT * FROM users WHERE winner = 1", function(err, winners) {
+    con.query("SELECT * FROM users WHERE winner = 1 ORDER BY user_id DESC", function(err, winners) {
         if(err) {
             throw err;
         } else {
@@ -179,7 +179,7 @@ function getItem(name, cb) {
 
 exports.getUsers = getUsers;
 function getUsers(cb) {
-    con.query("SELECT * FROM users", function(err, users) {
+    con.query("SELECT * FROM users ORDER BY user_id DESC", function(err, users) {
         if(err) {
             cb(err);
         } else {
@@ -214,5 +214,41 @@ function addGoldToBoss(amount, cb) {
                 cb("Added " + amount + " gold to boss. boss gold is now " + gold);
             }
         });
+    });
+}
+
+exports.getWeaponFromId = getWeaponFromId;
+function getWeaponFromId(weaponid, cb) {
+    con.query("SELECT name FROM weapons WHERE weapon_id = " + weaponid, function(err, result) {
+        if(err) {
+            cb(err);
+        } else {
+            var z = JSON.parse(JSON.stringify(result[0].name));
+            cb(z);
+        }
+    });
+}
+
+exports.getItemFromId = getItemFromId;
+function getItemFromId(itemid, cb) {
+    con.query("SELECT name FROM items WHERE item_id = " + itemid, function(err, result) {
+        if(err) {
+            cb(err);
+        } else {
+            var z = JSON.parse(JSON.stringify(result[0].name));
+            cb(z);
+        }
+    });
+}
+
+exports.getMagikFromId = getMagikFromId;
+function getMagikFromId(magikid, cb) {
+    con.query("SELECT name FROM magiks WHERE magik_id = " + magikid, function(err, result) {
+        if(err) {
+            cb(err);
+        } else {
+            var z = JSON.parse(JSON.stringify(result[0].name));
+            cb(z);
+        }
     });
 }
