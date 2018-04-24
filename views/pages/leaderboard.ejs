@@ -58,13 +58,23 @@
         <table align="center">
             <tr>
                 <th>Username</th>
+                <th>Score</th>
+                <th>Health</th>
                 <th>Money</th>
-                <th>Strength</th>
+                <th>Weapon</th>
+                <th>Item</th>
+                <th>Magik</th>
+                <th>Rooms Completed</th>
             </tr>
             <%for (var i = 0; i < userInfo.length; i++) {%>
             <tr><td text-align="left"><%=userInfo[i].username%></td>
+                <td text-align="left"><%=userInfo[i].score%></td>
+                <td text-align="left"><%=userInfo[i].health%></td>
                 <td text-align="left"><%=userInfo[i].money%></td>
-                <td text-align="left"><%=userInfo[i].strength%></td></tr>
+                <td text-align="left"><%=userInfo[i].weapon%></td>
+                <td text-align="left"><%=userInfo[i].item%></td>
+                <td text-align="left"><%=userInfo[i].magik%></td>
+                <td text-align="left"><%=roomCounter%></td></tr>
             <%}%>
         </table>
     </div>
