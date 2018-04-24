@@ -235,28 +235,55 @@ function getRandom(type, cb) {
     }
 }
 
-function room10(str, weight, cookie, query, cb) {
+function roomTen(str, weight, cookie, query, cb) {
     var effects = "";
     var outcome = "";
+    var newGold = cookie.gold;
     Connection.getBoss(function(boss){
         if (query.a != undefined) {
-            if (str > boss.str || (str == boss.str) && (weight < boss.weight)) {
+            if (str > boss.strength || (str == boss.strength) && (weight < boss.weight)) {
                 outcome = "Your hits strike true, beating down the shadowy figure until it is nothing but a corpse on the floor. \nSuddenly, the shadows that had concealed them rush at you, enveloping your entire body and forcing you onto the golden throne.\n Here you will remain, until another takes your place.";
                 effects = "You are victorious, but at what cost?";
+                Connection.addWinner(cookie.hero,cookie.health,cookie.money,cookie.str,cookie.weight,cookie.weapon,cookie.item,cookie.magik,function(err){
+                    console.log(err);
+                    cb(outcome, effects, newGold, false);
+                });
             } else {
                 outcome = "You are stopped by a shadowed weapon through the chest.\n You can\'t even think as the being pulls his weapon from you and snarls.\n \"Pathetic. Now I must wait for another.\"\n You fall, joining the pile of bodies as your vision fades to black.";
-                effects = "You Died";
+                effects = "You Died. Next time make sure you're stronger, ya dummy.";
+                Connection.addLoser(cookie.hero,cookie.health,cookie.money,cookie.str, cookie.weight,cookie.weapon,cookie.item,cookie.magik,function(err) {
+                    console.log(err);
+                    cb(outcome, effects, newGold, true);
+                });
             }
         } else if (query.b != undefined) {
             if(query.bribe >= (boss.gold * 1.5) && cookie.health >= boss.health - 5){
                 outcome = "\"Ha! It isn\'t often that I see someone more worthy of being the king here. Have a seat.\" The being gets up and steps aside. As you sit on the throne, you watch the shadows leap from the being to you, revealing a person with a grateful smile. The instant the last speck of shadow leaves them, they vanish, taking your gold with them. You realize it now. Here you will remain, until another takes your place.";
                 effects = "You are victorious, but at what cost?";
+                Connection.addWinner(cookie.hero,cookie.health,cookie.money,cookie.str, cookie.weight,cookie.weapon,cookie.item,cookie.magik,function(err){
+                    console.log(err);
+                    cb(outcome, effects, newGold, false);
+                });
             }else if((query.bribe > boss.gold) && cookie.health < boss.health - 5){
                 outcome = "The being approaches you with what you think is a smile behind all the shadows. \"I see you’ve done well with yourself in my dungeon.\" They stop in front of you. It is then you notice a pain in your chest. \"But what good is a king without strength?\" They whisper into your ear, and you finally notice their weapon, pierced through you entirely. You fall, joining the pile of bodies as your vision fades to black.";
                 effects = "You Died. The Boss took your gold too. That was dumb.";
+                Connection.addGoldToBoss(query.bribe, function(errg){
+                    console.log(errg);
+                    Connection.addLoser(cookie.hero,cookie.health,cookie.money,cookie.str, cookie.weight,cookie.weapon,cookie.item,cookie.magik,function(err) {
+                        console.log(err);
+                        cb(outcome, effects, (newGold-query.bribe), true);
+                    });
+                });
             }else if(cookie.health >= boss.health - 5 && (query.bribe < (boss.gold * 1.5))){
                 outcome = "\"You\'ve clearly faced less trials than me.\" The being frowns at you, eyebrows made of shadows furrowed. \"You had potential\" Before you can react, you notice a pain in your chest. \"A shame really. Your wealth will barely add to my collection in the least.\" They whisper into your ear, and you finally notice their weapon, pierced through you entirely. You fall, joining the pile of bodies as your vision fades to black.";
                 effects = "You Died. The Boss took your gold too. That was dumb.";
+                Connection.addGoldToBoss(query.bribe, function(errg){
+                    console.log(errg);
+                    Connection.addLoser(cookie.hero,cookie.health,cookie.money,cookie.str, cookie.weight,cookie.weapon,cookie.item,cookie.magik,function(err) {
+                        console.log(err);
+                        cb(outcome, effects, (newGold-query.bribe), true);
+                    });
+                });
             }
         } else if (query.c != undefined) {
 
@@ -363,7 +390,8 @@ app.get('/outcome', function (req, res) {
                         option = "b";
                     }
                 }
-            } else if (req.cookies.curRoom == "DOG") {
+            }
+            else if (req.cookies.curRoom == "DOG") {
                 if (req.query.a != undefined) {
                     Connection.getWeapon(req.cookies.weapon, function (wep) {
                         if (wep.attribute.includes("Wood")) {
@@ -467,7 +495,8 @@ app.get('/outcome', function (req, res) {
                     res.cookie('item', "None", {maxAge: 9000000});
                     res.cookie('magik', "Familiar", {maxAge: 9000000});
                 }
-            } else if (req.cookies.curRoom == "HOLE") {
+            }
+            else if (req.cookies.curRoom == "HOLE") {
                 if (req.query.a != undefined) {
                     if (weight > 3) {
                         option = "a";
@@ -581,7 +610,8 @@ app.get('/outcome', function (req, res) {
                         }
                     }
                 }
-            } else if (req.cookies.curRoom == "CHEST") {
+            }
+            else if (req.cookies.curRoom == "CHEST") {
                 if (req.query.a != undefined) {
                     Connection.getWeapon(req.cookies.weapon, function (wep) {
                         if (wep.name != "Fists") {
@@ -619,7 +649,8 @@ app.get('/outcome', function (req, res) {
                         effects = ("Gain item: " + item + " and 50 gold.");
                     });
                 }
-            } else if (req.cookies.curRoom == "POTIONS") {
+            }
+            else if (req.cookies.curRoom == "POTIONS") {
                 if (req.query.a != undefined) {
                     option = "a";
                 } else if (req.query.b != undefined) {
@@ -644,7 +675,8 @@ app.get('/outcome', function (req, res) {
                         effects = ("Gain magik: " + mag);
                     });
                 }
-            } else if (req.cookies.curRoom == "DARKWIZARD") {
+            }
+            else if (req.cookies.curRoom == "DARKWIZARD") {
                 if (req.query.a != undefined) {
                     if (parseInt(req.query.bribe) >= 30) {
                         option = "a";
@@ -776,7 +808,8 @@ app.get('/outcome', function (req, res) {
                         }
                     }
                 }
-            } else if (req.cookies.curRoom == "SEASHELL") {
+            }
+            else if (req.cookies.curRoom == "SEASHELL") {
                 if (req.query.a != undefined) {
                     if (weight >= 3) {
                         option = "a";
@@ -834,7 +867,8 @@ app.get('/outcome', function (req, res) {
                         res.cookie('weapon', "Fish", {maxAge: 9000000});
                     }
                 }
-            } else if (req.cookies.curRoom == "CAMPFIRE") {
+            }
+            else if (req.cookies.curRoom == "CAMPFIRE") {
                 if (req.query.a != undefined) {
                     option = "a";
                 } else if (req.query.b != undefined) {
@@ -872,7 +906,8 @@ app.get('/outcome', function (req, res) {
                     effects = "Gain 50 HP.";
                     res.cookie('health', parseInt(req.cookies.health) + 50, {maxAge: 9000000});
                 }
-            } else if (req.cookies.curRoom == "HELICOPTER") {
+            }
+            else if (req.cookies.curRoom == "HELICOPTER") {
                 if (req.query.a != undefined) {
                     Connection.getWeapon(req.cookies.weapon, function (wep) {
                         if (wep.attribute.includes("Metal")) {
@@ -1006,7 +1041,8 @@ app.get('/outcome', function (req, res) {
                         }
                     }
                 }
-            } else if (req.cookies.curRoom == "SALESMAN") {
+            }
+            else if (req.cookies.curRoom == "SALESMAN") {
                 if (req.query.a != undefined) {
                     if (req.cookies.gold >= 30) {
                         option = "a";
@@ -1099,7 +1135,8 @@ app.get('/outcome', function (req, res) {
                         }
                     }
                 }
-            } else if (req.cookies.curRoom == "DRYAD") {
+            }
+            else if (req.cookies.curRoom == "DRYAD") {
                 if (req.query.a != undefined) {
                     option = "a";
                     effects = "Gain 10 HP.";
@@ -1152,7 +1189,8 @@ app.get('/outcome', function (req, res) {
                 } else if (req.query.d != undefined) {
                     option = "a";
                 }
-            } else if (req.cookies.curRoom == "FEAST") {
+            }
+            else if (req.cookies.curRoom == "FEAST") {
                 if (req.query.a != undefined) {
                     option = "a";
                     effects = "Gain 25 HP. Lose magik.";
@@ -1171,7 +1209,8 @@ app.get('/outcome', function (req, res) {
                         res.cookie('magik', mag, {maxAge: 9000000});
                     })
                 }
-            } else if (req.cookies.curRoom == "CHOOSEAROOM") {
+            }
+            else if (req.cookies.curRoom == "CHOOSEAROOM") {
                 if (req.query.a != undefined) {
                     option = "a";
                     if (str >= 10 || req.cookies.magik == "Water") {
@@ -1235,7 +1274,8 @@ app.get('/outcome', function (req, res) {
                     effects = "Gain item: Smoke machine.";
                     res.cookie('item', "Smoke machine", {maxAge: 9000000});
                 }
-            } else if (req.cookies.curRoom == "LADDERS") {
+            }
+            else if (req.cookies.curRoom == "LADDERS") {
                 if (req.query.a != undefined) {
                     if (weight > 3) {
                         option = "a";
@@ -1311,28 +1351,28 @@ app.get('/outcome', function (req, res) {
                         effects = "Lose magik.";
                     }
                 }
-            } else if (req.cookies.curRoom == "ROOM10") {
+            }
+            else if (req.cookies.curRoom == "ROOM10") {
                 room10 = true;
             }
             if (room10) {
-                room10(str, weight, req.cookies, req.query, function (out) {
+                roomTen(str, weight, req.cookies, req.query, function (outcome, effects, newGold, died) {
                     Connection.getRoom(req.cookies.curRoom, function (roomInfo) {
-                        Connection.getOutcome(req.query.choice_id, option, function (outcome) {
-                            res.render('pages/outcome', {
-                                hero: req.cookies.hero,
-                                health: req.cookies.health,
-                                gold: req.cookies.gold,
-                                weapon: req.cookies.weapon,
-                                item: req.cookies.item,
-                                magik: req.cookies.magik,
-                                str: str,
-                                weight: weight,
-                                roomCounter: roomCounter,
-                                curRoom: req.cookies.curRoom,
-                                outcome: outcome,
-                                image: roomInfo.image,
-                                effects: effects
-                            });
+                        res.render('pages/outcome', {
+                            hero: req.cookies.hero,
+                            health: req.cookies.health,
+                            gold: newGold,
+                            weapon: req.cookies.weapon,
+                            item: req.cookies.item,
+                            magik: req.cookies.magik,
+                            str: str,
+                            weight: weight,
+                            roomCounter: roomCounter,
+                            curRoom: req.cookies.curRoom,
+                            outcome: outcome,
+                            image: roomInfo.image,
+                            effects: effects,
+                            died: died
                         });
                     });
                 });
@@ -1353,7 +1393,7 @@ app.get('/outcome', function (req, res) {
                             outcome: outcome,
                             image: roomInfo.image,
                             effects: effects,
-                            died: died,
+                            died: died
                         });
                     });
                 });
@@ -1361,7 +1401,6 @@ app.get('/outcome', function (req, res) {
         });
     });
 });
-
 app.get('/end', function (req, res) {
     Connection.addLoser(req.cookies.hero, req.cookies.health, req.cookies.gold, 0, 0, req.cookies.weapon, req.cookies.item, req.cookies.magik, function (loserInfo) {
         console.log("I'M HERE PEOPLE");
