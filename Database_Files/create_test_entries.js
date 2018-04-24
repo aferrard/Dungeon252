@@ -1030,7 +1030,7 @@ getRoomId("SALESMAN", function(room) {
                         if(err) {
                             throw err;
                         } else {
-                            con.query("INSERT INTO outcomes VALUE('b', 'You kill the salesman and gain the warhammer for free!', " + choice[0].choice_id + ")", function(err, result) {
+                            con.query("INSERT INTO outcomes VALUE('b', 'You wound the salesman but are also wounded in the process. You lose 8 HP and decide to cut your losses, continuing to the next room', " + choice[0].choice_id + ")", function(err, result) {
                                 if(err) {
                                     throw err;
                                 } else {
@@ -1470,7 +1470,7 @@ getRoomId("ROOM10", function(room) {
 });
 
 //dummy users
-function addUser(username, health, money, weapon, item, magik, strength, weight, winner) {
+function addUser(username, health, money, weapon, item, magik, strength, weight, score, numrooms, winner) {
     con.query("SELECT weapon_id FROM weapons WHERE name = '" + weapon + "'", function(err, curweapon) {
         if(err) {
             throw err;
@@ -1483,7 +1483,7 @@ function addUser(username, health, money, weapon, item, magik, strength, weight,
                         if(err) {
                             throw err;
                         } else {
-                            con.query("INSERT INTO users VALUE(NULL, '" + username + "', " + health + ", " + money + ", " + strength + ", " + weight + ", "+winner+", " + curweapon[0].weapon_id + ", " + curitem[0].item_id + ", " + curmagik[0].magik_id + ")", function (err, result) {
+                            con.query("INSERT INTO users VALUE(NULL, '" + username + "', " + health + ", " + money + ", " + strength + ", " + weight + ", " + score + ", " + numrooms + ", "+winner+", " + curweapon[0].weapon_id + ", " + curitem[0].item_id + ", " + curmagik[0].magik_id + ")", function (err, result) {
                                 if (err) {
                                     throw err;
                                 } else {
@@ -1498,9 +1498,9 @@ function addUser(username, health, money, weapon, item, magik, strength, weight,
     });
 }
 
-//addUser("name", health, gold, "weapon", "item", "magik");
-addUser("Clementine", 0, 200, "Whip", "None", "Dark", 17, 1, 0);
-addUser("Trollface", 0, 15, "Fish", "None", "Light", 11, 1, 0);
-addUser("RockGoblin", 0, 72, "Stick", "Chain mail", "Nature", 13, 3, 0);
-addUser("Snoop Dog", 0, 420, "Fists", "Fluffy Cloud", "Air", 12, 2, 0);
-addUser("???", 50, 150, "Sword", "None", "Dark", 20, 2, 1);
+//addUser("name", health, gold, "weapon", "item", "magik", strength, weight, score, numrooms, winner);
+addUser("Clementine", 0, 200, "Whip", "None", "Dark", 17, 1, 53, 7, 0);
+addUser("Trollface", 0, 15, "Fish", "None", "Light", 11, 1, 72,  18, 0);
+addUser("RockGoblin", 0, 72, "Stick", "Chain mail", "Nature", 13, 3, 24, 21, 0);
+addUser("Snoop Dog", 0, 420, "Fists", "Fluffy Cloud", "Air", 12, 2, 28, 4, 0);
+addUser("???", 50, 150, "Sword", "None", "Dark", 20, 2, 95, 30, 1);
