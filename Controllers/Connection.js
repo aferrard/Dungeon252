@@ -195,7 +195,7 @@ function getBoss(cb) {
         if(err) {
             cb(err);
         } else {
-            console.log(result);
+            //console.log(result);
             var z = JSON.parse(JSON.stringify(result[0]));
             cb(z);
         }
