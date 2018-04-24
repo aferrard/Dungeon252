@@ -262,6 +262,8 @@ app.get('/outcome', function (req, res) {
     var option;
     var effects = "Nothing happens.";
     var room10 = false;
+    var temphealth = req.cookies.health;
+    var died = false;
     getStrength(req.cookies, function (str) {
         getWeight(req.cookies, function (weight) {
             if (req.cookies.curRoom == "GNOME") {
@@ -968,7 +970,8 @@ app.get('/outcome', function (req, res) {
                             curRoom: req.cookies.curRoom,
                             outcome: outcome,
                             image: roomInfo.image,
-                            effects: effects
+                            effects: effects,
+                            died: died,
                         });
                     });
                 });
