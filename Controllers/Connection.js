@@ -205,8 +205,8 @@ function getBoss(cb) {
 exports.addGoldToBoss = addGoldToBoss;
 function addGoldToBoss(amount, cb) {
     getBoss(function(boss) {
-        var gold = boss.money;
-        gold += amount;
+        var gold = parseInt(boss.money);
+        gold += parseInt(amount);
         con.query("UPDATE users SET money = " + gold + " WHERE username = '" + boss.username + "'", function(err, result) {
             if(err) {
                 cb(err);

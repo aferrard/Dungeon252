@@ -43,6 +43,9 @@ app.get('/leaderboard', function (req, res) {
     Connection.getUsers(function (userInfo) {
         res.render('pages/leaderboard', {
             userInfo: userInfo,
+            weapon: Connection.getWeaponFromId(userInfo.weapons_weapon_id, function (weap) {}),
+            item: Connection.getItemFromId(userInfo.items_item_id, function (item) {}),
+            magik: Connection.getMagikFromId(userInfo.magiks_magik_id, function (mag) {}),
             roomCounter: req.cookies.roomCounter
         });
 
