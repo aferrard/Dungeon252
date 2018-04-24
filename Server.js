@@ -1404,6 +1404,7 @@ app.get('/outcome', function (req, res) {
 app.get('/end', function (req, res) {
     Connection.addLoser(req.cookies.hero, req.cookies.health, req.cookies.gold, 0, 0, req.cookies.weapon, req.cookies.item, req.cookies.magik, function (loserInfo) {
         console.log("I'M HERE PEOPLE");
+        console.log(loserInfo);
         res.render('pages/end', {
             loserInfo: loserInfo
         });

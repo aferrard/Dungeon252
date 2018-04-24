@@ -14,15 +14,60 @@ con.connect(function (err) {
     }
 });
 
+function getWeaponId(weapon, cb) {
+    con.query("SELECT weapon_id FROM weapons WHERE name = '" + weapon + "'", function(err, result) {
+        if(err) {
+            //throw err;
+            //default to fists
+            cb(1);
+        } else {
+            var z = JSON.parse(JSON.stringify(result[0].weapon_id));
+            cb(z);
+        }
+    });
+}
+
+function getItemId(item, cb) {
+    con.query("SELECT item_id FROM items WHERE name = '" + item + "'", function(err, result) {
+        if(err) {
+            //throw err;
+            //default to None
+            cb(13);
+        } else {
+            var z = JSON.parse(JSON.stringify(result[0].item_id));
+            cb(z);
+        }
+    });
+}
+
+function getMagikId(magik, cb) {
+    con.query("SELECT magik_id FROM magiks WHERE name = '" + magik + "'", function(err, result) {
+        if(err) {
+            //throw err;
+            //default to None
+            cb(9);
+        } else {
+            var z = JSON.parse(JSON.stringify(result[0].magik_id));
+            cb(z);
+        }
+    });
+}
+
 exports.addWinner = addWinner;
 function addWinner(username, health, money, strength, weight, weapon, item, magik, cb) {
     //need weapon, item, magik ID number
-    con.query("INERT INTO users VALUE( NULL, '" + username + "', " + health + ", " + money + ", " + strength + ", " + weight + ", 1,  " + weapon + ", " + item + ", " + magik, function (err, result) {
-        if (err) {
-            cb(err);
-        } else {
-            cb("A new Hero has joined the roster!");
-        }
+    getWeaponId(weapon, function(weaponid) {
+        getItemId(item, function(itemid) {
+            getMagikId(magik, function(magikid) {
+                con.query("INSERT INTO users VALUE( NULL, '" + username + "', " + health + ", " + money + ", " + strength + ", " + weight + ", 1,  " + weaponid + ", " + itemid + ", " + magikid + ")", function (err, result) {
+                    if (err) {
+                        cb(err);
+                    } else {
+                        cb("A new Hero has joined the roster!");
+                    }
+                });
+            });
+        });
     });
 }
 
@@ -41,12 +86,18 @@ function getWinners(cb) {
 exports.addLoser = addLoser;
 function addLoser (username, health, money, strength, weight, weapon, item, magik, cb) {
     //need weapon, item, magik ID number
-    con.query("INSERT INTO users VALUE( NULL, '" + username + "', " + health + ", " + money + ", " + strength + ", " + weight + ", 0,  " + weapon + ", " + item + ", " + magik, function (err, result) {
-        if (err) {
-            cb(err);
-        } else {
-            cb("Yet another has fallen");
-        }
+    getWeaponId(weapon, function(weaponid) {
+        getItemId(item, function(itemid) {
+            getMagikId(magik, function(magikid) {
+                con.query("INSERT INTO users VALUE( NULL, '" + username + "', " + health + ", " + money + ", " + strength + ", " + weight + ", 0,  " + weaponid + ", " + itemid + ", " + magikid + ")", function (err, result) {
+                    if (err) {
+                        cb(err);
+                    } else {
+                        cb("A new Hero has joined the roster!");
+                    }
+                });
+            });
+        });
     });
 }
 
