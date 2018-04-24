@@ -54,12 +54,12 @@ function getMagikId(magik, cb) {
 }
 
 exports.addWinner = addWinner;
-function addWinner(username, health, money, strength, weight, score, weapon, item, magik, cb) {
+function addWinner(username, health, money, strength, weight, score, numrooms, weapon, item, magik, cb) {
     //need weapon, item, magik ID number
     getWeaponId(weapon, function(weaponid) {
         getItemId(item, function(itemid) {
             getMagikId(magik, function(magikid) {
-                con.query("INSERT INTO users VALUE( NULL, '" + username + "', " + health + ", " + money + ", " + strength + ", " + weight + ", " + score + ", 1,  " + weaponid + ", " + itemid + ", " + magikid + ")", function (err, result) {
+                con.query("INSERT INTO users VALUE( NULL, '" + username + "', " + health + ", " + money + ", " + strength + ", " + weight + ", " + score + ", " + numrooms + ", 1,  " + weaponid + ", " + itemid + ", " + magikid + ")", function (err, result) {
                     if (err) {
                         cb(err);
                     } else {
@@ -84,12 +84,12 @@ function getWinners(cb) {
 }
 
 exports.addLoser = addLoser;
-function addLoser (username, health, money, strength, weight, score, weapon, item, magik, cb) {
+function addLoser (username, health, money, strength, weight, score, numrooms, weapon, item, magik, cb) {
     //need weapon, item, magik ID number
     getWeaponId(weapon, function(weaponid) {
         getItemId(item, function(itemid) {
             getMagikId(magik, function(magikid) {
-                con.query("INSERT INTO users VALUE( NULL, '" + username + "', " + health + ", " + money + ", " + strength + ", " + weight + ", " + score + ", 0,  " + weaponid + ", " + itemid + ", " + magikid + ")", function (err, result) {
+                con.query("INSERT INTO users VALUE( NULL, '" + username + "', " + health + ", " + money + ", " + strength + ", " + weight + ", " + score + ", " + numrooms + ", 0,  " + weaponid + ", " + itemid + ", " + magikid + ")", function (err, result) {
                     if (err) {
                         cb(err);
                     } else {

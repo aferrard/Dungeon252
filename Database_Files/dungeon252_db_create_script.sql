@@ -62,6 +62,7 @@ CREATE TABLE IF NOT EXISTS `dungeon252_data`.`users` (
   `strength` INT NOT NULL,
   `weight` INT NOT NULL,
   `score` INT NOT NULL,
+  `numrooms` INT NOT NULL,
   `winner` INT NOT NULL,
   `weapons_weapon_id` INT UNSIGNED NOT NULL,
   `items_item_id` INT UNSIGNED NOT NULL,
