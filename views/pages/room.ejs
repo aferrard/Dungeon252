@@ -71,7 +71,8 @@
             <input value="Option C" name="c" type="submit" class="btn btn-danger">
             <label name="optionC" for="outcomeC"><%=choices[2].choice%></label>
         </form><br>
-        <%if((room == "DOG" && item != "None")||(room != "CHEST" && room != "THRONE") || (room == "CHEST" && magik != "None") || (room == "THRONE" && (weapon == "??? Staff" || item != "Shell" || item != "Grief Orb" || item != "Eternal Flame" || item != "Atomic Bomb" || item != "Frenzy Seed" || item != "Fluffy Cloud" || item != "Pure Orb"))){ %>
+        <%console.log(room);%>
+        <%if((room == "DOG" && item != "None")||(room != "CHEST" && room != "THRONE") || (room == "CHEST" && magik != "None") || (room == "THRONE" && (weapon == "??? Staff" || item == "Shell" || item == "Grief Orb" || item == "Eternal Flame" || item == "Atomic Bomb" || item == "Frenzy Seed" || item == "Fluffy Cloud" || item == "Pure Orb"))){ %>
         <form align="left" class="form-horizontal" action="/outcome">
             <input hidden id="choice_id" name="choice_id" value="<%=choices[3].choice_id %>">
             <input value="Option D" name="d" type="submit" class="btn btn-danger">

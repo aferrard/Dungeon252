@@ -45,17 +45,19 @@
         <p align="left">
             <font size="3">Result: <%=effects%></font>
         </p><br>
-        <%if (!died) { %>
+        <%if (!died && score == -1) { %>
             <form align="left" class="form-horizontal" action="/room">
                 <input value="Next Room" type="submit" class="btn btn-danger">
             </form><br>
-        <%} else { %>
+        <%}else if(died){ %>
             <form align="left" class="form-horizontal" action="/end">
                 <input value="To the Graveyard" type="submit" class="btn btn-danger">
             </form><br>
+        <%}else{%>
+        <form align="left" class="form-horizontal" action="/champ">
+            <input value="Your Throne, My Liege" type="submit" class="btn btn-danger">
+        </form><br>
         <%}%>
-
-
     </div>
 </main>
 

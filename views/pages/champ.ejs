@@ -21,6 +21,31 @@
             background-repeat: no-repeat;
             font-family: "Apple Chancery";
         }
+        th {
+            text-align: left;
+            font-weight: bold;
+            font-size: 24px;
+            color: #E3C495;
+            font-family: "Bodoni 72 Oldstyle";
+            text-align: center;
+            text-decoration: underline;
+        }
+        td {
+            text-align: left;
+            font-size: 18px;
+            color: #E3C495;
+            font-family: "Bodoni 72 Oldstyle";
+            text-align: center;
+        }
+        table {
+            border-collapse: collapse;
+            width: 65%;
+            border: none;
+
+        }
+        th, td {
+            padding: 2px;
+        }
     </style>
 </head>
 <body class="container">
@@ -39,12 +64,37 @@
             Have Defeated Room Ten<br>
             </b><br><br>
         </h1>
-        <br>
-        <p>
-            <%for (var i = 0; i < winnerInfo.length; i++) {%>
-            <%=winnerInfo[i].username%> <%=winnerInfo[i].money%><br>
+        <table align="center">
+            <tr>
+                <th>Username</th>
+                <th>Score</th>
+                <th>Health</th>
+                <th>Money</th>
+                <th>Weapon</th>
+                <th>Item</th>
+                <th>Magik</th>
+                <th>Rooms Completed</th>
+            </tr>
+            <tr>
+                <td text-align="left"><%=winnerInfo[0].username%></td>
+                <td text-align="left">?</td>
+                <td text-align="left">?</td>
+                <td text-align="left">?</td>
+                <td text-align="left">?</td>
+                <td text-align="left">?</td>
+                <td text-align="left">?</td></tr>
+            </tr>
+            <%for (var i = 1; i < winnerInfo.length; i++) {%>
+            <tr><td text-align="left"><%=winnerInfo[i].username%></td>
+                <td text-align="left"><%=winnerInfo[i].score%></td>
+                <td text-align="left"><%=winnerInfo[i].health%></td>
+                <td text-align="left"><%=winnerInfo[i].money%></td>
+                <td text-align="left"><%=winnerInfo[i].weapons_weapons_id%></td>
+                <td text-align="left"><%=winnerInfo[i].items_item_id%></td>
+                <td text-align="left"><%=winnerInfo[i].magiks_magik_id%></td>
+                <td text-align="left"><%=winnerInfo[i].numrooms%></td></tr>
             <%}%>
-        </p>
+        </table>
     </div>
 </main>
 
