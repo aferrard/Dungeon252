@@ -241,6 +241,7 @@ function roomTen(str, weight, cookie, query, cb) {
     var effects = "";
     var outcome = "";
     var newGold = cookie.gold;
+    var newWep = cookie.wep;
     Connection.getBoss(function(boss){
         if (query.a != undefined) {
             if (str > boss.strength || (str == boss.strength) && (weight < boss.weight)) {
@@ -248,14 +249,14 @@ function roomTen(str, weight, cookie, query, cb) {
                 effects = "You are victorious, but at what cost?";
                 Connection.addWinner(cookie.hero,cookie.health,cookie.money,cookie.str,cookie.weight,cookie.weapon,cookie.item,cookie.magik,function(err){
                     console.log(err);
-                    cb(outcome, effects, newGold, false);
+                    cb(outcome, effects, newGold, newWep, false);
                 });
             } else {
                 outcome = "You are stopped by a shadowed weapon through the chest.\n You can\'t even think as the being pulls his weapon from you and snarls.\n \"Pathetic. Now I must wait for another.\"\n You fall, joining the pile of bodies as your vision fades to black.";
                 effects = "You Died. Next time make sure you're stronger, ya dummy.";
                 Connection.addLoser(cookie.hero,cookie.health,cookie.money,cookie.str, cookie.weight,cookie.weapon,cookie.item,cookie.magik,function(err) {
                     console.log(err);
-                    cb(outcome, effects, newGold, true);
+                    cb(outcome, effects, newGold, newWep, true);
                 });
             }
         } else if (query.b != undefined) {
@@ -264,7 +265,7 @@ function roomTen(str, weight, cookie, query, cb) {
                 effects = "You are victorious, but at what cost?";
                 Connection.addWinner(cookie.hero,cookie.health,cookie.money,cookie.str, cookie.weight,cookie.weapon,cookie.item,cookie.magik,function(err){
                     console.log(err);
-                    cb(outcome, effects, newGold, false);
+                    cb(outcome, effects, newGold, newWep, false);
                 });
             }else if((query.bribe > boss.gold) && cookie.health < boss.health - 5){
                 outcome = "The being approaches you with what you think is a smile behind all the shadows. \"I see you’ve done well with yourself in my dungeon.\" They stop in front of you. It is then you notice a pain in your chest. \"But what good is a king without strength?\" They whisper into your ear, and you finally notice their weapon, pierced through you entirely. You fall, joining the pile of bodies as your vision fades to black.";
@@ -273,7 +274,7 @@ function roomTen(str, weight, cookie, query, cb) {
                     console.log(errg);
                     Connection.addLoser(cookie.hero,cookie.health,cookie.money,cookie.str, cookie.weight,cookie.weapon,cookie.item,cookie.magik,function(err) {
                         console.log(err);
-                        cb(outcome, effects, (newGold-query.bribe), true);
+                        cb(outcome, effects, (newGold-query.bribe), newWep, true);
                     });
                 });
             }else if(cookie.health >= boss.health - 5 && (query.bribe < (boss.gold * 1.5))){
@@ -283,8 +284,14 @@ function roomTen(str, weight, cookie, query, cb) {
                     console.log(errg);
                     Connection.addLoser(cookie.hero,cookie.health,cookie.money,cookie.str, cookie.weight,cookie.weapon,cookie.item,cookie.magik,function(err) {
                         console.log(err);
-                        cb(outcome, effects, (newGold-query.bribe), true);
+                        cb(outcome, effects, (newGold-query.bribe), newWep, true);
                     });
+                });
+            }else{
+                outcome = "\"What.\" The being deadpans. \"You… you\'re worthless. Why are you..?\" \nThey wave you towards the door behind them. \n\"You\'re not even worth my time. Take this and get out of here.\"";
+                getRandom(weapon, function(wep){
+                   console.log("Random Weapon get: "+wep);
+                   cb(outcome, effects, newGold, wep, true);
                 });
             }
         } else if (query.c != undefined) {
