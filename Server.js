@@ -270,7 +270,11 @@ function roomTen(boss, str, weight, cookie, query, ret) {
             });
         }
     } else if (query.b != undefined) {
-        if (query.bribe >= (boss.gold * 1.5) && cookie.health >= boss.health - 5) {
+        console.log("Bribe:");
+        console.log(query.bribe);
+        console.log("Boss gold:");
+        console.log(boss.gold);
+        if (query.bribe >= (boss.money * 1.5) && cookie.health >= boss.health - 5) {
             outcome = "\"Ha! It isn\'t often that I see someone more worthy of being the king here. Have a seat.\" The being gets up and steps aside. As you sit on the throne, you watch the shadows leap from the being to you, revealing a person with a grateful smile. The instant the last speck of shadow leaves them, they vanish, taking your gold with them. You realize it now. Here you will remain, until another takes your place.";
             effects = "You are victorious, but at what cost?";
             console.log("B,a");
@@ -278,8 +282,8 @@ function roomTen(boss, str, weight, cookie, query, ret) {
                 console.log(err);
                 ret(outcome, effects, newGold, newWep, false);
             });
-        } else if ((query.bribe > boss.gold) && cookie.health < boss.health - 5) {
-            outcome = "The being approaches you with what you think is a smile behind all the shadows. \"I see you’ve done well with yourself in my dungeon.\" They stop in front of you. It is then you notice a pain in your chest. \"But what good is a king without strength?\" They whisper into your ear, and you finally notice their weapon, pierced through you entirely. You fall, joining the pile of bodies as your vision fades to black.";
+        } else if ((query.bribe > boss.money) && (cookie.health < (boss.health - 5))) {
+            outcome = "The being approaches you with what you think is a smile behind all the shadows. \"I see you’ve done well with yourself in my dungeon.\" \nThey stop in front of you. It is then you notice a pain in your chest. \"But what good is a king without strength?\" They whisper into your ear, and you finally notice their weapon, pierced through you entirely.\n You fall, joining the pile of bodies as your vision fades to black.";
             effects = "You Died. The Boss took your gold too. That was dumb.";
             console.log("B,b");
             Connection.addGoldToBoss(query.bribe, function (errg) {
@@ -289,7 +293,7 @@ function roomTen(boss, str, weight, cookie, query, ret) {
                     ret(outcome, effects, (newGold - query.bribe), newWep, true);
                 });
             });
-        } else if (cookie.health >= boss.health - 5 && (query.bribe < (boss.gold * 1.5))) {
+        } else if (cookie.health >= boss.health - 5 && (query.bribe < (boss.money * 1.5))) {
             outcome = "\"You\'ve clearly faced less trials than me.\" The being frowns at you, eyebrows made of shadows furrowed. \"You had potential\" Before you can react, you notice a pain in your chest. \"A shame really. Your wealth will barely add to my collection in the least.\" They whisper into your ear, and you finally notice their weapon, pierced through you entirely. You fall, joining the pile of bodies as your vision fades to black.";
             effects = "You Died. The Boss took your gold too. That was dumb.";
             console.log("B,c");
