@@ -168,7 +168,7 @@ app.get('/room', function (req, res) {
     });
 });
 
-function getStrength(cookie, cb) {
+function getStrength(cookie, stren) {
     var strength = 0;
     console.log("STRENGTH");
     if (cookie.item == "Dog tooth") {
@@ -185,18 +185,18 @@ function getStrength(cookie, cb) {
                 strength += mag.effect;
                 strength += parseInt(cookie.health / 10);
                 console.log(strength);
-                cb(strength);
+                stren(strength);
             });
         } else {
             strength += parseInt(cookie.health / 10);
             console.log(strength);
-            cb(strength);
+            stren(strength);
         }
     });
 
 }
 
-function getWeight(cookie, cb) {
+function getWeight(cookie, wei) {
     console.log("WEIGHT");
     var weight = 0;
     console.log(cookie.weapon);
@@ -209,89 +209,111 @@ function getWeight(cookie, cb) {
                 console.log(item);
                 weight += item.weight;
                 console.log(weight);
-                cb(weight);
+                wei(weight);
             })
         } else {
             console.log(weight);
-            cb(weight);
+            wei(weight);
         }
     })
 
 }
 
-function getRandom(type, cb) {
+function getRandom(type, ran) {
     var weapons = ["Stick", "Sword", "Whip", "Fish", "Basic staff"];
     var items = ["Chain mail", "Sandwich", "Smoke machine", "Stress ball", "Dog tooth"];
     var magiks = ["Fire", "Water", "Nature", "Air", "Light", "Dark", "Explosion"];
     if (type == "item") {
         var pick = Math.round((parseInt(items.length) - 1) * Math.random());
-        cb(items[pick]);
+        ran(items[pick]);
     } else if (type == "magik") {
         var pick = Math.round((parseInt(magiks.length) - 1) * Math.random());
-        cb(magiks[pick]);
+        ran(magiks[pick]);
     } else if (type == "weapon") {
         var pick = Math.round((parseInt(weapons.length) - 1) * Math.random());
-        cb(weapons[pick]);
+        ran(weapons[pick]);
     }
 }
 
-function roomTen(str, weight, cookie, query, cb) {
+function roomTen(boss, str, weight, cookie, query, ret) {
+    console.log("ROOM10 STARTING HERE!!!!!!!!!!!!!!!!!!!!!!");
     var effects = "";
     var outcome = "";
     var newGold = cookie.gold;
-    Connection.getBoss(function(boss){
-        if (query.a != undefined) {
-            if (str > boss.strength || (str == boss.strength) && (weight < boss.weight)) {
-                outcome = "Your hits strike true, beating down the shadowy figure until it is nothing but a corpse on the floor. \nSuddenly, the shadows that had concealed them rush at you, enveloping your entire body and forcing you onto the golden throne.\n Here you will remain, until another takes your place.";
-                effects = "You are victorious, but at what cost?";
-                Connection.addWinner(cookie.hero,cookie.health,cookie.money,cookie.str,cookie.weight,cookie.weapon,cookie.item,cookie.magik,function(err){
-                    console.log(err);
-                    cb(outcome, effects, newGold, false);
-                });
-            } else {
-                outcome = "You are stopped by a shadowed weapon through the chest.\n You can\'t even think as the being pulls his weapon from you and snarls.\n \"Pathetic. Now I must wait for another.\"\n You fall, joining the pile of bodies as your vision fades to black.";
-                effects = "You Died. Next time make sure you're stronger, ya dummy.";
-                Connection.addLoser(cookie.hero,cookie.health,cookie.money,cookie.str, cookie.weight,cookie.weapon,cookie.item,cookie.magik,function(err) {
-                    console.log(err);
-                    cb(outcome, effects, newGold, true);
-                });
-            }
-        } else if (query.b != undefined) {
-            if(query.bribe >= (boss.gold * 1.5) && cookie.health >= boss.health - 5){
-                outcome = "\"Ha! It isn\'t often that I see someone more worthy of being the king here. Have a seat.\" The being gets up and steps aside. As you sit on the throne, you watch the shadows leap from the being to you, revealing a person with a grateful smile. The instant the last speck of shadow leaves them, they vanish, taking your gold with them. You realize it now. Here you will remain, until another takes your place.";
-                effects = "You are victorious, but at what cost?";
-                Connection.addWinner(cookie.hero,cookie.health,cookie.money,cookie.str, cookie.weight,cookie.weapon,cookie.item,cookie.magik,function(err){
-                    console.log(err);
-                    cb(outcome, effects, newGold, false);
-                });
-            }else if((query.bribe > boss.gold) && cookie.health < boss.health - 5){
-                outcome = "The being approaches you with what you think is a smile behind all the shadows. \"I see you’ve done well with yourself in my dungeon.\" They stop in front of you. It is then you notice a pain in your chest. \"But what good is a king without strength?\" They whisper into your ear, and you finally notice their weapon, pierced through you entirely. You fall, joining the pile of bodies as your vision fades to black.";
-                effects = "You Died. The Boss took your gold too. That was dumb.";
-                Connection.addGoldToBoss(query.bribe, function(errg){
-                    console.log(errg);
-                    Connection.addLoser(cookie.hero,cookie.health,cookie.money,cookie.str, cookie.weight,cookie.weapon,cookie.item,cookie.magik,function(err) {
-                        console.log(err);
-                        cb(outcome, effects, (newGold-query.bribe), true);
-                    });
-                });
-            }else if(cookie.health >= boss.health - 5 && (query.bribe < (boss.gold * 1.5))){
-                outcome = "\"You\'ve clearly faced less trials than me.\" The being frowns at you, eyebrows made of shadows furrowed. \"You had potential\" Before you can react, you notice a pain in your chest. \"A shame really. Your wealth will barely add to my collection in the least.\" They whisper into your ear, and you finally notice their weapon, pierced through you entirely. You fall, joining the pile of bodies as your vision fades to black.";
-                effects = "You Died. The Boss took your gold too. That was dumb.";
-                Connection.addGoldToBoss(query.bribe, function(errg){
-                    console.log(errg);
-                    Connection.addLoser(cookie.hero,cookie.health,cookie.money,cookie.str, cookie.weight,cookie.weapon,cookie.item,cookie.magik,function(err) {
-                        console.log(err);
-                        cb(outcome, effects, (newGold-query.bribe), true);
-                    });
-                });
-            }
-        } else if (query.c != undefined) {
-
-        } else if (query.d != undefined) {
-
+    var newWep = cookie.weapon;
+    console.log("str: " + str + "weight:" + weight);
+    console.log("cookie:");
+    console.log(cookie);
+    console.log("query:");
+    console.log(query);
+    console.log("boss: ");
+    console.log(boss);
+    if (query.a != undefined) {
+        if (str > boss.strength || (str == boss.strength) && (weight < boss.weight)) {
+            outcome = "Your hits strike true, beating down the shadowy figure until it is nothing but a corpse on the floor. \nSuddenly, the shadows that had concealed them rush at you, enveloping your entire body and forcing you onto the golden throne.\n Here you will remain, until another takes your place.";
+            effects = "You are victorious, but at what cost?";
+            console.log("A,a");
+            Connection.addWinner(cookie.hero, cookie.health, cookie.gold, cookie.str, cookie.weight, cookie.weapon, cookie.item, cookie.magik, function (err) {
+                console.log(err);
+                ret(outcome, effects, newGold, newWep, false);
+            });
+        } else {
+            outcome = "You are stopped by a shadowed weapon through the chest.\n You can\'t even think as the being pulls his weapon from you and snarls.\n \"Pathetic. Now I must wait for another.\"\n You fall, joining the pile of bodies as your vision fades to black.";
+            effects = "You Died. Next time make sure you're stronger, ya dummy.";
+            console.log("A,b");
+            Connection.addLoser(cookie.hero, cookie.health, cookie.gold, cookie.str, cookie.weight, cookie.weapon, cookie.item, cookie.magik, function (err) {
+                console.log(err);
+                ret(outcome, effects, newGold, newWep, true);
+            });
         }
-    });
-    cb(outcome, effects);
+    } else if (query.b != undefined) {
+        if (query.bribe >= (boss.gold * 1.5) && cookie.health >= boss.health - 5) {
+            outcome = "\"Ha! It isn\'t often that I see someone more worthy of being the king here. Have a seat.\" The being gets up and steps aside. As you sit on the throne, you watch the shadows leap from the being to you, revealing a person with a grateful smile. The instant the last speck of shadow leaves them, they vanish, taking your gold with them. You realize it now. Here you will remain, until another takes your place.";
+            effects = "You are victorious, but at what cost?";
+            console.log("B,a");
+            Connection.addWinner(cookie.hero, cookie.health, cookie.gold, cookie.str, cookie.weight, cookie.weapon, cookie.item, cookie.magik, function (err) {
+                console.log(err);
+                ret(outcome, effects, newGold, newWep, false);
+            });
+        } else if ((query.bribe > boss.gold) && cookie.health < boss.health - 5) {
+            outcome = "The being approaches you with what you think is a smile behind all the shadows. \"I see you’ve done well with yourself in my dungeon.\" They stop in front of you. It is then you notice a pain in your chest. \"But what good is a king without strength?\" They whisper into your ear, and you finally notice their weapon, pierced through you entirely. You fall, joining the pile of bodies as your vision fades to black.";
+            effects = "You Died. The Boss took your gold too. That was dumb.";
+            console.log("B,b");
+            Connection.addGoldToBoss(query.bribe, function (errg) {
+                console.log(errg);
+                Connection.addLoser(cookie.hero, cookie.health, cookie.gold, cookie.str, cookie.weight, cookie.weapon, cookie.item, cookie.magik, function (err) {
+                    console.log(err);
+                    ret(outcome, effects, (newGold - query.bribe), newWep, true);
+                });
+            });
+        } else if (cookie.health >= boss.health - 5 && (query.bribe < (boss.gold * 1.5))) {
+            outcome = "\"You\'ve clearly faced less trials than me.\" The being frowns at you, eyebrows made of shadows furrowed. \"You had potential\" Before you can react, you notice a pain in your chest. \"A shame really. Your wealth will barely add to my collection in the least.\" They whisper into your ear, and you finally notice their weapon, pierced through you entirely. You fall, joining the pile of bodies as your vision fades to black.";
+            effects = "You Died. The Boss took your gold too. That was dumb.";
+            console.log("B,c");
+            Connection.addGoldToBoss(query.bribe, function (errg) {
+                console.log(errg);
+                Connection.addLoser(cookie.hero, cookie.health, cookie.gold, cookie.str, cookie.weight, cookie.weapon, cookie.item, cookie.magik, function (err) {
+                    console.log(err);
+                    ret(outcome, effects, (newGold - query.bribe), newWep, true);
+                });
+            });
+        } else {
+            outcome = "\"What.\" The being deadpans. \"You… you\'re worthless. Why are you..?\" \nThey wave you towards the door behind them. \n\"You\'re not even worth my time. Take this and get out of here.\"";
+            console.log("B,d");
+            getRandom("weapon", function (wep) {
+                effects = "You proceed to the next room with a new " + wep + " as well as an unhealthy amount of confusion."
+                console.log("Random Weapon get: " + wep);
+                ret(outcome, effects, newGold, wep, false);
+            });
+        }
+    } else if (query.c != undefined) {
+        outcome = "The shadowed being waves his hand at you with a pleasant smile.\n \"I may not be the one you see ten rooms from now, but good luck.\"";
+        effects = "You continue on to the next room, determined to improve for next time.";
+        ret(outcome, effects, newGold, newWep, false);
+    } else if (query.d != undefined) {
+
+    }
+    //ret(outcome, effects, newGold, newWep, true);
 }
 
 app.get('/outcome', function (req, res) {
@@ -613,19 +635,17 @@ app.get('/outcome', function (req, res) {
             }
             else if (req.cookies.curRoom == "CHEST") {
                 if (req.query.a != undefined) {
-                    Connection.getWeapon(req.cookies.weapon, function (wep) {
-                        if (wep.name != "Fists") {
-                            option = "a";
-                            getRandom("item", function (item) {
-                                res.cookie('item', item, {maxAge: 9000000});
-                                effects = ("Gain item: " + item);
-                            })
-                        } else {
-                            option = "b";
-                            res.cookie('weapon', "??? Staff", {maxAge: 9000000});
-                            effects = ("Gain weapon: ??? Staff");
-                        }
-                    });
+                    if (req.cookies.weapon != "Fists") {
+                        option = "a";
+                        getRandom("item", function (item) {
+                            res.cookie('item', item, {maxAge: 9000000});
+                            effects = ("Gain item: " + item);
+                        })
+                    } else {
+                        option = "b";
+                        res.cookie('weapon', "??? Staff", {maxAge: 9000000});
+                        effects = ("Gain weapon: ??? Staff");
+                    }
                 } else if (req.query.b != undefined) {
                     option = "a";
                 } else if (req.query.c != undefined) {
@@ -1356,23 +1376,30 @@ app.get('/outcome', function (req, res) {
                 room10 = true;
             }
             if (room10) {
-                roomTen(str, weight, req.cookies, req.query, function (outcome, effects, newGold, died) {
-                    Connection.getRoom(req.cookies.curRoom, function (roomInfo) {
-                        res.render('pages/outcome', {
-                            hero: req.cookies.hero,
-                            health: req.cookies.health,
-                            gold: newGold,
-                            weapon: req.cookies.weapon,
-                            item: req.cookies.item,
-                            magik: req.cookies.magik,
-                            str: str,
-                            weight: weight,
-                            roomCounter: roomCounter,
-                            curRoom: req.cookies.curRoom,
-                            outcome: outcome,
-                            image: roomInfo.image,
-                            effects: effects,
-                            died: died
+                Connection.getBoss(function (boss) {
+                    console.log("ROOM10 FUNCTION BEING SENT!!!!!!!");
+                    roomTen(boss, str, weight, req.cookies, req.query, function (outcome, effects, newGold, newWep, died) {
+                        res.cookie('weapon', newWep, {maxAge: 9000000});
+                        res.cookie('gold', newGold, {maxAge: 9000000});
+                        console.log("INSIDE ROOM10 FUNCTION!!!!!!!!");
+                        console.log("outcome: " + outcome + ", effects: " + effects + ", newGold: " + newGold + ", newWep: " + newWep + ", died: " + died);
+                        Connection.getRoom(req.cookies.curRoom, function (roomInfo) {
+                            res.render('pages/outcome', {
+                                hero: req.cookies.hero,
+                                health: req.cookies.health,
+                                gold: newGold,
+                                weapon: newWep,
+                                item: req.cookies.item,
+                                magik: req.cookies.magik,
+                                str: str,
+                                weight: weight,
+                                roomCounter: roomCounter,
+                                curRoom: req.cookies.curRoom,
+                                outcome: outcome,
+                                image: roomInfo.image,
+                                effects: effects,
+                                died: died
+                            });
                         });
                     });
                 });
