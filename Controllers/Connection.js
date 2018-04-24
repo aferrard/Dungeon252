@@ -73,7 +73,7 @@ function addWinner(username, health, money, strength, weight, weapon, item, magi
 
 exports.getWinners = getWinners;
 function getWinners(cb) {
-    con.query("SELECT * FROM users WHERE winner = 1", function(err, winners) {
+    con.query("SELECT * FROM users WHERE winner = 1 ORDER BY user_id DESC", function(err, winners) {
         if(err) {
             throw err;
         } else {
@@ -179,7 +179,7 @@ function getItem(name, cb) {
 
 exports.getUsers = getUsers;
 function getUsers(cb) {
-    con.query("SELECT * FROM users", function(err, users) {
+    con.query("SELECT * FROM users ORDER BY user_id DESC", function(err, users) {
         if(err) {
             cb(err);
         } else {
