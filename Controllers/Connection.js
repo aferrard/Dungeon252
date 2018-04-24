@@ -311,7 +311,7 @@ function addGoldToBoss(amount, cb) {
 
 exports.getWeaponFromId = getWeaponFromId;
 function getWeaponFromId(weaponid, cb) {
-    console.log(weaponid);
+    //console.log(weaponid);
     con.query("SELECT name FROM weapons WHERE weapon_id = " + weaponid, function(err, result) {
         if(err) {
             cb(err);
@@ -324,7 +324,7 @@ function getWeaponFromId(weaponid, cb) {
 
 exports.getItemFromId = getItemFromId;
 function getItemFromId(itemid, cb) {
-    console.log(itemid);
+    //console.log(itemid);
     con.query("SELECT name FROM items WHERE item_id = " + itemid, function(err, result) {
         if(err) {
             cb(err);
@@ -337,7 +337,7 @@ function getItemFromId(itemid, cb) {
 
 exports.getMagikFromId = getMagikFromId;
 function getMagikFromId(magikid, cb) {
-    console.log(magikid);
+    //console.log(magikid);
     con.query("SELECT name FROM magiks WHERE magik_id = " + magikid, function(err, result) {
         if(err) {
             cb(err);
@@ -348,7 +348,7 @@ function getMagikFromId(magikid, cb) {
     });
 }
 
-getBoss(function(result) {
+getUsers(function(result) {
     console.log("final result:");
     console.log(result);
 });
