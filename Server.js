@@ -241,7 +241,7 @@ function calcScore(cookie, sco){
     var score = parseInt(cookie.health)+parseInt(cookie.gold)+(parseInt(cookie.roomCounter)*1.5)+parseInt(cookie.str)
     sco(score);
 }
-function roomTen(boss, str, weight, cookie, query, score, ret) {
+function roomTen(boss, str, weight, cookie, query, ret) {
     console.log("ROOM10 STARTING HERE!!!!!!!!!!!!!!!!!!!!!!");
     var effects = "";
     var outcome = "";
@@ -262,7 +262,7 @@ function roomTen(boss, str, weight, cookie, query, score, ret) {
             calcScore(cookie, function(score){
                 Connection.addWinner(cookie.hero, cookie.health, cookie.gold, cookie.str, cookie.weight, score, cookie.roomCounter, cookie.weapon, cookie.item, cookie.magik, function (err) {
                     console.log(err);
-                    ret(outcome, effects, newGold, newWep, false);
+                    ret(outcome, effects, newGold, newWep, false, score);
                 });
             });
         } else {
@@ -270,9 +270,10 @@ function roomTen(boss, str, weight, cookie, query, score, ret) {
             effects = "You Died. Next time make sure you're stronger, ya dummy.";
             console.log("A,b");
             calcScore(cookie, function(score) {
+                console.log(score);
                 Connection.addLoser(cookie.hero, cookie.health, cookie.gold, cookie.str, cookie.weight, score, cookie.roomCounter, cookie.weapon, cookie.item, cookie.magik, function (err) {
                     console.log(err);
-                    ret(outcome, effects, newGold, newWep, true);
+                    ret(outcome, effects, newGold, newWep, true, score);
                 });
             });
         }
@@ -1427,22 +1428,45 @@ app.get('/outcome', function (req, res) {
             } else {
                 Connection.getRoom(req.cookies.curRoom, function (roomInfo) {
                     Connection.getOutcome(req.query.choice_id, option, function (outcome) {
-                        res.render('pages/outcome', {
-                            hero: req.cookies.hero,
-                            health: req.cookies.health,
-                            gold: req.cookies.gold,
-                            weapon: req.cookies.weapon,
-                            item: req.cookies.item,
-                            magik: req.cookies.magik,
-                            str: str,
-                            weight: weight,
-                            roomCounter: roomCounter,
-                            curRoom: req.cookies.curRoom,
-                            outcome: outcome,
-                            image: roomInfo.image,
-                            effects: effects,
-                            died: died
-                        });
+                        if(died){
+                            calcScore(req.cookies, function(score){
+                                res.render('pages/outcome', {
+                                    hero: req.cookies.hero,
+                                    health: req.cookies.health,
+                                    gold: req.cookies.gold,
+                                    weapon: req.cookies.weapon,
+                                    item: req.cookies.item,
+                                    magik: req.cookies.magik,
+                                    str: str,
+                                    weight: weight,
+                                    roomCounter: roomCounter,
+                                    curRoom: req.cookies.curRoom,
+                                    outcome: outcome,
+                                    image: roomInfo.image,
+                                    effects: effects,
+                                    died: died,
+                                    score: score
+                                });
+                            });
+                        }else{
+                            res.render('pages/outcome', {
+                                hero: req.cookies.hero,
+                                health: req.cookies.health,
+                                gold: req.cookies.gold,
+                                weapon: req.cookies.weapon,
+                                item: req.cookies.item,
+                                magik: req.cookies.magik,
+                                str: str,
+                                weight: weight,
+                                roomCounter: roomCounter,
+                                curRoom: req.cookies.curRoom,
+                                outcome: outcome,
+                                image: roomInfo.image,
+                                effects: effects,
+                                died: died,
+                                score: -1
+                            });
+                        }
                     });
                 });
             }
