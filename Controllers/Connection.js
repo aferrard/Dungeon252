@@ -73,11 +73,31 @@ function addWinner(username, health, money, strength, weight, score, numrooms, w
 
 exports.getWinners = getWinners;
 function getWinners(cb) {
+    var async = require('async');
     con.query("SELECT * FROM users WHERE winner = 1 ORDER BY user_id DESC", function(err, winners) {
         if(err) {
             throw err;
         } else {
             var z = JSON.parse(JSON.stringify(winners));
+
+            var counter = 0;
+            async.each(z, function(row, ret) {
+                convertToString(row.weapons_weapon_id, row.items_item_id, row.magiks_magik_id, function(weapon, item, magik) {
+                    row.weapons_weapon_id = weapon;
+                    row.items_item_id = item;
+                    row.magiks_magik_id = magik;
+                    counter++;
+                    //console.log("row");
+                    //console.log(counter);
+                    //console.log(row);
+                    if(counter == z.length) {
+                        cb(z);
+                        return;
+                    }
+                });
+                ret();
+            });
+
             cb(z);
         }
     });
@@ -177,27 +197,99 @@ function getItem(name, cb) {
     });
 }
 
+function convertToString(weaponid, itemid, magikid, cb) {
+    getWeaponFromId(weaponid, function(weapon) {
+        getItemFromId(itemid, function(item) {
+            getMagikFromId(magikid, function(magik) {
+                cb(weapon, item, magik);
+            });
+        });
+    });
+}
+
 exports.getUsers = getUsers;
 function getUsers(cb) {
+    var async = require('async');
     con.query("SELECT * FROM users ORDER BY score DESC", function(err, users) {
         if(err) {
             cb(err);
         } else {
+            //var i = 0;
             var z = JSON.parse(JSON.stringify(users));
-            cb(z);
+            //console.log("length:" + z.length);
+            /*for(i; i < z.length -1; i++) {
+                getWeaponFromId(z[i].weapons_weapon_id, function(weapon) {
+                    getItemFromId(z[i].items_item_id, function(item) {
+                        getMagikFromId(z[i].magiks_magik_id, function(magik){
+                            z[i].weapons_weapon_id = weapon;
+                            z[i].items_item_id = item;
+                            z[i].magiks_magik_id = magik;
+                            console.log("test");
+                            console.log(z[i]);
+                            if(i == z.length-1) {
+                                console.log("cb ing");
+                                cb(z);
+                            }
+                        });
+                    });
+                });
+            }*/
+            var counter = 0;
+            async.each(z, function(row, ret) {
+                convertToString(row.weapons_weapon_id, row.items_item_id, row.magiks_magik_id, function(weapon, item, magik) {
+                    row.weapons_weapon_id = weapon;
+                    row.items_item_id = item;
+                    row.magiks_magik_id = magik;
+                    counter++;
+                    //console.log("row");
+                    //console.log(counter);
+                    //console.log(row);
+                    if(counter == z.length) {
+                        cb(z);
+                        return;
+                    }
+                });
+                ret();
+            });
+
+
+            //console.log("new z");
+            //console.log(z);
+            //cb(z);
         }
     });
 }
 
 exports.getBoss = getBoss;
 function getBoss(cb) {
+    var async = require('async');
     con.query("SELECT * FROM users WHERE winner = 1 ORDER BY user_id DESC", function(err, result) {
         if(err) {
             cb(err);
         } else {
             //console.log(result);
-            var z = JSON.parse(JSON.stringify(result[0]));
-            cb(z);
+            //var z = JSON.parse(JSON.stringify(result[0]));
+            var z = JSON.parse(JSON.stringify(result));
+
+            var counter = 0;
+            async.each(z, function(row, ret) {
+                convertToString(row.weapons_weapon_id, row.items_item_id, row.magiks_magik_id, function(weapon, item, magik) {
+                    row.weapons_weapon_id = weapon;
+                    row.items_item_id = item;
+                    row.magiks_magik_id = magik;
+                    counter++;
+                    //console.log("row");
+                    //console.log(counter);
+                    //console.log(row);
+                    if(counter == z.length) {
+                        cb(z[0]);
+                        return;
+                    }
+                });
+                ret();
+            });
+
+            //cb(z);
         }
     });
 }
@@ -252,3 +344,8 @@ function getMagikFromId(magikid, cb) {
         }
     });
 }
+
+getBoss(function(result) {
+    console.log("final result:");
+    console.log(result);
+});
