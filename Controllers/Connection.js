@@ -347,8 +347,3 @@ function getMagikFromId(magikid, cb) {
         }
     });
 }
-
-getUsers(function(result) {
-    console.log("final result:");
-    console.log(result);
-});
