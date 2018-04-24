@@ -216,3 +216,39 @@ function addGoldToBoss(amount, cb) {
         });
     });
 }
+
+exports.getWeaponFromId = getWeaponFromId;
+function getWeaponFromId(weaponid, cb) {
+    con.query("SELECT name FROM weapons WHERE weapon_id = " + weaponid, function(err, result) {
+        if(err) {
+            cb(err);
+        } else {
+            var z = JSON.parse(JSON.stringify(result[0].name));
+            cb(z);
+        }
+    });
+}
+
+exports.getItemFromId = getItemFromId;
+function getItemFromId(itemid, cb) {
+    con.query("SELECT name FROM items WHERE item_id = " + itemid, function(err, result) {
+        if(err) {
+            cb(err);
+        } else {
+            var z = JSON.parse(JSON.stringify(result[0].name));
+            cb(z);
+        }
+    });
+}
+
+exports.getMagikFromId = getMagikFromId;
+function getMagikFromId(magikid, cb) {
+    con.query("SELECT name FROM magiks WHERE magik_id = " + magikid, function(err, result) {
+        if(err) {
+            cb(err);
+        } else {
+            var z = JSON.parse(JSON.stringify(result[0].name));
+            cb(z);
+        }
+    });
+}

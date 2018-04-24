@@ -1504,5 +1504,3 @@ addUser("Trollface", 0, 15, "Fish", "None", "Light", 11, 1, 0);
 addUser("RockGoblin", 0, 72, "Stick", "Chain mail", "Nature", 13, 3, 0);
 addUser("Snoop Dog", 0, 420, "Fists", "Fluffy Cloud", "Air", 12, 2, 0);
 addUser("???", 50, 150, "Sword", "None", "Dark", 20, 2, 1);
-//first boss
-addUser("firstboss,", 30, 70, "Warhammer", "Smoke machine", "Explosion", 35, 3, 1);
