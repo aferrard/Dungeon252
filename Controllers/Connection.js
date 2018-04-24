@@ -41,7 +41,7 @@ function getWinners(cb) {
 exports.addLoser = addLoser;
 function addLoser (username, health, money, strength, weight, weapon, item, magik, cb) {
     //need weapon, item, magik ID number
-    con.query("INERT INTO users VALUE( NULL, '" + username + "', " + health + ", " + money + ", " + strength + ", " + weight + ", 0,  " + weapon + ", " + item + ", " + magik, function (err, result) {
+    con.query("INSERT INTO users VALUE( NULL, '" + username + "', " + health + ", " + money + ", " + strength + ", " + weight + ", 0,  " + weapon + ", " + item + ", " + magik, function (err, result) {
         if (err) {
             cb(err);
         } else {

@@ -40,11 +40,24 @@ app.get('/', function (req, res) {
 });
 
 app.get('/leaderboard', function (req, res) {
-    res.render('pages/leaderboard');
+    Connection.getUsers(function (userInfo) {
+        res.render('pages/leaderboard', {
+            username: userInfo.username,
+            money: userInfo.money,
+
+        });
+
+    });
 });
 
 app.get('/champ', function (req, res) {
-    res.render('pages/champ');
+    Connection.getWinners(function (winnerInfo) {
+        res.render('pages/champ', {
+            username: winnerInfo.username,
+            money: winnerInfo.money
+        });
+
+    });
 });
 
 var roomsMaster = ["GNOME", "DOG", "HOLE", "CHEST", "POTIONS", "DARKWIZARD", "SEASHELL", "CAMPFIRE", "HELICOPTER", "SALESMAN", "FEAST", "CHOOSEAROOM", "LADDERS", "DRYAD"];
@@ -1352,7 +1365,10 @@ app.get('/outcome', function (req, res) {
 });
 
 app.get('/end', function (req, res) {
-    res.render('pages/end');
+    Connection.addLoser(req.cookies.hero, req.cookies.health, req.cookies.gold, 0, 0, req.cookies.weapon, req.cookies.item, req.cookies.magik, function (loserInfo) {
+        console.log("I'M HERE PEOPLE");
+        res.render('pages/end');
+    });
 });
 
 app.listen(5252);
