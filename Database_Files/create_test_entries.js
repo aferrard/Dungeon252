@@ -1030,7 +1030,7 @@ getRoomId("SALESMAN", function(room) {
                         if(err) {
                             throw err;
                         } else {
-                            con.query("INSERT INTO outcomes VALUE('b', 'You kill the salesman and gain the warhammer for free!', " + choice[0].choice_id + ")", function(err, result) {
+                            con.query("INSERT INTO outcomes VALUE('b', 'You wound the salesman but are also wounded in the process. You lose 8 HP and decide to cut your losses, continuing to the next room', " + choice[0].choice_id + ")", function(err, result) {
                                 if(err) {
                                     throw err;
                                 } else {
