@@ -397,7 +397,7 @@ function roomTen(boss, str, weight, cookie, query, ret) {
                             ret(outcome, effects, newGold, newWep, true, score, popup);
                         });
                     } else {
-                        outcome = "Both your " + cookie.item + " and the being\'s " + boss.items_item_id+ " shatter in a flash of light. \nYou share a brief bout of laughter with your foe, before he pulls out his weapon. \n\"That was disappointing. How about we decide this another way, in the future?\" \nHe gestures towards the door, and you grudgingly listen to his suggestion.";
+                        outcome = "Both your " + cookie.item + " and the being\'s " + boss.items_item_id+ " shatter in a flash of light. \nYou share a brief bout of laughter with your foe, before he calms down and hold up his hands. \n\"That was disappointing. How about we decide this another way, in the future?\" \nHe gestures towards the door, and you grudgingly listen to his suggestion.";
                         effects = "You proceed to the next room.";
                         ret(outcome, effects, newGold, newWep, false, -1, popup);
                     }
