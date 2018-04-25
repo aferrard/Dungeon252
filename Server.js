@@ -868,7 +868,7 @@ app.get('/outcome', function (req, res) {
                                 died = true;
                             }
                         }
-                    } else if (req.cookies.magik != "Familiar" && req.cookies.magik != "Fire" && req.cookies.magik != "Light" && req.cookies.magik != "Explosion" && req.cookies.magik != "Darkr") {
+                    } else if (req.cookies.magik != "Familiar" && req.cookies.magik != "Fire" && req.cookies.magik != "Light" && req.cookies.magik != "Explosion" && req.cookies.magik != "Dark") {
                         option = "b";
                     } else if (req.cookies.magik == "Familiar" || req.cookies.magik == "Fire" || req.cookies.magik == "Light" || req.cookies.magik == "Explosion") {
                         option = "c";
