@@ -370,7 +370,7 @@ getRoomId("CHEST", function(room) {
                 if(err) {
                     throw err;
                 } else {
-                    con.query("INSERT INTO outcomes VALUE('a', 'You discover an item!', " + choice[0].choice_id + ")", function(err, result) {
+                    con.query("INSERT INTO outcomes VALUE('a', 'You discover some gold!', " + choice[0].choice_id + ")", function(err, result) {
                         if(err) {
                             throw err;
                         } else {
@@ -982,7 +982,7 @@ getRoomId("SALESMAN", function(room) {
                 if(err) {
                     throw err;
                 } else {
-                    con.query("INSERT INTO outcomes VALUE('a', 'You look at your shiny new warhammer and feel a little bit sad about the gold you just gave up.', " + choice[0].choice_id + ")", function(err, result) {
+                    con.query("INSERT INTO outcomes VALUE('a', 'You look at your shiny new weapon and feel a little bit sad about the gold you just gave up.', " + choice[0].choice_id + ")", function(err, result) {
                         if(err) {
                             throw err;
                         } else {
@@ -1018,15 +1018,15 @@ getRoomId("SALESMAN", function(room) {
             });
         }
     });
-    con.query("INSERT INTO choices VALUE(NULL, 'Try to steal the warhammer from the salesman', " + room + ")", function(err, result) {
+    con.query("INSERT INTO choices VALUE(NULL, 'Try to steal the weapon from the salesman', " + room + ")", function(err, result) {
         if(err) {
             throw err;
         } else {
-            con.query("SELECT choice_id FROM choices WHERE choice = 'Try to steal the warhammer from the salesman'", function(err, choice) {
+            con.query("SELECT choice_id FROM choices WHERE choice = 'Try to steal the weapon from the salesman'", function(err, choice) {
                 if(err) {
                     throw err;
                 } else {
-                    con.query("INSERT INTO outcomes VALUE('a', 'You kill the salesman and gain the warhammer for free!', " + choice[0].choice_id + ")", function(err, result) {
+                    con.query("INSERT INTO outcomes VALUE('a', 'You kill the salesman and gain the weapon for free!', " + choice[0].choice_id + ")", function(err, result) {
                         if(err) {
                             throw err;
                         } else {
@@ -1091,15 +1091,15 @@ getRoomId("DRYAD", function(room) {
             });
         }
     });
-    con.query("INSERT INTO choices VALUE(NULL, 'Take all of the Dryad\\\'s fruit (14 HP)', " + room + ")", function(err, result) {
+    con.query("INSERT INTO choices VALUE(NULL, 'Take all of the Dryad\\\'s fruit', " + room + ")", function(err, result) {
         if(err) {
             throw err;
         } else {
-            con.query("SELECT choice_id FROM choices WHERE choice = 'Take all of the Dryad\\\'s fruit (14 HP)'", function(err, choice) {
+            con.query("SELECT choice_id FROM choices WHERE choice = 'Take all of the Dryad\\\'s fruit'", function(err, choice) {
                 if(err) {
                     throw err;
                 } else {
-                    con.query("INSERT INTO outcomes VALUE('a', 'The Dryad cries out in pain as you rip all of the fruit from her body. You watch as her body dries up in seconds, withering away into rot.', " + choice[0].choice_id + ")", function(err, result) {
+                    con.query("INSERT INTO outcomes VALUE('a', 'The Dryad cries out in pain as you rip all of the fruit from her body. Face overtaken by rage and terror, she points at the fruit you've taken, rasping in an unknown language. You watch dispassionately as her body dries up in seconds, withering away into rot.', " + choice[0].choice_id + ")", function(err, result) {
                         if(err) {
                             throw err;
                         } else {
@@ -1258,7 +1258,7 @@ getRoomId("CHOOSEAROOM", function(room) {
                 if(err) {
                     throw err;
                 } else {
-                    con.query("INSERT INTO outcomes VALUE('a', 'You encounter a lava monster (HP10)!', " + choice[0].choice_id + ")", function(err) {
+                    con.query("INSERT INTO outcomes VALUE('a', 'You encounter a lava monster!', " + choice[0].choice_id + ")", function(err) {
                         if(err) {
                             throw err;
                         } else {

@@ -667,7 +667,7 @@ app.get('/outcome', function (req, res) {
                                 res.cookie('health', parseInt(req.cookies.health) - 10, {maxAge: 9000000});
                             }
                             else {
-                                effects = "Gain 10 gold. Lose 10 HP and you die.";
+                                effects = "Lose 10 HP. Your legs are broken. Seems like you\'re going to end up just like the other hero.\"";
                                 res.cookie('health', 0, {maxAge: 9000000});
                                 died = true;
                             }
@@ -677,7 +677,7 @@ app.get('/outcome', function (req, res) {
                                 res.cookie('health', parseInt(req.cookies.health) - 15, {maxAge: 9000000});
                             }
                             else {
-                                effects = "Gain 10 gold. Lose 15 HP and you die.";
+                                effects = "Lose 15 HP. Your legs are broken. Seems like you\'re going to end up just like the other hero.\"";
                                 res.cookie('health', 0, {maxAge: 9000000});
                                 died = true;
                             }
@@ -723,7 +723,7 @@ app.get('/outcome', function (req, res) {
                                 res.cookie('health', parseInt(req.cookies.health) - 10, {maxAge: 9000000});
                             }
                             else {
-                                effects = "Gain 10 gold. Lose 10 HP and you die.";
+                                effects = "Lose 10 HP. Your legs are broken. Seems like you\'re going to end up just like the other hero.";
                                 res.cookie('health', 0, {maxAge: 9000000});
                                 died = true;
                             }
@@ -733,7 +733,7 @@ app.get('/outcome', function (req, res) {
                                 res.cookie('health', parseInt(req.cookies.health) - 15, {maxAge: 9000000});
                             }
                             else {
-                                effects = "Gain 10 gold. Lose 15 HP and you die.";
+                                effects = "Lose 15 HP. Your legs are broken. Seems like you\'re going to end up just like the other hero.";
                                 res.cookie('health', 0, {maxAge: 9000000});
                                 died = true;
                             }
@@ -745,10 +745,8 @@ app.get('/outcome', function (req, res) {
                 if (req.query.a != undefined) {
                     if (req.cookies.weapon != "Fists") {
                         option = "a";
-                        getRandom("item", function (item) {
-                            res.cookie('item', item, {maxAge: 9000000});
-                            effects = ("Gain item: " + item);
-                        })
+                        res.cookie('gold', parseInt(req.cookies.gold) + 50, {maxAge: 9000000});
+                        effects = ("Gain 50 gold. With this much gold, you could buy a fancy weapon!");
                     } else {
                         option = "b";
                         res.cookie('weapon', "??? Staff", {maxAge: 9000000});
@@ -762,7 +760,7 @@ app.get('/outcome', function (req, res) {
                         getRandom("item", function (item) {
                             res.cookie('gold', parseInt(req.cookies.gold) + 50, {maxAge: 9000000});
                             res.cookie('item', item, {maxAge: 9000000});
-                            effects = ("Gain item: " + item + " and 50 gold.");
+                            effects = ("Gain item: " + item + " and 50 gold. You\'ll become a proper materialist in no time!");
                         });
                     } else {
                         option = "b";
@@ -783,18 +781,18 @@ app.get('/outcome', function (req, res) {
                     option = "a";
                 } else if (req.query.b != undefined) {
                     option = "a";
-                    if ((parseInt(req.cookies.health) - 8) > 0) {
-                        effects = "Lose 8 HP.";
-                        res.cookie('health', parseInt(req.cookies.health) - 8, {maxAge: 9000000});
+                    if ((parseInt(req.cookies.health) - 16) > 0) {
+                        effects = "Lose 16 HP. Never eat the green berries ya dingus.";
+                        res.cookie('health', parseInt(req.cookies.health) - 16, {maxAge: 9000000});
                     }
                     else {
-                        effects = "Lose 8 HP.";
+                        effects = "Lose 16 HP. Some poison is too strong to resist.";
                         res.cookie('health', 0, {maxAge: 9000000});
                         died = true;
                     }
                 } else if (req.query.c != undefined) {
                     option = "a";
-                    effects = "Gain 16 HP.";
+                    effects = "Gain 16 HP. It tastes just like water, but you know it\'s a potion because it glows!";
                     res.cookie('health', parseInt(req.cookies.health) + 16, {maxAge: 9000000});
                 } else if (req.query.d != undefined) {
                     option = "a";
@@ -818,27 +816,25 @@ app.get('/outcome', function (req, res) {
                         } else {
                             if (req.cookies.item == "Chain mail") {
                                 if ((parseInt(req.cookies.health) - 10) > 0) {
-                                    effects = "Lose 10 HP. Lose " + req.query.bribe + " gold.";
+                                    effects = "Lose 10 HP. Lose " + req.query.bribe + " gold. You never known that your soul could get itchy.";
                                     res.cookie('health', parseInt(req.cookies.health) - 10, {maxAge: 9000000});
                                     res.cookie('gold', (parseInt(req.cookies.gold) - parseInt(req.query.bribe)), {maxAge: 9000000});
-
                                 } else {
-                                    effects = "Lose 10 HP and you die. Lose " + req.query.bribe + " gold.";
+                                    effects = "Lose 10 HP. The wizard takes all of your gold from your corpse.";
                                     res.cookie('health', 0, {maxAge: 9000000});
-                                    res.cookie('gold', (parseInt(req.cookies.gold) - parseInt(req.query.bribe)), {maxAge: 9000000});
+                                    res.cookie('gold', 0, {maxAge: 9000000});
                                     died = true;
                                 }
-
                             } else {
                                 if ((parseInt(req.cookies.health) - 15) > 0) {
-                                    effects = "Lose 15 HP. Lose " + req.query.bribe + " gold.";
+                                    effects = "Lose 15 HP. Lose " + req.query.bribe + " gold. You never known that your soul could get itchy.";
                                     res.cookie('health', parseInt(req.cookies.health) - 15, {maxAge: 9000000});
                                     res.cookie('gold', (parseInt(req.cookies.gold) - parseInt(req.query.bribe)), {maxAge: 9000000});
 
                                 } else {
-                                    effects = "Lose 15 HP and you die. Lose " + req.query.bribe + " gold.";
+                                    effects = "Lose 15 HP. The wizard takes all of your gold from your corpse.";
                                     res.cookie('health', 0, {maxAge: 9000000});
-                                    res.cookie('gold', (parseInt(req.cookies.gold) - parseInt(req.query.bribe)), {maxAge: 9000000});
+                                    res.cookie('gold', 0, {maxAge: 9000000});
                                     died = true;
                                 }
                             }
@@ -849,32 +845,35 @@ app.get('/outcome', function (req, res) {
                         option = "a";
                         if (req.cookies.item == "Chain mail") {
                             if ((parseInt(req.cookies.health) - 10) > 0) {
-                                effects = "Lose 10 HP.";
+                                effects = "Lose 10 HP. You never known that your soul could get itchy.";
                                 res.cookie('health', parseInt(req.cookies.health) - 10, {maxAge: 9000000});
                             }
                             else {
-                                effects = "Lose 10 HP and you die.";
+                                effects = "Lose 10 HP. Don\'t worry about dying, your body will become well suited as the wizard\'s minion!";
                                 res.cookie('health', 0, {maxAge: 9000000});
                                 died = true;
                             }
                         } else {
                             if ((parseInt(req.cookies.health) - 15) > 0) {
-                                effects = "Lose 15 HP.";
+                                effects = "Lose 15 HP. You never known that your soul could get itchy.";
                                 res.cookie('health', parseInt(req.cookies.health) - 15, {maxAge: 9000000});
                             }
                             else {
-                                effects = "Lose 15 HP and you die.";
+                                effects = "Lose 15 HP. Don\'t worry about dying, your body will become well suited as the wizard\'s minion!";
                                 res.cookie('health', 0, {maxAge: 9000000});
                                 died = true;
                             }
                         }
                     } else if (req.cookies.magik != "Familiar" && req.cookies.magik != "Fire" && req.cookies.magik != "Light" && req.cookies.magik != "Explosion" && req.cookies.magik != "Dark") {
                         option = "b";
+                        res.cookie('magik', "Dark", {maxAge: 9000000});
+                        effects = "He left a tome on the ground, and it reacts when you pick it up. Gain magik: Dark";
                     } else if (req.cookies.magik == "Familiar" || req.cookies.magik == "Fire" || req.cookies.magik == "Light" || req.cookies.magik == "Explosion") {
                         option = "c";
                         res.cookie('weapon', "Basic staff", {maxAge: 9000000});
-                        res.cookie('magik', "Dark", {maxAge: 9000000});
-                        effects = "Gain weapon: Basic staff. Gain magik: Dark.";
+                        //res.cookie('magik', "Dark", {maxAge: 9000000});
+                        res.cookie('gold', (parseInt(req.cookies.gold) + 95), {maxAge: 9000000});
+                        effects = "Gain weapon: Basic staff. Gain 95 gold. Seems like he had quite the treasure on him.";
                     } else {
                         option = "d";
                         effects = "Gain item: Grief Orb.";
@@ -889,21 +888,21 @@ app.get('/outcome', function (req, res) {
                         } else {
                             if (req.cookies.item == "Chain mail") {
                                 if ((parseInt(req.cookies.health) - 10) > 0) {
-                                    effects = "Lose 10 HP.";
+                                    effects = "Lose 10 HP. You never known that your soul could get itchy.";
                                     res.cookie('health', parseInt(req.cookies.health) - 10, {maxAge: 9000000});
                                 }
                                 else {
-                                    effects = "Lose 10 HP and you die.";
+                                    effects = "Lose 10 HP. Don\'t worry about dying, your body will become well suited as the wizard\'s minion!";
                                     res.cookie('health', 0, {maxAge: 9000000});
                                     died = true;
                                 }
                             } else {
                                 if ((parseInt(req.cookies.health) - 15) > 0) {
-                                    effects = "Lose 15 HP.";
+                                    effects = "Lose 15 HP. You never known that your soul could get itchy.";
                                     res.cookie('health', parseInt(req.cookies.health) - 15, {maxAge: 9000000});
                                 }
                                 else {
-                                    effects = "Lose 15 HP and you die.";
+                                    effects = "Lose 15 HP. Don\'t worry about dying, your body will become well suited as the wizard\'s minion!";
                                     res.cookie('health', 0, {maxAge: 9000000});
                                     died = true;
                                 }
@@ -920,7 +919,7 @@ app.get('/outcome', function (req, res) {
                             res.cookie('health', parseInt(req.cookies.health) - 7, {maxAge: 9000000});
                         }
                         else {
-                            effects = "Lose 7 HP and you die.";
+                            effects = "Lose 7 HP. Don\'t worry about dying, your body will become well suited as the wizard\'s minion!";
                             res.cookie('health', 0, {maxAge: 9000000});
                             died = true;
                         }
@@ -930,7 +929,7 @@ app.get('/outcome', function (req, res) {
                             res.cookie('health', parseInt(req.cookies.health) - 10, {maxAge: 9000000});
                         }
                         else {
-                            effects = "Lose 10 HP and you die.";
+                            effects = "Lose 10 HP. Don't worry about dying, your body will become well suited as the wizard's minion!";
                             res.cookie('health', 0, {maxAge: 9000000});
                             died = true;
                         }
@@ -945,21 +944,21 @@ app.get('/outcome', function (req, res) {
                         option = "b";
                         if (req.cookies.item == "Chain mail") {
                             if ((parseInt(req.cookies.health) - 2) > 0) {
-                                effects = "Lose 2 HP.";
+                                effects = "Lose 2 HP. Ouch, that bites!";
                                 res.cookie('health', parseInt(req.cookies.health) - 2, {maxAge: 9000000});
                             }
                             else {
-                                effects = "Lose 2 HP and you die.";
+                                effects = "Lose 2 HP. The shell has dealt a finishing blow to your GPA.";
                                 res.cookie('health', 0, {maxAge: 9000000});
                                 died = true;
                             }
                         } else {
                             if ((parseInt(req.cookies.health) - 3) > 0) {
-                                effects = "Lose 3 HP.";
+                                effects = "Lose 3 HP. Ouch, that bites!";
                                 res.cookie('health', parseInt(req.cookies.health) - 3, {maxAge: 9000000});
                             }
                             else {
-                                effects = "Lose 3 HP and you die.";
+                                effects = "Lose 3 HP. The shell has dealt a finishing blow to your GPA.";
                                 res.cookie('health', 0, {maxAge: 9000000});
                                 died = true;
                             }
@@ -1031,7 +1030,7 @@ app.get('/outcome', function (req, res) {
                     }
                 } else if (req.query.d != undefined) {
                     option = "a";
-                    effects = "Gain 50 HP.";
+                    effects = "Gain 50 HP. You will carry this warmth forwards.";
                     res.cookie('health', parseInt(req.cookies.health) + 50, {maxAge: 9000000});
                 }
             }
@@ -1050,21 +1049,21 @@ app.get('/outcome', function (req, res) {
                             res.cookie('weapon', "Fists", {maxAge: 9000000});
                             if (req.cookies.item == "Chain mail") {
                                 if ((parseInt(req.cookies.health) - 10) > 0) {
-                                    effects = "Lose Weapon. Lose 10 HP.";
+                                    effects = "Lose Weapon. Lose 10 HP. Rotor blades are super sharp! Be careful next time!";
                                     res.cookie('health', parseInt(req.cookies.health) - 10, {maxAge: 9000000});
                                 }
                                 else {
-                                    effects = "Lose Weapon. Lose 10 HP and you die.";
+                                    effects = "Lose Weapon. Lose 10 HP. Your head was actually chopped off without you noticing. Isn't the human body amazing?";
                                     res.cookie('health', 0, {maxAge: 9000000});
                                     died = true;
                                 }
                             } else {
                                 if ((parseInt(req.cookies.health) - 15) > 0) {
-                                    effects = "Lose Weapon. Lose 15 HP.";
+                                    effects = "Lose Weapon. Lose 15 HP. Rotor blades are super sharp! Be careful next time!";
                                     res.cookie('health', parseInt(req.cookies.health) - 15, {maxAge: 9000000});
                                 }
                                 else {
-                                    effects = "Lose Weapon. Lose 15 HP and you die.";
+                                    effects = "Lose Weapon. Lose 15 HP. Your head was actually chopped off without you noticing. Isn\'t the human body amazing?";
                                     res.cookie('health', 0, {maxAge: 9000000});
                                     died = true;
                                 }
@@ -1091,21 +1090,21 @@ app.get('/outcome', function (req, res) {
                         res.cookie('magik', "None", {maxAge: 9000000});
                         if (req.cookies.item == "Chain mail") {
                             if ((parseInt(req.cookies.health) - 4) > 0) {
-                                effects = "Lose magik. Lose 4 HP.";
+                                effects = "Lose magik. Lose 4 HP. The poor doggo. You monster.";
                                 res.cookie('health', parseInt(req.cookies.health) - 4, {maxAge: 9000000});
                             }
                             else {
-                                effects = "Lose magik. Lose 4 HP and you die.";
+                                effects = "Lose magik. Lose 4 HP. Your poor doggo\'s sacrifice was in vain, you monster.";
                                 res.cookie('health', 0, {maxAge: 9000000});
                                 died = true;
                             }
                         } else {
                             if ((parseInt(req.cookies.health) - 5) > 0) {
-                                effects = "Lose magik. Lose 5 HP.";
+                                effects = "Lose magik. Lose 5 HP. The poor doggo. You monster.";
                                 res.cookie('health', parseInt(req.cookies.health) - 5, {maxAge: 9000000});
                             }
                             else {
-                                effects = "Lose magik. Lose 5 HP and you die.";
+                                effects = "Lose magik. Lose 5 HP. Your poor doggo's sacrifice was in vain, you monster.";
                                 res.cookie('health', 0, {maxAge: 9000000});
                                 died = true;
                             }
@@ -1118,7 +1117,7 @@ app.get('/outcome', function (req, res) {
                                 res.cookie('health', parseInt(req.cookies.health) - 4, {maxAge: 9000000});
                             }
                             else {
-                                effects = "Lose 4 HP and you die.";
+                                effects = "Lose 4 HP. Oh, wait. You didn\'t get away, you died. Oops.";
                                 res.cookie('health', 0, {maxAge: 9000000});
                                 died = true;
                             }
@@ -1128,7 +1127,7 @@ app.get('/outcome', function (req, res) {
                                 res.cookie('health', parseInt(req.cookies.health) - 5, {maxAge: 9000000});
                             }
                             else {
-                                effects = "Lose 5 HP and you die.";
+                                effects = "Lose 5 HP. Oh, wait. You didn't get away, you died. Oops.";
                                 res.cookie('health', 0, {maxAge: 9000000});
                                 died = true;
                             }
@@ -1137,7 +1136,7 @@ app.get('/outcome', function (req, res) {
                 } else if (req.query.d != undefined) {
                     if (req.cookies.magik == "Explosion") {
                         option = "a";
-                        effects = "Gain weapon: Rotor blade.";
+                        effects = "Gain weapon: Rotor blade. It\'s heavy, wow!";
                         res.cookie('weapon', "Rotor blade", {maxAge: 9000000});
                     } else {
                         option = "b";
@@ -1147,21 +1146,21 @@ app.get('/outcome', function (req, res) {
                         } else {
                             if (req.cookies.item == "Chain mail") {
                                 if ((parseInt(req.cookies.health) - 10) > 0) {
-                                    effects = "Lose 10 HP.";
+                                    effects = "Lose 10 HP. At least you haven\'t lost your head.";
                                     res.cookie('health', parseInt(req.cookies.health) - 10, {maxAge: 9000000});
                                 }
                                 else {
-                                    effects = "Lose 10 HP and you die.";
+                                    effects = "Lose 10 HP. You may not have lost your head, but you have been crushed to death. How pleasant.";
                                     res.cookie('health', 0, {maxAge: 9000000});
                                     died = true;
                                 }
                             } else {
                                 if ((parseInt(req.cookies.health) - 15) > 0) {
-                                    effects = "Lose 15 HP.";
+                                    effects = "Lose 15 HP. At least you haven't lost your head.";
                                     res.cookie('health', parseInt(req.cookies.health) - 15, {maxAge: 9000000});
                                 }
                                 else {
-                                    effects = "Lose 15 HP and you die.";
+                                    effects = "Lose 15 HP. You may not have lost your head, but you have been crushed to death. How pleasant.";
                                     res.cookie('health', 0, {maxAge: 9000000});
                                     died = true;
                                 }
@@ -1174,9 +1173,11 @@ app.get('/outcome', function (req, res) {
                 if (req.query.a != undefined) {
                     if (req.cookies.gold >= 30) {
                         option = "a";
-                        effects = "Lose 30 gold. Gain weapon: Warhammer.";
-                        res.cookie('gold', (parseInt(req.cookies.gold) - 30), {maxAge: 9000000});
-                        res.cookie('weapon', "Warhammer", {maxAge: 9000000});
+                        getRandom("weapon",function(weep){
+                            effects = "Lose 30 gold. Gain weapon: "+weep+".";
+                            res.cookie('gold', (parseInt(req.cookies.gold) -30), {maxAge: 9000000});
+                            res.cookie('weapon', weep, {maxAge: 9000000});
+                        });
                     } else {
                         option = "b";
                     }
@@ -1188,7 +1189,7 @@ app.get('/outcome', function (req, res) {
                             res.cookie('health', parseInt(req.cookies.health) - 4, {maxAge: 9000000});
                         }
                         else {
-                            effects = "Lose 4 HP and you die.";
+                            effects = "Lose 4 HP. The rock somehow kills you. What a shame.";
                             res.cookie('health', 0, {maxAge: 9000000});
                             died = true;
                         }
@@ -1198,7 +1199,7 @@ app.get('/outcome', function (req, res) {
                             res.cookie('health', parseInt(req.cookies.health) - 5, {maxAge: 9000000});
                         }
                         else {
-                            effects = "Lose 5 HP and you die.";
+                            effects = "Lose 5 HP. The rock somehow kills you. What a shame.";
                             res.cookie('health', 0, {maxAge: 9000000});
                             died = true;
                         }
@@ -1206,27 +1207,29 @@ app.get('/outcome', function (req, res) {
                 } else if (req.query.c != undefined) {
                     if (str >= 8) {
                         option = "a";
-                        effects = "Gain weapon: Warhammer.";
-                        res.cookie('weapon', "Warhammer", {maxAge: 9000000});
+                        getRandom("weapon",function(weep){
+                            effects = "Gain weapon: "+weep+".";
+                            res.cookie('weapon', weep, {maxAge: 9000000});
+                        });
                     } else {
                         option = "b";
                         if (req.cookies.item == "Chain mail") {
                             if ((parseInt(req.cookies.health) - 6) > 0) {
-                                effects = "Lose 6 HP.";
+                                effects = "Lose 6 HP. Never trust a salesman to be weak.";
                                 res.cookie('health', parseInt(req.cookies.health) - 6, {maxAge: 9000000});
                             }
                             else {
-                                effects = "Lose 6 HP and you die.";
+                                effects = "Lose 6 HP. He may be weak, but even a salesman can kill a hero, it seems.";
                                 res.cookie('health', 0, {maxAge: 9000000});
                                 died = true;
                             }
                         } else {
                             if ((parseInt(req.cookies.health) - 8) > 0) {
-                                effects = "Lose 8 HP.";
+                                effects = "Lose 8 HP. Never trust a salesman to be weak.";
                                 res.cookie('health', parseInt(req.cookies.health) - 8, {maxAge: 9000000});
                             }
                             else {
-                                effects = "Lose 8 HP and you die.";
+                                effects = "Lose 8 HP. He may be weak, but even a salesman can kill a hero, it seems.";
                                 res.cookie('health', 0, {maxAge: 9000000});
                                 died = true;
                             }
@@ -1235,28 +1238,30 @@ app.get('/outcome', function (req, res) {
                 } else if (req.query.d != undefined) {
                     if (req.query.bribe >= 25) {
                         option = "a";
-                        effects = "Lose gold: " + req.query.bribe + ". Gain weapon: Warhammer.";
-                        res.cookie('gold', (parseInt(req.cookies.gold) - parseInt(req.query.bribe)), {maxAge: 9000000});
-                        res.cookie('weapon', "Warhammer", {maxAge: 9000000});
+                        getRandom("weapon",function(weep){
+                            effects = "Lose gold: " + req.query.bribe + ". Gain weapon: "+weep+".";
+                            res.cookie('gold', (parseInt(req.cookies.gold) - parseInt(req.query.bribe)), {maxAge: 9000000});
+                            res.cookie('weapon', weep, {maxAge: 9000000});
+                        });
                     } else {
                         option = "b";
                         if (req.cookies.item == "Chain mail") {
                             if ((parseInt(req.cookies.health) - 7) > 0) {
-                                effects = "Lose 7 HP.";
+                                effects = "Lose 7 HP from a disgusted shopkeeper.";
                                 res.cookie('health', parseInt(req.cookies.health) - 7, {maxAge: 9000000});
                             }
                             else {
-                                effects = "Lose 7 HP and you die.";
+                                effects = "Lose 7 HP. You have died from a disgusted shopkeeper.";
                                 res.cookie('health', 0, {maxAge: 9000000});
                                 died = true;
                             }
                         } else {
                             if ((parseInt(req.cookies.health) - 10) > 0) {
-                                effects = "Lose 10 HP.";
+                                effects = "Lose 10 HP from a disgusted shopkeeper.";
                                 res.cookie('health', parseInt(req.cookies.health) - 10, {maxAge: 9000000});
                             }
                             else {
-                                effects = "Lose 10 HP and you die.";
+                                effects = "Lose 10. You have died from a disgusted shopkeeper.";
                                 res.cookie('health', 0, {maxAge: 9000000});
                                 died = true;
                             }
@@ -1270,31 +1275,31 @@ app.get('/outcome', function (req, res) {
                     effects = "Gain 10 HP.";
                     res.cookie('health', parseInt(req.cookies.health) + 10, {maxAge: 9000000});
                 } else if (req.query.b != undefined) {
-                    if (str >= 14) {
+                    if (str >= 18) {
                         option = "a";
-                        effects = "Gain 40 HP.";
-                        res.cookie('health', parseInt(req.cookies.health) + 40, {maxAge: 9000000});
+                        effects = "Lose 14 HP from the cursed fruit.";
+                        res.cookie('health', parseInt(req.cookies.health) - 14, {maxAge: 9000000});
                     } else {
                         option = "b";
                         if (req.cookies.item == "Chain mail") {
                             if ((parseInt(req.cookies.health) - 10) > 0) {
-                                effects = "Lose 10 HP. Gain weapon: Stick.";
+                                effects = "Lose 10 HP from an angry Dryad. Gain weapon: Stick.";
                                 res.cookie('weapon', "Stick", {maxAge: 9000000});
                                 res.cookie('health', parseInt(req.cookies.health) - 10, {maxAge: 9000000});
                             } else {
-                                effects = "Lose 10 HP and you die. Gain weapon: Stick.";
-                                res.cookie('weapon', "Stick", {maxAge: 9000000});
+                                effects = "Lose 10 HP. You have died to an angry Dryad.";
+                                //res.cookie('weapon', "Stick", {maxAge: 9000000});
                                 res.cookie('health', 0, {maxAge: 9000000});
                                 died = true;
                             }
                         } else {
                             if ((parseInt(req.cookies.health) - 15) > 0) {
-                                effects = "Lose 15 HP. Gain weapon: Stick.";
+                                effects = "Lose 15 HP from an angry Dryad. Gain weapon: Stick.";
                                 res.cookie('weapon', "Stick", {maxAge: 9000000});
                                 res.cookie('health', parseInt(req.cookies.health) - 15, {maxAge: 9000000});
                             } else {
-                                effects = "Lose 15 HP and you die. Gain weapon: Stick.";
-                                res.cookie('weapon', "Stick", {maxAge: 9000000});
+                                effects = "Lose 15 HP. You have died to an angry Dryad.";
+                                //res.cookie('weapon', "Stick", {maxAge: 9000000});
                                 res.cookie('health', 0, {maxAge: 9000000});
                                 died = true;
                             }
@@ -1311,8 +1316,15 @@ app.get('/outcome', function (req, res) {
                         res.cookie('health', parseInt(req.cookies.health) + 30, {maxAge: 9000000});
                     } else {
                         option = "c";
-                        res.cookie('magik', "Nature", {maxAge: 9000000});
-                        effects = "Gain magik: Nature";
+                        if ((parseInt(req.cookies.health) - 5) > 0) {
+                            res.cookie('magik', "Nature", {maxAge: 9000000});
+                            res.cookie('health', parseInt(req.cookies.health) -5, {maxAge: 9000000});
+                            effects = "Lose 5 HP to an unwanted brain operation. Gain magik: Nature";
+                        } else {
+                            res.cookie('health', parseInt(req.cookies.health) -5, {maxAge: 9000000});
+                            effects = "Lose 5 HP to an unwanted brain operation and die.";
+                            died = true;
+                        }
                     }
                 } else if (req.query.d != undefined) {
                     option = "a";
