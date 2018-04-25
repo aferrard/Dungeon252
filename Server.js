@@ -64,11 +64,11 @@ var roomsMaster = ["GNOME", "DOG", "HOLE", "CHEST", "POTIONS", "DARKWIZARD", "SE
 app.get('/start', function (req, res) {
     res.cookie('hero', req.query.hero, {maxAge: 9000000});
     res.cookie('health', 20, {maxAge: 9000000});
-    res.cookie('gold', 50, {maxAge: 9000000});
+    res.cookie('gold', 10, {maxAge: 9000000});
     res.cookie('weapon', "Stick", {maxAge: 9000000});
     res.cookie('item', "None", {maxAge: 9000000});
     res.cookie('magik', "None", {maxAge: 9000000});
-    res.cookie('str', 10, {maxAge: 9000000});
+    res.cookie('str', 6, {maxAge: 9000000});
     res.cookie('weight', 1, {maxAge: 9000000});
     res.cookie('roomsCopy', roomsMaster, {maxAge: 9000000});
     res.cookie('roomCounter', 0, {maxAge: 9000000});

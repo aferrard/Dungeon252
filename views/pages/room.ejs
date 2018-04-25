@@ -43,10 +43,12 @@
         <p align="left">
             <font size="3"><%=event%></font><br>
             <%if(room == "GNOME" || room == "CHOOSEAROOM"){%>
+            <br>
             <%=poem%>
+            <br>
             <%}%>
         </p><br>
-        <%if((room == "DOG" && weapon != "fists") || (room != "DOG")){%>
+        <%if((room == "DOG" && weapon != "fists") || (room == "HELICOPTER" && weapon != "Fists") || (room != "DOG" || room != "HELICOPTER")){%>
         <form align="left" class="form-horizontal" action="/outcome">
             <input hidden id="choice_id" name="choice_id" value="<%=choices[0].choice_id %>">
             <input value="Option A" name="a" type="submit" class="btn btn-danger">
@@ -59,6 +61,7 @@
             <%}%>
         </form><br>
         <%}%>
+        <%if((room == "CAMPFIRE" && weapon != "Fists") || (room != "CAMPFIRE")){%>
         <form align="left" class="form-horizontal" action="/outcome">
             <input hidden id="choice_id" name="choice_id" value="<%=choices[1].choice_id %>">
             <input value="Option B" name="b" type="submit" class="btn btn-danger">
@@ -69,7 +72,8 @@
             <input id="bribe" type="text" name="bribe" placeholder="Enter your offer" required>
             <%}%>
         </form><br>
-        <%if((room == "DRYAD" && magik != "None") || (room == "CAMPFIRE" && magik != "None") || (room != "CAMPFIRE" && room != "DRYAD")){%>
+        <%}%>
+        <%if((room == "SEASHELL" && magik != "None")||(room == "HOLE" && weapon != "Fists") || (room == "DRYAD" && magik != "None") || (room == "CAMPFIRE" && magik != "None") || (room == "HELICOPTER" && magik != "None")||(room != "CAMPFIRE" && room != "DRYAD" && room != "HOLE" && room != "SEASHELL" && room != "HELICOPTER")){%>
         <form align="left" class="form-horizontal" action="/outcome">
             <input hidden id="choice_id" name="choice_id" value="<%=choices[2].choice_id %>">
             <input value="Option C" name="c" type="submit" class="btn btn-danger">
