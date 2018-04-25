@@ -432,7 +432,7 @@ app.get('/outcome', function (req, res) {
         getWeight(req.cookies, function (weight) {
             if (req.cookies.curRoom == "GNOME") {
                 if (req.query.a != undefined) {
-                    if (req.query.solution == "Mountain" || "mountain" || "Mountains" || "mountains") {
+                    if ((req.query.solution == "Mountain") || (req.query.solution == "mountain") || (req.query.solution == "Mountains") || (req.query.solution == "mountains")) {
                         option = "a";
                         effects = "Gain 15 gold";
                         res.cookie('gold', parseInt(req.cookies.gold) + 15, {maxAge: 9000000});
@@ -981,7 +981,7 @@ app.get('/outcome', function (req, res) {
                     }
                 } else if (req.query.d != undefined) {
                     console.log(req.query.solution);
-                    if (req.query.solution == "SEGV" || req.query.solution == "EXECVP Error" || req.query.solution == "EXECVP" || req.query.solution == "Due Tomorrow" || req.query.solution == "due tomorrow" || req.query.solution == "Due tomorrow" || req.query.solution == "Gustavo") {
+                    if ((req.query.solution == "SEGV") || (req.query.solution == "EXECVP Error") || (req.query.solution == "EXECVP") || (req.query.solution == "Due Tomorrow") || (req.query.solution == "due tomorrow") || (req.query.solution == "Due tomorrow") || (req.query.solution == "Gustavo")) {
                         option = "a";
                         effects = "Gain item: Stress ball.";
                         res.cookie('item', "Stress ball", {maxAge: 9000000});
