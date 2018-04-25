@@ -262,6 +262,7 @@ function roomTen(boss, str, weight, cookie, query, ret) {
     var outcome = "";
     var newGold = cookie.gold;
     var newWep = cookie.weapon;
+    var popup = "";
     console.log("str: " + str + "weight:" + weight);
     console.log("cookie:");
     console.log(cookie);
@@ -277,7 +278,7 @@ function roomTen(boss, str, weight, cookie, query, ret) {
             calcScore(cookie, function(score){
                 Connection.addWinner(cookie.hero, cookie.health, cookie.gold, cookie.str, cookie.weight, score, cookie.roomCounter, cookie.weapon, cookie.item, cookie.magik, function (err) {
                     console.log(err);
-                    ret(outcome, effects, newGold, newWep, false, score);
+                    ret(outcome, effects, newGold, newWep, false, score, popup);
                 });
             });
         } else {
@@ -288,7 +289,7 @@ function roomTen(boss, str, weight, cookie, query, ret) {
                 console.log(score);
                 Connection.addLoser(cookie.hero, cookie.health, cookie.gold, cookie.str, cookie.weight, score, cookie.roomCounter, cookie.weapon, cookie.item, cookie.magik, function (err) {
                     console.log(err);
-                    ret(outcome, effects, newGold, newWep, true, score);
+                    ret(outcome, effects, newGold, newWep, true, score, popup);
                 });
             });
         }
@@ -304,7 +305,7 @@ function roomTen(boss, str, weight, cookie, query, ret) {
             calcScore(cookie, function(score) {
                 Connection.addWinner(cookie.hero, cookie.health, cookie.gold, cookie.str, cookie.weight, score, cookie.roomCounter, cookie.weapon, cookie.item, cookie.magik, function (err) {
                     console.log(err);
-                    ret(outcome, effects, newGold, newWep, false, score);
+                    ret(outcome, effects, newGold, newWep, false, score, popup);
                 });
             });
         } else if ((query.bribe > boss.money) && (cookie.health < (boss.health - 5))) {
@@ -316,7 +317,7 @@ function roomTen(boss, str, weight, cookie, query, ret) {
                 calcScore(cookie, function(score) {
                     Connection.addLoser(cookie.hero, cookie.health, cookie.gold, cookie.str, cookie.weight, score, cookie.roomCounter, cookie.weapon, cookie.item, cookie.magik, function (err) {
                         console.log(err);
-                        ret(outcome, effects, (newGold - query.bribe), newWep, true, score);
+                        ret(outcome, effects, (newGold - query.bribe), newWep, true, score, popup);
                     });
                 });
             });
@@ -329,7 +330,7 @@ function roomTen(boss, str, weight, cookie, query, ret) {
                 calcScore(cookie, function(score) {
                     Connection.addLoser(cookie.hero, cookie.health, cookie.gold, cookie.str, cookie.weight, score, cookie.roomCounter, cookie.weapon, cookie.item, cookie.magik, function (err) {
                         console.log(err);
-                        ret(outcome, effects, (newGold - query.bribe), newWep, true, score);
+                        ret(outcome, effects, (newGold - query.bribe), newWep, true, score, popup);
                     });
                 });
             });
@@ -339,7 +340,7 @@ function roomTen(boss, str, weight, cookie, query, ret) {
             getRandom("weapon", function (wep) {
                 effects = "You proceed to the next room with a new " + wep + " as well as an unhealthy amount of confusion."
                 console.log("Random Weapon get: " + wep);
-                ret(outcome, effects, newGold, wep, false, -1);
+                ret(outcome, effects, newGold, wep, false, -1, popup);
             });
         }
     } else if (query.c != undefined) {
@@ -353,7 +354,7 @@ function roomTen(boss, str, weight, cookie, query, ret) {
             calcScore(cookie, function(score){
                 Connection.addWinner(cookie.hero, cookie.health, cookie.gold, cookie.str, cookie.weight, score, cookie.roomCounter, cookie.weapon, cookie.item, cookie.magik, function (err) {
                     console.log(err);
-                    ret(outcome, effects, newGold, newWep, false, score);
+                    ret(outcome, effects, newGold, newWep, false, score, popup);
                 });
             });
         }else if(cookie.weapon != "??? Staff" && (boss.item == "Shell" || boss.item == "Grief Orb" || boss.item == "Eternal Flame" || boss.item == "Atomic Bomb" || boss.item == "Frenzy Seed" || boss.item == "Fluffy Cloud" || boss.item == "Pure Orb")){
@@ -366,7 +367,7 @@ function roomTen(boss, str, weight, cookie, query, ret) {
                         calcScore(cookie, function (score) {
                             Connection.addWinner(cookie.hero, cookie.health, cookie.gold, cookie.str, cookie.weight, score, cookie.roomCounter, cookie.weapon, cookie.item, cookie.magik, function (err) {
                                 console.log(err);
-                                ret(outcome, effects, newGold, newWep, false, score);
+                                ret(outcome, effects, newGold, newWep, false, score, popup);
                             });
                         });
                     } else if (boss.item == "Atomic Bomb" && cookie.item != "Atomic Bomb") {
@@ -375,7 +376,7 @@ function roomTen(boss, str, weight, cookie, query, ret) {
                         calcScore(cookie, function (score) {
                             Connection.addLoser(cookie.hero, cookie.health, cookie.gold, cookie.str, cookie.weight, score, cookie.roomCounter, cookie.weapon, cookie.item, cookie.magik, function (err) {
                                 console.log(err);
-                                ret(outcome, effects, newGold, newWep, true, score);
+                                ret(outcome, effects, newGold, newWep, true, score, popup);
                             });
                         });
                     } else if (boss.item == "Atomic Bomb" && cookie.item == "Atomic Bomb") {
@@ -388,7 +389,7 @@ function roomTen(boss, str, weight, cookie, query, ret) {
                         calcScore(cookie, function (score) {
                             Connection.addWinner(cookie.hero, cookie.health, cookie.gold, cookie.str, cookie.weight, score, cookie.roomCounter, cookie.weapon, cookie.item, cookie.magik, function (err) {
                                 console.log(err);
-                                ret(outcome, effects, newGold, newWep, false, score);
+                                ret(outcome, effects, newGold, newWep, false, score, popup);
                             });
                         });
                     } else if(bwin){
@@ -397,13 +398,13 @@ function roomTen(boss, str, weight, cookie, query, ret) {
                         calcScore(cookie, function (score) {
                             Connection.addLoser(cookie.hero, cookie.health, cookie.gold, cookie.str, cookie.weight, score, cookie.roomCounter, cookie.weapon, cookie.item, cookie.magik, function (err) {
                                 console.log(err);
-                                ret(outcome, effects, newGold, newWep, true, score);
+                                ret(outcome, effects, newGold, newWep, true, score, popup);
                             });
                         });
                     }else{
                         outcome = "Both your "+cookie.item+" and the being\'s "+boss.item+" shatter in a flash of light. \nYou share a brief bout of laughter with your foe, before he pulls out his weapon. \n\"That was disappointing. How about we decide this another way, in the future?\" \nHe gestures towards the door, and you grudgingly listen to his suggestion.";
                         effects = "You proceed to the next room.";
-                        ret(outcome, effects, newGold, newWep, false, -1);
+                        ret(outcome, effects, newGold, newWep, false, -1, popup);
                     }
                 });
             });
@@ -414,13 +415,13 @@ function roomTen(boss, str, weight, cookie, query, ret) {
                 calcScore(cookie, function (score) {
                     Connection.addWinner(cookie.hero, cookie.health, cookie.gold, cookie.str, cookie.weight, score, cookie.roomCounter, cookie.weapon, cookie.item, cookie.magik, function (err) {
                         console.log(err);
-                        ret(outcome, effects, newGold, newWep, false, score);
+                        ret(outcome, effects, newGold, newWep, false, score, popup);
                     });
                 });
             }else{
                 outcome = "Both yours and the being\'s staffs explode in a flash of light, turning into naught but ash. \nYou share a brief bout of laughter with your foe before he faces you, hands raised. \"That was disappointing. How about we decide this another way, in the future?\" \nHe gestures towards the door, and you grudgingly listen to his suggestion.";
                 effects = "You proceed to the next room.";
-                ret(outcome, effects, newGold, newWep, false, -1);
+                ret(outcome, effects, newGold, newWep, false, -1, popup);
             }
         }
 
@@ -1490,7 +1491,7 @@ app.get('/outcome', function (req, res) {
             if (room10) {
                 Connection.getBoss(function (boss) {
                     console.log("ROOM10 FUNCTION BEING SENT!!!!!!!");
-                    roomTen(boss, str, weight, req.cookies, req.query, function (outcome, effects, newGold, newWep, died, score) {
+                    roomTen(boss, str, weight, req.cookies, req.query, function (outcome, effects, newGold, newWep, died, score, popup) {
                         res.cookie('weapon', newWep, {maxAge: 9000000});
                         res.cookie('gold', newGold, {maxAge: 9000000});
                         console.log("INSIDE ROOM10 FUNCTION!!!!!!!!");
@@ -1511,7 +1512,8 @@ app.get('/outcome', function (req, res) {
                                 image: roomInfo.image,
                                 effects: effects,
                                 died: died,
-                                score: score
+                                score: score,
+                                popup: popup
                             });
                         });
                     });
@@ -1536,7 +1538,8 @@ app.get('/outcome', function (req, res) {
                                     image: roomInfo.image,
                                     effects: effects,
                                     died: died,
-                                    score: score
+                                    score: score,
+                                    popup: ""
                                 });
                             });
                         }else{
@@ -1555,7 +1558,8 @@ app.get('/outcome', function (req, res) {
                                 image: roomInfo.image,
                                 effects: effects,
                                 died: died,
-                                score: -1
+                                score: -1,
+                                popup: ""
                             });
                         }
                     });

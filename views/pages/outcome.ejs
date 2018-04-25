@@ -11,6 +11,76 @@
             background-origin: content-box;
             color: darkgrey;
         }
+        /*background*/
+        .modal {
+            display: none; /*Hidden by default*/
+            position: fixed; /*Stay in place*/
+            z-index: 3; /*On top*/
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto; /*Enable scroll if needed*/
+            background-color: rgb(0,0,0); /*Fallback color*/
+            background-color: rgba(0,0,0,0.4); /*Black w/ opacity*/
+            padding-top: 60px;
+        }
+        .emodal {
+            display: block; /*Hidden by default*/
+            position: fixed; /*Stay in place*/
+            z-index: 5; /*On top*/
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto; /*Enable scroll if needed*/
+            background-color: rgb(0,0,0); /*Fallback color*/
+            background-color: rgba(0,0,0,0.7); /*Black w/ opacity*/
+            padding-top: 60px;
+        }
+        /*style for cancel button*/
+        .cancelbtn {
+            width: auto;
+            padding: 10px 18px;
+            background-color: red;
+        }
+        .container {
+            padding: 16px;
+        }
+        span.psw {
+            float: right;
+            padding-top: 16px;
+        }
+        /*Modal content*/
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto 15% auto; /*5% from the top, 15% from the bottom and centered*/
+            border: 1px solid #888;
+            width: 100%;
+        }
+        /*The Close Button (x)*/
+        .close {
+            position: absolute;
+            right: 25px;
+            top: 0;
+            color: #000;
+            font-size: 35px;
+        }
+        .close:hover,
+        .close:focus {
+            color: red;
+            cursor: pointer;
+        }
+        /* Change styles for span and cancel button on extra small screens */
+        @media screen and (max-width: 300px) {
+            span.psw {
+                display: block;
+                float: none;
+            }
+            .cancelbtn {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body class="container">
@@ -35,6 +105,27 @@
 </header>
 
 <main>
+    <%if(popup != ""){%>
+    <div id="popup" class="emodal">
+        <div class="modal-content">
+            <div class="container">
+                <label for="popup" align="center"><b><%=popup%></b></label>
+                <button onclick="document.getElementById('popup').style.display='none'">OK</button>
+            </div>
+        </div>
+    </div>
+    <%}%>
+    <script>
+        // Get the modal
+        var modal = document.getElementById('popup');
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
     <div class ="container-fluid">
         <p align="center">
             <font size="5"><%=curRoom%> Outcome</font>
