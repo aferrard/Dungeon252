@@ -87,6 +87,9 @@ app.get('/room', function (req, res) {
         var roomPick = roomsCopy.indexOf(room);
         nextRoom = "0";
     }
+    if(req.cookies.item == "Stress ball"){
+        res.cookie('health', parseInt(res.cookies.health)+2, {maxAge: 9000000});
+    }
     getWeight(req.cookies, function (weight) {
         getStrength(req.cookies, function (str) {
             res.cookie('str', str, {maxAge: 9000000});
@@ -186,6 +189,9 @@ function getStrength(cookie, stren) {
                 strength += mag.effect;
                 strength += parseInt(cookie.health / 10);
                 console.log(strength);
+                if((cookie.item == "Shell" || cookie.item == "Grief Orb" || cookie.item == "Eternal Flame" || cookie.item == "Atomic Bomb" || boss.item == "Frenzy Seed" || cookie.item == "Fluffy Cloud" || cookie.item == "Pure Orb")){
+                    strength *= 2;
+                }
                 stren(strength);
             });
         } else {
