@@ -1474,13 +1474,15 @@ app.get('/outcome', function (req, res) {
 app.get('/end', function (req, res) {
     getStrength(req.cookies, function(str) {
         getWeight(req.cookies, function(weight) {
-            console.log(req.cookies.weapon);
-            Connection.addLoser(req.cookies.hero, req.cookies.health, req.cookies.gold, str, weight, calcScore(req.cookies, function(score) {}), 5, req.cookies.weapon, req.cookies.item, req.cookies.magik, function (loserInfo) {
-                console.log(loserInfo);
-                res.render('pages/end', {
-                    loserInfo: loserInfo
+            calcScore(req.cookies, function(score) {
+                Connection.addLoser(req.cookies.hero, req.cookies.health, req.cookies.gold, str, weight, score, req.cookies.roomCounter, req.cookies.weapon, req.cookies.item, req.cookies.magik, function (loserInfo) {
+                    console.log(loserInfo);
+                    res.render('pages/end', {
+                        loserInfo: loserInfo
+                    });
                 });
-            });
+            })
+
         });
     });
 
