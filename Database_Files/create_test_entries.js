@@ -1499,8 +1499,8 @@ function addUser(username, health, money, weapon, item, magik, strength, weight,
 }
 
 //addUser("name", health, gold, "weapon", "item", "magik", strength, weight, score, numrooms, winner);
-addUser("Clementine", 0, 200, "Whip", "None", "Dark", 17, 1, 53, 7, 0);
-addUser("Trollface", 0, 15, "Fish", "None", "Light", 11, 1, 72,  18, 0);
-addUser("RockGoblin", 0, 72, "Stick", "Chain mail", "Nature", 13, 3, 24, 21, 0);
-addUser("Snoop Dog", 0, 420, "Fists", "Fluffy Cloud", "Air", 12, 2, 28, 4, 0);
+addUser("Clementine", 0, 0, "Warhammer", "None", "Air", 33, 3, 146, 10, 0);
+addUser("Trollface", 0, 160, "Fists", "Dog tooth", "None", 15, 2, 217,  28, 0);
+addUser("RockGoblin", 0, 45, "Stick", "Shell", "Water", 28, 3, 24, 10, 0);
+addUser("Snoop Dog", 0, 155, "Fists", "Smoke machine", "Explosion", 18, 3, 131, 14, 0);
 addUser("???", 50, 150, "Sword", "None", "Dark", 20, 2, 95, 30, 1);

@@ -87,8 +87,8 @@ app.get('/room', function (req, res) {
         var roomPick = roomsCopy.indexOf(room);
         nextRoom = "0";
     }
-    if(req.cookies.item == "Stress ball"){
-        res.cookie('health', parseInt(req.cookies.health)+2, {maxAge: 9000000});
+    if (req.cookies.item == "Stress ball") {
+        res.cookie('health', parseInt(req.cookies.health) + 2, {maxAge: 9000000});
     }
     getWeight(req.cookies, function (weight) {
         getStrength(req.cookies, function (str) {
@@ -189,7 +189,7 @@ function getStrength(cookie, stren) {
                 strength += mag.effect;
                 strength += parseInt(cookie.health / 10);
                 console.log(strength);
-                if((cookie.item == "Shell" || cookie.item == "Grief Orb" || cookie.item == "Eternal Flame" || cookie.item == "Atomic Bomb" || cookie.item == "Frenzy Seed" || cookie.item == "Fluffy Cloud" || cookie.item == "Pure Orb")){
+                if ((cookie.item == "Shell" || cookie.item == "Grief Orb" || cookie.item == "Eternal Flame" || cookie.item == "Atomic Bomb" || cookie.item == "Frenzy Seed" || cookie.item == "Fluffy Cloud" || cookie.item == "Pure Orb")) {
                     strength *= 2;
                 }
                 stren(strength);
@@ -241,27 +241,30 @@ function getRandom(type, ran) {
         ran(weapons[pick]);
     }
 }
-function calcScore(cookie, sco){
-    var score = parseInt(cookie.health)+parseInt(cookie.gold)+(parseInt(cookie.roomCounter)*1.5)+parseInt(cookie.str)
+
+function calcScore(cookie, sco) {
+    var score = parseInt(cookie.health) + parseInt(cookie.gold) + (parseInt(cookie.roomCounter) * 1.5) + parseInt(cookie.str)
     sco(score);
 }
-function beats(hItem, bItem, win){
-    if(hItem == "Shell" && (bItem == "Fluffy Cloud" || bItem == "Eternal Flame" )){
+
+function beats(hItem, bItem, win) {
+    if (hItem == "Shell" && (bItem == "Fluffy Cloud" || bItem == "Eternal Flame")) {
         win(true);
-    }else if(hItem == "Grief Orb" && bItem == "Pure Orb"){
+    } else if (hItem == "Grief Orb" && bItem == "Pure Orb") {
         win(true);
-    }else if(hItem == "Eternal Flame" && (bItem == "Frenzy Seed" || bItem == "Shell" || bItem == "Grief Orb")){
+    } else if (hItem == "Eternal Flame" && (bItem == "Frenzy Seed" || bItem == "Shell" || bItem == "Grief Orb")) {
         win(true);
-    }else if(hItem == "Frenzy Seed" && (bItem == "Fluffy Cloud" || bItem == "Shell" || bItem == "Pure Orb")){
+    } else if (hItem == "Frenzy Seed" && (bItem == "Fluffy Cloud" || bItem == "Shell" || bItem == "Pure Orb")) {
         win(true);
-    }else if(hItem == "Fluffy Cloud" && (bItem == "Frenzy Seed" || bItem == "Eternal Flame")){
+    } else if (hItem == "Fluffy Cloud" && (bItem == "Frenzy Seed" || bItem == "Eternal Flame")) {
         win(true);
-    }else if(hItem == "Pure Orb" && bItem == "Grief Orb"){
+    } else if (hItem == "Pure Orb" && bItem == "Grief Orb") {
         win(true);
-    }else{
+    } else {
         win(false);
     }
 }
+
 function roomTen(boss, str, weight, cookie, query, ret) {
     console.log("ROOM10 STARTING HERE!!!!!!!!!!!!!!!!!!!!!!");
     var effects = "";
@@ -281,7 +284,7 @@ function roomTen(boss, str, weight, cookie, query, ret) {
             outcome = "Your hits strike true, beating down the shadowy figure until it is nothing but a corpse on the floor. \nSuddenly, the shadows that had concealed them rush at you, enveloping your entire body and forcing you onto the golden throne.\n Here you will remain, until another takes your place.";
             effects = "You are victorious, but at what cost?";
             console.log("A,a");
-            calcScore(cookie, function(score){
+            calcScore(cookie, function (score) {
                 Connection.addWinner(cookie.hero, cookie.health, cookie.gold, cookie.str, cookie.weight, score, cookie.roomCounter, cookie.weapon, cookie.item, cookie.magik, function (err) {
                     console.log(err);
                     ret(outcome, effects, newGold, newWep, false, score, popup);
@@ -291,7 +294,8 @@ function roomTen(boss, str, weight, cookie, query, ret) {
             outcome = "You are stopped by a shadowed weapon through the chest.\n You can\'t even think as the being pulls his weapon from you and snarls.\n \"Pathetic. Now I must wait for another.\"\n You fall, joining the pile of bodies as your vision fades to black.";
             effects = "You Died. Next time make sure you're stronger, ya dummy.";
             console.log("A,b");
-            calcScore(cookie, function(score) {
+            calcScore(cookie, function (score) {
+
                 console.log(score);
                 ret(outcome, effects, newGold, newWep, true, score, popup);
             });
@@ -305,7 +309,7 @@ function roomTen(boss, str, weight, cookie, query, ret) {
             outcome = "\"Ha! It isn\'t often that I see someone more worthy of being the king here. Have a seat.\" The being gets up and steps aside. As you sit on the throne, you watch the shadows leap from the being to you, revealing a person with a grateful smile. The instant the last speck of shadow leaves them, they vanish, taking your gold with them. You realize it now. Here you will remain, until another takes your place.";
             effects = "You are victorious, but at what cost?";
             console.log("B,a");
-            calcScore(cookie, function(score) {
+            calcScore(cookie, function (score) {
                 Connection.addWinner(cookie.hero, cookie.health, cookie.gold, cookie.str, cookie.weight, score, cookie.roomCounter, cookie.weapon, cookie.item, cookie.magik, function (err) {
                     console.log(err);
                     ret(outcome, effects, newGold, newWep, false, score, popup);
@@ -317,7 +321,7 @@ function roomTen(boss, str, weight, cookie, query, ret) {
             console.log("B,b");
             Connection.addGoldToBoss(query.bribe, function (errg) {
                 console.log(errg);
-                calcScore(cookie, function(score) {
+                calcScore(cookie, function (score) {
                     ret(outcome, effects, (newGold - query.bribe), newWep, true, score, popup);
                 });
             });
@@ -327,7 +331,7 @@ function roomTen(boss, str, weight, cookie, query, ret) {
             console.log("B,c");
             Connection.addGoldToBoss(query.bribe, function (errg) {
                 console.log(errg);
-                calcScore(cookie, function(score) {
+                calcScore(cookie, function (score) {
                     ret(outcome, effects, (newGold - query.bribe), newWep, true, score, popup);
                 });
             });
@@ -345,19 +349,19 @@ function roomTen(boss, str, weight, cookie, query, ret) {
         effects = "You continue on to the next room, determined to improve for next time.";
         ret(outcome, effects, newGold, newWep, false, -1, popup);
     } else if (query.d != undefined) {
-        if(boss.weapon != "??? Staff" && boss.item != "Shell" && boss.item != "Grief Orb" && boss.item != "Eternal Flame" && boss.item != "Atomic Bomb" && boss.item != "Frenzy Seed" && boss.item != "Fluffy Cloud" && boss.item != "Pure Orb"){
-            outcome = "\"What… what is this power? That item, it’s too strong! What even are you!?!\" \nThe being screams as your "+cookie.item+" glows with power. In a flash of light they\'re gone, nothing but dust on the floor.\n Suddenly, the shadows that had concealed the being rush at you, enveloping your entire body and forcing you onto the golden throne.\n\n Here you will remain, until another takes your place.";
+        if (boss.weapon != "??? Staff" && boss.item != "Shell" && boss.item != "Grief Orb" && boss.item != "Eternal Flame" && boss.item != "Atomic Bomb" && boss.item != "Frenzy Seed" && boss.item != "Fluffy Cloud" && boss.item != "Pure Orb") {
+            outcome = "\"What… what is this power? That item, it’s too strong! What even are you!?!\" \nThe being screams as your " + cookie.item + " glows with power. In a flash of light they\'re gone, nothing but dust on the floor.\n Suddenly, the shadows that had concealed the being rush at you, enveloping your entire body and forcing you onto the golden throne.\n\n Here you will remain, until another takes your place.";
             effects = "You are victorious. But at what cost?"
-            calcScore(cookie, function(score){
+            calcScore(cookie, function (score) {
                 Connection.addWinner(cookie.hero, cookie.health, cookie.gold, cookie.str, cookie.weight, score, cookie.roomCounter, cookie.weapon, cookie.item, cookie.magik, function (err) {
                     console.log(err);
                     ret(outcome, effects, newGold, newWep, false, score, popup);
                 });
             });
-        }else if(cookie.weapon != "??? Staff" && (boss.item == "Shell" || boss.item == "Grief Orb" || boss.item == "Eternal Flame" || boss.item == "Atomic Bomb" || boss.item == "Frenzy Seed" || boss.item == "Fluffy Cloud" || boss.item == "Pure Orb")){
-            popup = "\"Ah, you\'ve found one of these too, have you? Let\'s test our might then! Come at me, hero.\" \nThe shadowed being beckons to you with his raised "+boss.item+", and you raise yours in reply.";
-            beats(cookie.item, boss.item, function(hwin){
-                beats(boss.item, cookie.item, function(bwin) {
+        } else if (cookie.weapon != "??? Staff" && (boss.item == "Shell" || boss.item == "Grief Orb" || boss.item == "Eternal Flame" || boss.item == "Atomic Bomb" || boss.item == "Frenzy Seed" || boss.item == "Fluffy Cloud" || boss.item == "Pure Orb")) {
+            popup = "\"Ah, you\'ve found one of these too, have you? Let\'s test our might then! Come at me, hero.\" \nThe shadowed being beckons to you with his raised " + boss.item + ", and you raise yours in reply.";
+            beats(cookie.item, boss.item, function (hwin) {
+                beats(boss.item, cookie.item, function (bwin) {
                     if (cookie.item == "Atomic Bomb" && boss.item != "Atomic Bomb") {
                         outcome = "You know your smile is nasty, as the bomb in your hand starts to hum, but you can\'t stop yourself as you watch the being shudder in terror. \"This is the end, isn\'t it.\" The being whispers.\n In a flash of light, unstoppable devastation blasts throughout the room, eradicating everything except you, some floating shadows, and the golden throne. \nSuddenly, the shadows that had concealed the being rush at you, enveloping your entire body and forcing you onto the golden throne. \n\nHere you will remain, until another takes your place.";
                         effects = "You are victorious. But at what cost?";
@@ -377,8 +381,8 @@ function roomTen(boss, str, weight, cookie, query, ret) {
                         outcome = "You both sweat when the two of you realize you\'re holding up the same item. \"Seems we\'re at a stalemate.\" The being chuckles dryly. \"How about we decide this another way,in the future?\" He gestures towards the door, and you do your best to nod without shaking.";
                         effects = "You proceed to the next room.";
                         ret(outcome, effects, newGold, newWep, false, -1);
-                    } else if(hwin){
-                        outcome = "You grin when the being\'s"+boss.item+" shatters in his hand. \n\"How could you..? No, I suppose this is only fitting.\"\n You can almost feel them smiling at you as your "+ cookie.item+ " begins to shine. \n\"Goodbye, hero.\" In a flash of light they\'re gone, nothing but dust on the floor. \nSuddenly, the shadows that had concealed the being rush at you, enveloping your entire body and forcing you onto the golden throne. \n\nHere you will remain, until another takes your place.";
+                    } else if (hwin) {
+                        outcome = "You grin when the being\'s" + boss.item + " shatters in his hand. \n\"How could you..? No, I suppose this is only fitting.\"\n You can almost feel them smiling at you as your " + cookie.item + " begins to shine. \n\"Goodbye, hero.\" In a flash of light they\'re gone, nothing but dust on the floor. \nSuddenly, the shadows that had concealed the being rush at you, enveloping your entire body and forcing you onto the golden throne. \n\nHere you will remain, until another takes your place.";
                         effects = "You are victorious. But at what cost?";
                         calcScore(cookie, function (score) {
                             Connection.addWinner(cookie.hero, cookie.health, cookie.gold, cookie.str, cookie.weight, score, cookie.roomCounter, cookie.weapon, cookie.item, cookie.magik, function (err) {
@@ -386,22 +390,22 @@ function roomTen(boss, str, weight, cookie, query, ret) {
                                 ret(outcome, effects, newGold, newWep, false, score, popup);
                             });
                         });
-                    } else if(bwin){
-                        outcome = "You\'re devastated as you watch your "+cookie.item+" shatter in your hand. \n\"It seems that your item\'s type was weak to mine. Such a shame, you had potential.\"\nYou don\'t have time to react as light pours forth from their "+boss.item+", turning everything you are into dust.";
+                    } else if (bwin) {
+                        outcome = "You\'re devastated as you watch your " + cookie.item + " shatter in your hand. \n\"It seems that your item\'s type was weak to mine. Such a shame, you had potential.\"\nYou don\'t have time to react as light pours forth from their " + boss.item + ", turning everything you are into dust.";
                         effects = "You are naught but ash in the wind.";
                         calcScore(cookie, function (score) {
                             ret(outcome, effects, newGold, newWep, true, score, popup);
                         });
-                    }else{
-                        outcome = "Both your "+cookie.item+" and the being\'s "+boss.item+" shatter in a flash of light. \nYou share a brief bout of laughter with your foe, before he pulls out his weapon. \n\"That was disappointing. How about we decide this another way, in the future?\" \nHe gestures towards the door, and you grudgingly listen to his suggestion.";
+                    } else {
+                        outcome = "Both your " + cookie.item + " and the being\'s " + boss.item + " shatter in a flash of light. \nYou share a brief bout of laughter with your foe, before he pulls out his weapon. \n\"That was disappointing. How about we decide this another way, in the future?\" \nHe gestures towards the door, and you grudgingly listen to his suggestion.";
                         effects = "You proceed to the next room.";
                         ret(outcome, effects, newGold, newWep, false, -1, popup);
                     }
                 });
             });
-        }else{
-            if(boss.weapon != "??? Staff"){
-                outcome = "The staff you’d picked up earlier, something you’d thought of as worthless, shoots out a beam of light at the being\'s "+ boss.item+", destroying it instantly. \n\"W-what power…\" The being manages to stammer before turning to dust as well. \nSuddenly, the shadows that had concealed the being rush at you, enveloping your entire body and forcing you onto the golden throne. \n\nHere you will remain, until another takes your place.";
+        } else {
+            if (boss.weapon != "??? Staff") {
+                outcome = "The staff you’d picked up earlier, something you’d thought of as worthless, shoots out a beam of light at the being\'s " + boss.item + ", destroying it instantly. \n\"W-what power…\" The being manages to stammer before turning to dust as well. \nSuddenly, the shadows that had concealed the being rush at you, enveloping your entire body and forcing you onto the golden throne. \n\nHere you will remain, until another takes your place.";
                 effects = "You are victorious. But at what cost?";
                 calcScore(cookie, function (score) {
                     Connection.addWinner(cookie.hero, cookie.health, cookie.gold, cookie.str, cookie.weight, score, cookie.roomCounter, cookie.weapon, cookie.item, cookie.magik, function (err) {
@@ -409,7 +413,7 @@ function roomTen(boss, str, weight, cookie, query, ret) {
                         ret(outcome, effects, newGold, newWep, false, score, popup);
                     });
                 });
-            }else{
+            } else {
                 outcome = "Both yours and the being\'s staffs explode in a flash of light, turning into naught but ash. \nYou share a brief bout of laughter with your foe before he faces you, hands raised. \"That was disappointing. How about we decide this another way, in the future?\" \nHe gestures towards the door, and you grudgingly listen to his suggestion.";
                 effects = "You proceed to the next room.";
                 ret(outcome, effects, newGold, newWep, false, -1, popup);
@@ -561,7 +565,7 @@ app.get('/outcome', function (req, res) {
                 } else if (req.query.b != undefined) {
                     if (str >= 8) {
                         option = "a";
-                        effects = "Nothing happens.";
+                        effects = "The Dog looks up at you as you exit the room, wagging its tail. He did a great job playing dead. What a good boy!";
                     } else {
                         option = "b";
                         res.cookie('item', "Dog tooth", {maxAge: 9000000});
@@ -1078,8 +1082,8 @@ app.get('/outcome', function (req, res) {
                 } else if (req.query.c != undefined) {
                     if (req.cookies.magik == "Explosion") {
                         option = "a";
-                        effects = "Gain item: Atom Bomb.";
-                        res.cookie('item', "Atom Bomb", {maxAge: 9000000});
+                        effects = "Gain item: Atomic Bomb.";
+                        res.cookie('item', "Atomic Bomb", {maxAge: 9000000});
                     } else if (req.cookies.magik == "Water") {
                         option = "b";
                     } else if (req.cookies.magik == "Familiar") {
@@ -1487,10 +1491,15 @@ app.get('/outcome', function (req, res) {
                         res.cookie('gold', newGold, {maxAge: 9000000});
                         console.log("INSIDE ROOM10 FUNCTION!!!!!!!!");
                         console.log("outcome: " + outcome + ", effects: " + effects + ", newGold: " + newGold + ", newWep: " + newWep + ", died: " + died);
+                        var hp = req.cookies.health;
+                        if(died){
+                            res.cookie('health', 0, {maxAge: 9000000});
+                            hp = 0;
+                        }
                         Connection.getRoom(req.cookies.curRoom, function (roomInfo) {
                             res.render('pages/outcome', {
                                 hero: req.cookies.hero,
-                                health: req.cookies.health,
+                                health: hp,
                                 gold: newGold,
                                 weapon: newWep,
                                 item: req.cookies.item,
@@ -1512,8 +1521,8 @@ app.get('/outcome', function (req, res) {
             } else {
                 Connection.getRoom(req.cookies.curRoom, function (roomInfo) {
                     Connection.getOutcome(req.query.choice_id, option, function (outcome) {
-                        if(died){
-                            calcScore(req.cookies, function(score){
+                        if (died) {
+                            calcScore(req.cookies, function (score) {
                                 res.render('pages/outcome', {
                                     hero: req.cookies.hero,
                                     health: req.cookies.health,
@@ -1533,7 +1542,7 @@ app.get('/outcome', function (req, res) {
                                     popup: ""
                                 });
                             });
-                        }else{
+                        } else {
                             res.render('pages/outcome', {
                                 hero: req.cookies.hero,
                                 health: req.cookies.health,
@@ -1560,9 +1569,9 @@ app.get('/outcome', function (req, res) {
     });
 });
 app.get('/end', function (req, res) {
-    getStrength(req.cookies, function(str) {
-        getWeight(req.cookies, function(weight) {
-            calcScore(req.cookies, function(score) {
+    getStrength(req.cookies, function (str) {
+        getWeight(req.cookies, function (weight) {
+            calcScore(req.cookies, function (score) {
                 Connection.addLoser(req.cookies.hero, req.cookies.health, req.cookies.gold, str, weight, score, req.cookies.roomCounter, req.cookies.weapon, req.cookies.item, req.cookies.magik, function (loserInfo) {
                     console.log(loserInfo);
                     res.render('pages/end', {

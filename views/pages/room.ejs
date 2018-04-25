@@ -44,7 +44,7 @@
             <%=poem%>
             <%}%>
         </p><br>
-
+        <%if((room == "DOG" && weapon == "fists") || (room != "DOG")){%>
         <form align="left" class="form-horizontal" action="/outcome">
             <input hidden id="choice_id" name="choice_id" value="<%=choices[0].choice_id %>">
             <input value="Option A" name="a" type="submit" class="btn btn-danger">
@@ -56,6 +56,7 @@
             <input id="bribe" type="text" name="bribe" placeholder="Input your bribe" required>
             <%}%>
         </form><br>
+        <%}%>
         <form align="left" class="form-horizontal" action="/outcome">
             <input hidden id="choice_id" name="choice_id" value="<%=choices[1].choice_id %>">
             <input value="Option B" name="b" type="submit" class="btn btn-danger">
@@ -66,13 +67,15 @@
             <input id="bribe" type="text" name="bribe" placeholder="Enter your offer" required>
             <%}%>
         </form><br>
+        <%if((room == "DRYAD" && magik != "None") || (room == "CAMPFIRE" && magik != "None") || (room != "CAMPFIRE" && room != "DRYAD")){%>
         <form align="left" class="form-horizontal" action="/outcome">
             <input hidden id="choice_id" name="choice_id" value="<%=choices[2].choice_id %>">
             <input value="Option C" name="c" type="submit" class="btn btn-danger">
             <label name="optionC" for="outcomeC"><%=choices[2].choice%></label>
         </form><br>
+        <%}%>
         <%console.log(room);%>
-        <%if((room == "DOG" && item != "None")||(room != "CHEST" && room != "THRONE") || (room == "CHEST" && magik != "None") || (room == "THRONE" && (weapon == "??? Staff" || item == "Shell" || item == "Grief Orb" || item == "Eternal Flame" || item == "Atomic Bomb" || item == "Frenzy Seed" || item == "Fluffy Cloud" || item == "Pure Orb"))){ %>
+        <%if((room == "LADDERS" && magik != "None") || (room == "HOLE" && magik != "None") || (room == "DOG" && item != "None")||(room != "DOG" && room != "LADDERS" && room != "HOLE" && room != "CHEST" && room != "THRONE") || (room == "CHEST" && magik != "None") || (room == "THRONE" && (weapon == "??? Staff" || item == "Shell" || item == "Grief Orb" || item == "Eternal Flame" || item == "Atomic Bomb" || item == "Frenzy Seed" || item == "Fluffy Cloud" || item == "Pure Orb"))){ %>
         <form align="left" class="form-horizontal" action="/outcome">
             <input hidden id="choice_id" name="choice_id" value="<%=choices[3].choice_id %>">
             <input value="Option D" name="d" type="submit" class="btn btn-danger">
