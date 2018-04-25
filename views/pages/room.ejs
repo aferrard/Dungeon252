@@ -46,7 +46,7 @@
             <%=poem%>
             <%}%>
         </p><br>
-        <%if((room == "DOG" && weapon == "fists") || (room != "DOG")){%>
+        <%if((room == "DOG" && weapon != "fists") || (room != "DOG")){%>
         <form align="left" class="form-horizontal" action="/outcome">
             <input hidden id="choice_id" name="choice_id" value="<%=choices[0].choice_id %>">
             <input value="Option A" name="a" type="submit" class="btn btn-danger">
