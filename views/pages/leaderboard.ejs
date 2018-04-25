@@ -67,15 +67,27 @@
                 <th>Rooms Completed</th>
             </tr>
             <%for (var i = 0; i < userInfo.length; i++) {%>
-            <tr><td text-align="left"><%=userInfo[i].username%></td>
-                <td text-align="left"><%=userInfo[i].score%></td>
-                <td text-align="left"><%=userInfo[i].health%></td>
-                <td text-align="left"><%=userInfo[i].money%></td>
-                <td text-align="left"><%=userInfo[i].weapons_weapon_id%></td>
-                <td text-align="left"><%=userInfo[i].items_item_id%></td>
-                <td text-align="left"><%=userInfo[i].magiks_magik_id%></td>
-                <td text-align="left"><%=userInfo[i].numrooms%></td></tr>
-            <%}%>
+            <%if (userInfo[i].user_id != winnerInfo[0].user_id) {%>
+                <tr><td text-align="left"><%=userInfo[i].username%></td>
+                    <td text-align="left"><%=userInfo[i].score%></td>
+                    <td text-align="left"><%=userInfo[i].health%></td>
+                    <td text-align="left"><%=userInfo[i].money%></td>
+                    <td text-align="left"><%=userInfo[i].weapons_weapon_id%></td>
+                    <td text-align="left"><%=userInfo[i].items_item_id%></td>
+                    <td text-align="left"><%=userInfo[i].magiks_magik_id%></td>
+                    <td text-align="left"><%=userInfo[i].numrooms%></td></tr>
+            <%} else { %>
+                <tr><td text-align="left"><%=userInfo[i].username%></td>
+                    <td text-align="left">?</td>
+                    <td text-align="left">?</td>
+                    <td text-align="left">?</td>
+                    <td text-align="left">?</td>
+                    <td text-align="left">?</td>
+                    <td text-align="left">?</td>
+                    <td text-align="left">?</td></tr>
+            <%}
+            }%>
+
         </table>
     </div>
 </main>

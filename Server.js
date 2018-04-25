@@ -40,10 +40,12 @@ app.get('/', function (req, res) {
 });
 
 app.get('/leaderboard', function (req, res) {
-    var i = 0;
     Connection.getUsers(function (userInfo) {
-        res.render('pages/leaderboard', {
-            userInfo: userInfo
+        Connection.getWinners(function (wi) {
+            res.render('pages/leaderboard', {
+                userInfo: userInfo,
+                winnerInfo: wi,
+            });
         });
     });
 });
@@ -1470,12 +1472,18 @@ app.get('/outcome', function (req, res) {
     });
 });
 app.get('/end', function (req, res) {
-    Connection.addLoser(req.cookies.hero, req.cookies.health, req.cookies.gold, getStrength(req.cookies, function(str) {}), getWeight(req.cookies, function(weight) {}), req.cookies.weapon, req.cookies.item, req.cookies.magik, function (loserInfo) {
-        console.log(loserInfo);
-        res.render('pages/end', {
-            loserInfo: loserInfo
+    getStrength(req.cookies, function(str) {
+        getWeight(req.cookies, function(weight) {
+            console.log(req.cookies.weapon);
+            Connection.addLoser(req.cookies.hero, req.cookies.health, req.cookies.gold, str, weight, calcScore(req.cookies, function(score) {}), 5, req.cookies.weapon, req.cookies.item, req.cookies.magik, function (loserInfo) {
+                console.log(loserInfo);
+                res.render('pages/end', {
+                    loserInfo: loserInfo
+                });
+            });
         });
     });
+
 });
 
 app.listen(5252);
