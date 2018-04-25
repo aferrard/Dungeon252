@@ -227,8 +227,8 @@ function getWeight(cookie, wei) {
 }
 
 function getRandom(type, ran) {
-    var weapons = ["Stick", "Sword", "Whip", "Fish", "Basic staff"];
-    var items = ["Chain mail", "Sandwich", "Smoke machine", "Stress ball", "Dog tooth"];
+    var weapons = ["Stick", "Blowpipe", "Human arm", "Broken sword", "Rock?", "Sword", "Whip", "Fish", "Basic staff"];
+    var items = ["Chain mail", "Winged boots", "Concrete boots", "Sandwich", "Smoke machine", "Stress ball", "Dog tooth"];
     var magiks = ["Fire", "Water", "Nature", "Air", "Light", "Dark", "Explosion"];
     if (type == "item") {
         var pick = Math.round((parseInt(items.length) - 1) * Math.random());

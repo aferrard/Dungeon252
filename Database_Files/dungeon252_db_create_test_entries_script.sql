@@ -1,16 +1,20 @@
 use dungeon252_data;
 #create weapons
 #INSERT INTO weapons VALUE(NULL, "name", "attribute", weight, strength);
-INSERT INTO weapons VALUE(NULL, "Fists", "Flesh", 0, 3);
-INSERT INTO weapons VALUE(NULL, "Stick", "Wood", 1, 5);
-INSERT INTO weapons VALUE(NULL, "Sword", "Metal,Sharp", 2, 10);
-INSERT INTO weapons VALUE(NULL, "Warhammer", "Long,Metal", 3, 15);
+INSERT INTO weapons VALUE(NULL, "Fists", "Flesh", 0, 2);
+INSERT INTO weapons VALUE(NULL, "Stick", "Wood", 1, 4);
+INSERT INTO weapons VALUE(NULL, "Sword", "Metal,Sharp", 2, 9);
+INSERT INTO weapons VALUE(NULL, "Warhammer", "Long,Metal", 3, 12);
+INSERT INTO weapons VALUE(NULL, "Blowpipe", "Long,Wood", 1, 6);
+INSERT INTO weapons VALUE(NULL, "Human arm", "Flesh,Food,Slippery", 2, 6);
+INSERT INTO weapons VALUE(NULL, "Broken sword", "Metal", 2, 7);
+INSERT INTO weapons VALUE(NULL, "Rock?", "Rock", 5, 15);
 INSERT INTO weapons VALUE(NULL, "Whip", "Long,Bounce", 1, 7);
-INSERT INTO weapons VALUE(NULL, "??? Staff", "Long,Wood", 2, 7);
+INSERT INTO weapons VALUE(NULL, "??? Staff", "Long,Wood", 2, 2);
 INSERT INTO weapons VALUE(NULL, "Fish", "Slippery,Food", 1, 1);
-INSERT INTO weapons VALUE(NULL, "Basic staff", "Long,Wood",1,7);
+INSERT INTO weapons VALUE(NULL, "Basic staff", "Wood",1,8);
 INSERT INTO weapons VALUE(NULL, "Fire sword", "Metal",1,12);
-INSERT INTO weapons VALUE(NULl, "Rotor blade", "Metal,Long,Sharp", 3, 20);
+INSERT INTO weapons VALUE(NULl, "Rotor blade", "Metal,Long,Sharp", 4, 20);
 #create magiks
 #INSERT INTO magiks VALUE(NULL, "name", "attribute", "goodagainst");
 INSERT INTO magiks VALUE(NULL, "Familiar", 7, "Dark,Light");
@@ -25,9 +29,11 @@ INSERT INTO magiks VALUE(NULL, "None", 0, "None");
 #create items
 #INSERT INTO items VALUE(NULL, "name", "attribute", weight);
 INSERT INTO items VALUE(NULL, "Chain mail", "Take 2/3 damage (rounded up)", 2);
+INSERT INTO items VALUE(NULL, "Winged boots", "Lose 3 weight", -3);
+INSERT INTO items VALUE(NULL, "Concrete boots", "Should not have cheated", 3);
 INSERT INTO items VALUE(NULL, "Sandwich", "Food (heal 10 hp)", 0);
 INSERT INTO items VALUE(NULL, "Smoke machine", "always able to run", 3);
-INSERT INTO items VALUE(NULL, "Stress ball", "Healing (+2 hp per room)", 1);
+INSERT INTO items VALUE(NULL, "Stress ball", "Healing (+3 hp per room)", 1);
 INSERT INTO items VALUE(NULL, "Dog tooth", "+3 Strength", 1);
 INSERT INTO items VALUE(NULL, "Shell", "room10", 2);
 INSERT INTO items VALUE(NULL, "Grief Orb", "room10", 2);
