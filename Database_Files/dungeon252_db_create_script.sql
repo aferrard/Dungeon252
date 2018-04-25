@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `dungeon252_data`.`items` (
   `item_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `attribute` TEXT NOT NULL,
-  `weight` INT UNSIGNED NOT NULL,
+  `weight` INT NOT NULL,
   PRIMARY KEY (`item_id`))
 ENGINE = InnoDB;
 
