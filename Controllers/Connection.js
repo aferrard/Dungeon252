@@ -98,7 +98,7 @@ function getWinners(cb) {
                 ret();
             });
 
-            cb(z);
+            //cb(z);
         }
     });
 }

@@ -88,7 +88,7 @@ app.get('/room', function (req, res) {
         nextRoom = "0";
     }
     if(req.cookies.item == "Stress ball"){
-        res.cookie('health', parseInt(res.cookies.health)+2, {maxAge: 9000000});
+        res.cookie('health', parseInt(req.cookies.health)+2, {maxAge: 9000000});
     }
     getWeight(req.cookies, function (weight) {
         getStrength(req.cookies, function (str) {
@@ -189,7 +189,7 @@ function getStrength(cookie, stren) {
                 strength += mag.effect;
                 strength += parseInt(cookie.health / 10);
                 console.log(strength);
-                if((cookie.item == "Shell" || cookie.item == "Grief Orb" || cookie.item == "Eternal Flame" || cookie.item == "Atomic Bomb" || boss.item == "Frenzy Seed" || cookie.item == "Fluffy Cloud" || cookie.item == "Pure Orb")){
+                if((cookie.item == "Shell" || cookie.item == "Grief Orb" || cookie.item == "Eternal Flame" || cookie.item == "Atomic Bomb" || cookie.item == "Frenzy Seed" || cookie.item == "Fluffy Cloud" || cookie.item == "Pure Orb")){
                     strength *= 2;
                 }
                 stren(strength);
@@ -447,7 +447,7 @@ app.get('/outcome', function (req, res) {
         getWeight(req.cookies, function (weight) {
             if (req.cookies.curRoom == "GNOME") {
                 if (req.query.a != undefined) {
-                    if (req.query.solution == "Mountain" || "mountain" || "Mountains" || "mountains") {
+                    if ((req.query.solution == "Mountain") || (req.query.solution == "mountain") || (req.query.solution == "Mountains") || (req.query.solution == "mountains")) {
                         option = "a";
                         effects = "Gain 15 gold";
                         res.cookie('gold', parseInt(req.cookies.gold) + 15, {maxAge: 9000000});
@@ -996,7 +996,7 @@ app.get('/outcome', function (req, res) {
                     }
                 } else if (req.query.d != undefined) {
                     console.log(req.query.solution);
-                    if (req.query.solution == "SEGV" || req.query.solution == "EXECVP Error" || req.query.solution == "EXECVP" || req.query.solution == "Due Tomorrow" || req.query.solution == "due tomorrow" || req.query.solution == "Due tomorrow" || req.query.solution == "Gustavo") {
+                    if ((req.query.solution == "SEGV") || (req.query.solution == "EXECVP Error") || (req.query.solution == "EXECVP") || (req.query.solution == "Due Tomorrow") || (req.query.solution == "due tomorrow") || (req.query.solution == "Due tomorrow") || (req.query.solution == "Gustavo")) {
                         option = "a";
                         effects = "Gain item: Stress ball.";
                         res.cookie('item', "Stress ball", {maxAge: 9000000});
