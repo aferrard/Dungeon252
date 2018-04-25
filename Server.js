@@ -349,7 +349,7 @@ function roomTen(boss, str, weight, cookie, query, ret) {
         effects = "You continue on to the next room, determined to improve for next time.";
         ret(outcome, effects, newGold, newWep, false, -1, popup);
     } else if (query.d != undefined) {
-        if (boss.weapon != "??? Staff" && boss.item != "Shell" && boss.item != "Grief Orb" && boss.item != "Eternal Flame" && boss.item != "Atomic Bomb" && boss.item != "Frenzy Seed" && boss.item != "Fluffy Cloud" && boss.item != "Pure Orb") {
+        if (boss.weapons_weapon_id != "??? Staff" && boss.items_item_id != "Shell" && boss.items_item_id != "Grief Orb" && boss.items_item_id != "Eternal Flame" && boss.items_item_id != "Atomic Bomb" && boss.items_item_id != "Frenzy Seed" && boss.items_item_id != "Fluffy Cloud" && boss.items_item_id != "Pure Orb") {
             outcome = "\"What… what is this power? That item, it’s too strong! What even are you!?!\" \nThe being screams as your " + cookie.item + " glows with power. In a flash of light they\'re gone, nothing but dust on the floor.\n Suddenly, the shadows that had concealed the being rush at you, enveloping your entire body and forcing you onto the golden throne.\n\n Here you will remain, until another takes your place.";
             effects = "You are victorious. But at what cost?"
             calcScore(cookie, function (score) {
@@ -358,11 +358,11 @@ function roomTen(boss, str, weight, cookie, query, ret) {
                     ret(outcome, effects, newGold, newWep, false, score, popup);
                 });
             });
-        } else if (cookie.weapon != "??? Staff" && (boss.item == "Shell" || boss.item == "Grief Orb" || boss.item == "Eternal Flame" || boss.item == "Atomic Bomb" || boss.item == "Frenzy Seed" || boss.item == "Fluffy Cloud" || boss.item == "Pure Orb")) {
-            popup = "\"Ah, you\'ve found one of these too, have you? Let\'s test our might then! Come at me, hero.\" \nThe shadowed being beckons to you with his raised " + boss.item + ", and you raise yours in reply.";
-            beats(cookie.item, boss.item, function (hwin) {
-                beats(boss.item, cookie.item, function (bwin) {
-                    if (cookie.item == "Atomic Bomb" && boss.item != "Atomic Bomb") {
+        } else if (cookie.weapon != "??? Staff" && (boss.items_item_id == "Shell" || boss.items_item_id == "Grief Orb" || boss.items_item_id == "Eternal Flame" || boss.items_item_id == "Atomic Bomb" || boss.items_item_id == "Frenzy Seed" || boss.items_item_id == "Fluffy Cloud" || boss.items_item_id == "Pure Orb")) {
+            popup = "\"Ah, you\'ve found one of these too, have you? Let\'s test our might then! Come at me, hero.\" \n\n\nThe shadowed being beckons to you with his raised " + boss.items_item_id + ", and you raise your "+cookie.item+" in reply.";
+            beats(cookie.item, boss.items_item_id, function (hwin) {
+                beats(boss.items_item_id, cookie.item, function (bwin) {
+                    if (cookie.item == "Atomic Bomb" && boss.items_item_id != "Atomic Bomb") {
                         outcome = "You know your smile is nasty, as the bomb in your hand starts to hum, but you can\'t stop yourself as you watch the being shudder in terror. \"This is the end, isn\'t it.\" The being whispers.\n In a flash of light, unstoppable devastation blasts throughout the room, eradicating everything except you, some floating shadows, and the golden throne. \nSuddenly, the shadows that had concealed the being rush at you, enveloping your entire body and forcing you onto the golden throne. \n\nHere you will remain, until another takes your place.";
                         effects = "You are victorious. But at what cost?";
                         calcScore(cookie, function (score) {
@@ -371,18 +371,18 @@ function roomTen(boss, str, weight, cookie, query, ret) {
                                 ret(outcome, effects, newGold, newWep, false, score, popup);
                             });
                         });
-                    } else if (boss.item == "Atomic Bomb" && cookie.item != "Atomic Bomb") {
+                    } else if (boss.items_item_id == "Atomic Bomb" && cookie.item != "Atomic Bomb") {
                         outcome = "\"You poor, unfortunate hero.\" The being sighs as he holds up a bomb. \"You have no idea what\'s coming, do you?\" You don\'t have a moment to react as the Atomic Bomb in the Boss\'s had detonates, turning you to ash. \n\nEverything turns to ash, except the boss and the golden throne.";
                         effects = "You are naught but ash in the wind.";
                         calcScore(cookie, function (score) {
                             ret(outcome, effects, newGold, newWep, true, score, popup);
                         });
-                    } else if (boss.item == "Atomic Bomb" && cookie.item == "Atomic Bomb") {
+                    } else if (boss.items_item_id == "Atomic Bomb" && cookie.item == "Atomic Bomb") {
                         outcome = "You both sweat when the two of you realize you\'re holding up the same item. \"Seems we\'re at a stalemate.\" The being chuckles dryly. \"How about we decide this another way,in the future?\" He gestures towards the door, and you do your best to nod without shaking.";
                         effects = "You proceed to the next room.";
                         ret(outcome, effects, newGold, newWep, false, -1);
                     } else if (hwin) {
-                        outcome = "You grin when the being\'s" + boss.item + " shatters in his hand. \n\"How could you..? No, I suppose this is only fitting.\"\n You can almost feel them smiling at you as your " + cookie.item + " begins to shine. \n\"Goodbye, hero.\" In a flash of light they\'re gone, nothing but dust on the floor. \nSuddenly, the shadows that had concealed the being rush at you, enveloping your entire body and forcing you onto the golden throne. \n\nHere you will remain, until another takes your place.";
+                        outcome = "You grin when the being\'s" + boss.items_item_id + " shatters in his hand. \n\"How could you..? No, I suppose this is only fitting.\"\n You can almost feel them smiling at you as your " + cookie.item + " begins to shine. \n\"Goodbye, hero.\" In a flash of light they\'re gone, nothing but dust on the floor. \nSuddenly, the shadows that had concealed the being rush at you, enveloping your entire body and forcing you onto the golden throne. \n\nHere you will remain, until another takes your place.";
                         effects = "You are victorious. But at what cost?";
                         calcScore(cookie, function (score) {
                             Connection.addWinner(cookie.hero, cookie.health, cookie.gold, cookie.str, cookie.weight, score, cookie.roomCounter, cookie.weapon, cookie.item, cookie.magik, function (err) {
@@ -391,21 +391,21 @@ function roomTen(boss, str, weight, cookie, query, ret) {
                             });
                         });
                     } else if (bwin) {
-                        outcome = "You\'re devastated as you watch your " + cookie.item + " shatter in your hand. \n\"It seems that your item\'s type was weak to mine. Such a shame, you had potential.\"\nYou don\'t have time to react as light pours forth from their " + boss.item + ", turning everything you are into dust.";
+                        outcome = "You\'re devastated as you watch your " + cookie.item + " shatter in your hand. \n\"It seems that your item\'s type was weak to mine. Such a shame, you had potential.\"\nYou don\'t have time to react as light pours forth from their " + boss.items_item_id+ ", turning everything you are into dust.";
                         effects = "You are naught but ash in the wind.";
                         calcScore(cookie, function (score) {
                             ret(outcome, effects, newGold, newWep, true, score, popup);
                         });
                     } else {
-                        outcome = "Both your " + cookie.item + " and the being\'s " + boss.item + " shatter in a flash of light. \nYou share a brief bout of laughter with your foe, before he pulls out his weapon. \n\"That was disappointing. How about we decide this another way, in the future?\" \nHe gestures towards the door, and you grudgingly listen to his suggestion.";
+                        outcome = "Both your " + cookie.item + " and the being\'s " + boss.items_item_id+ " shatter in a flash of light. \nYou share a brief bout of laughter with your foe, before he pulls out his weapon. \n\"That was disappointing. How about we decide this another way, in the future?\" \nHe gestures towards the door, and you grudgingly listen to his suggestion.";
                         effects = "You proceed to the next room.";
                         ret(outcome, effects, newGold, newWep, false, -1, popup);
                     }
                 });
             });
         } else {
-            if (boss.weapon != "??? Staff") {
-                outcome = "The staff you’d picked up earlier, something you’d thought of as worthless, shoots out a beam of light at the being\'s " + boss.item + ", destroying it instantly. \n\"W-what power…\" The being manages to stammer before turning to dust as well. \nSuddenly, the shadows that had concealed the being rush at you, enveloping your entire body and forcing you onto the golden throne. \n\nHere you will remain, until another takes your place.";
+            if (boss.weapons_weapon_id != "??? Staff") {
+                outcome = "The staff you’d picked up earlier, something you’d thought of as worthless, shoots out a beam of light at the being\'s " + boss.items_item_id + ", destroying it instantly. \n\"W-what power…\" The being manages to stammer before turning to dust as well. \nSuddenly, the shadows that had concealed the being rush at you, enveloping your entire body and forcing you onto the golden throne. \n\nHere you will remain, until another takes your place.";
                 effects = "You are victorious. But at what cost?";
                 calcScore(cookie, function (score) {
                     Connection.addWinner(cookie.hero, cookie.health, cookie.gold, cookie.str, cookie.weight, score, cookie.roomCounter, cookie.weapon, cookie.item, cookie.magik, function (err) {
