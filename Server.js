@@ -88,7 +88,7 @@ app.get('/room', function (req, res) {
         nextRoom = "0";
     }
     if(req.cookies.item == "Stress ball"){
-        res.cookie('health', parseInt(res.cookies.health)+2, {maxAge: 9000000});
+        res.cookie('health', parseInt(req.cookies.health)+2, {maxAge: 9000000});
     }
     getWeight(req.cookies, function (weight) {
         getStrength(req.cookies, function (str) {
@@ -189,7 +189,7 @@ function getStrength(cookie, stren) {
                 strength += mag.effect;
                 strength += parseInt(cookie.health / 10);
                 console.log(strength);
-                if((cookie.item == "Shell" || cookie.item == "Grief Orb" || cookie.item == "Eternal Flame" || cookie.item == "Atomic Bomb" || boss.item == "Frenzy Seed" || cookie.item == "Fluffy Cloud" || cookie.item == "Pure Orb")){
+                if((cookie.item == "Shell" || cookie.item == "Grief Orb" || cookie.item == "Eternal Flame" || cookie.item == "Atomic Bomb" || cookie.item == "Frenzy Seed" || cookie.item == "Fluffy Cloud" || cookie.item == "Pure Orb")){
                     strength *= 2;
                 }
                 stren(strength);
@@ -293,10 +293,7 @@ function roomTen(boss, str, weight, cookie, query, ret) {
             console.log("A,b");
             calcScore(cookie, function(score) {
                 console.log(score);
-                Connection.addLoser(cookie.hero, cookie.health, cookie.gold, cookie.str, cookie.weight, score, cookie.roomCounter, cookie.weapon, cookie.item, cookie.magik, function (err) {
-                    console.log(err);
-                    ret(outcome, effects, newGold, newWep, true, score, popup);
-                });
+                ret(outcome, effects, newGold, newWep, true, score, popup);
             });
         }
     } else if (query.b != undefined) {
@@ -321,10 +318,7 @@ function roomTen(boss, str, weight, cookie, query, ret) {
             Connection.addGoldToBoss(query.bribe, function (errg) {
                 console.log(errg);
                 calcScore(cookie, function(score) {
-                    Connection.addLoser(cookie.hero, cookie.health, cookie.gold, cookie.str, cookie.weight, score, cookie.roomCounter, cookie.weapon, cookie.item, cookie.magik, function (err) {
-                        console.log(err);
-                        ret(outcome, effects, (newGold - query.bribe), newWep, true, score, popup);
-                    });
+                    ret(outcome, effects, (newGold - query.bribe), newWep, true, score, popup);
                 });
             });
         } else if (cookie.health >= boss.health - 5 && (query.bribe < (boss.money * 1.5))) {
@@ -334,10 +328,7 @@ function roomTen(boss, str, weight, cookie, query, ret) {
             Connection.addGoldToBoss(query.bribe, function (errg) {
                 console.log(errg);
                 calcScore(cookie, function(score) {
-                    Connection.addLoser(cookie.hero, cookie.health, cookie.gold, cookie.str, cookie.weight, score, cookie.roomCounter, cookie.weapon, cookie.item, cookie.magik, function (err) {
-                        console.log(err);
-                        ret(outcome, effects, (newGold - query.bribe), newWep, true, score, popup);
-                    });
+                    ret(outcome, effects, (newGold - query.bribe), newWep, true, score, popup);
                 });
             });
         } else {
@@ -352,7 +343,7 @@ function roomTen(boss, str, weight, cookie, query, ret) {
     } else if (query.c != undefined) {
         outcome = "The shadowed being waves his hand at you with a pleasant smile.\n \"I may not be the one you see ten rooms from now, but good luck.\"";
         effects = "You continue on to the next room, determined to improve for next time.";
-        ret(outcome, effects, newGold, newWep, false, -1);
+        ret(outcome, effects, newGold, newWep, false, -1, popup);
     } else if (query.d != undefined) {
         if(boss.weapon != "??? Staff" && boss.item != "Shell" && boss.item != "Grief Orb" && boss.item != "Eternal Flame" && boss.item != "Atomic Bomb" && boss.item != "Frenzy Seed" && boss.item != "Fluffy Cloud" && boss.item != "Pure Orb"){
             outcome = "\"What… what is this power? That item, it’s too strong! What even are you!?!\" \nThe being screams as your "+cookie.item+" glows with power. In a flash of light they\'re gone, nothing but dust on the floor.\n Suddenly, the shadows that had concealed the being rush at you, enveloping your entire body and forcing you onto the golden throne.\n\n Here you will remain, until another takes your place.";
@@ -364,7 +355,7 @@ function roomTen(boss, str, weight, cookie, query, ret) {
                 });
             });
         }else if(cookie.weapon != "??? Staff" && (boss.item == "Shell" || boss.item == "Grief Orb" || boss.item == "Eternal Flame" || boss.item == "Atomic Bomb" || boss.item == "Frenzy Seed" || boss.item == "Fluffy Cloud" || boss.item == "Pure Orb")){
-            popup = "\"Ah, you\'ve found one of these too, have you? Let\'s test our might then! Come at me, hero.\" The shadowed being beckons to you with his raised "+boss.item+", and you raise yours in reply.";
+            popup = "\"Ah, you\'ve found one of these too, have you? Let\'s test our might then! Come at me, hero.\" \nThe shadowed being beckons to you with his raised "+boss.item+", and you raise yours in reply.";
             beats(cookie.item, boss.item, function(hwin){
                 beats(boss.item, cookie.item, function(bwin) {
                     if (cookie.item == "Atomic Bomb" && boss.item != "Atomic Bomb") {
@@ -380,10 +371,7 @@ function roomTen(boss, str, weight, cookie, query, ret) {
                         outcome = "\"You poor, unfortunate hero.\" The being sighs as he holds up a bomb. \"You have no idea what\'s coming, do you?\" You don\'t have a moment to react as the Atomic Bomb in the Boss\'s had detonates, turning you to ash. \n\nEverything turns to ash, except the boss and the golden throne.";
                         effects = "You are naught but ash in the wind.";
                         calcScore(cookie, function (score) {
-                            Connection.addLoser(cookie.hero, cookie.health, cookie.gold, cookie.str, cookie.weight, score, cookie.roomCounter, cookie.weapon, cookie.item, cookie.magik, function (err) {
-                                console.log(err);
-                                ret(outcome, effects, newGold, newWep, true, score, popup);
-                            });
+                            ret(outcome, effects, newGold, newWep, true, score, popup);
                         });
                     } else if (boss.item == "Atomic Bomb" && cookie.item == "Atomic Bomb") {
                         outcome = "You both sweat when the two of you realize you\'re holding up the same item. \"Seems we\'re at a stalemate.\" The being chuckles dryly. \"How about we decide this another way,in the future?\" He gestures towards the door, and you do your best to nod without shaking.";
@@ -402,10 +390,7 @@ function roomTen(boss, str, weight, cookie, query, ret) {
                         outcome = "You\'re devastated as you watch your "+cookie.item+" shatter in your hand. \n\"It seems that your item\'s type was weak to mine. Such a shame, you had potential.\"\nYou don\'t have time to react as light pours forth from their "+boss.item+", turning everything you are into dust.";
                         effects = "You are naught but ash in the wind.";
                         calcScore(cookie, function (score) {
-                            Connection.addLoser(cookie.hero, cookie.health, cookie.gold, cookie.str, cookie.weight, score, cookie.roomCounter, cookie.weapon, cookie.item, cookie.magik, function (err) {
-                                console.log(err);
-                                ret(outcome, effects, newGold, newWep, true, score, popup);
-                            });
+                            ret(outcome, effects, newGold, newWep, true, score, popup);
                         });
                     }else{
                         outcome = "Both your "+cookie.item+" and the being\'s "+boss.item+" shatter in a flash of light. \nYou share a brief bout of laughter with your foe, before he pulls out his weapon. \n\"That was disappointing. How about we decide this another way, in the future?\" \nHe gestures towards the door, and you grudgingly listen to his suggestion.";
