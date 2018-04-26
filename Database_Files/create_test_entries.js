@@ -1099,7 +1099,7 @@ getRoomId("DRYAD", function(room) {
                 if(err) {
                     throw err;
                 } else {
-                    con.query("INSERT INTO outcomes VALUE('a', 'The Dryad cries out in pain as you rip all of the fruit from her body. Face overtaken by rage and terror, she points at the fruit you've taken, rasping in an unknown language. You watch dispassionately as her body dries up in seconds, withering away into rot.', " + choice[0].choice_id + ")", function(err, result) {
+                    con.query("INSERT INTO outcomes VALUE('a', 'The Dryad cries out in pain as you rip all of the fruit from her body. Face overtaken by rage and terror, she points at the fruit you\\\'ve taken, rasping in an unknown language. You watch dispassionately as her body dries up in seconds, withering away into rot.', " + choice[0].choice_id + ")", function(err, result) {
                         if(err) {
                             throw err;
                         } else {
