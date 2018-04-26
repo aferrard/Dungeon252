@@ -1310,27 +1310,10 @@ app.get('/outcome', function (req, res) {
                         console.log("BRIBE");
                         console.log(req.query.bribe);
                         if(parseInt(req.cookies.gold) < parseInt(req.query.bribe)){
-                            option = "b";
-                            if (req.cookies.item == "Chain mail") {
-                                if ((parseInt(req.cookies.health) - 7) > 0) {
-                                    effects = "Lose 7 HP from a disgusted shopkeeper. Try not to offer gold you don't have, silly.";
-                                    res.cookie('health', parseInt(req.cookies.health) - 7, {maxAge: 9000000});
-                                }
-                                else {
-                                    effects = "You have died from a disgusted shopkeeper. Try not to offer gold you don't have, silly.";
-                                    res.cookie('health', 0, {maxAge: 9000000});
-                                    died = true;
-                                }
-                            } else {
-                                if ((parseInt(req.cookies.health) - 10) > 0) {
-                                    effects = "Lose 10 HP from a disgusted shopkeeper. Try not to offer gold you don't have, silly.";
-                                    res.cookie('health', parseInt(req.cookies.health) - 10, {maxAge: 9000000});
-                                }
-                                else {
-                                    effects = "You have died from a disgusted shopkeeper. Try not to offer gold you don't have, silly.";
-                                    res.cookie('health', 0, {maxAge: 9000000});
-                                    died = true;
-                                }
+                            option = "c";
+                            effects = "Your cry it out for a bit before the salesman gives you some friendly advice. Gain 4 HP.";
+                            res.cookie('health', parseInt(req.cookies.health) + 4, {maxAge: 9000000});
+
                             }
                         } else if (parseInt(req.query.bribe) >= 25) {
                             option = "a";

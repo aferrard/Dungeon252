@@ -140,7 +140,7 @@ getRoomId("DOG", function(room) {
                         if(err) {
                             throw err;
                         } else {
-                            con.query("INSERT INTO outcomes VALUE('b', 'The dog eats your ~weapon~ then happily joins your side.', " + choice[0].choice_id + ")", function(err, result) {
+                            con.query("INSERT INTO outcomes VALUE('b', 'The dog eats your weapon then happily joins your side.', " + choice[0].choice_id + ")", function(err, result) {
                                 if(err) {
                                     throw err;
                                 } else {
@@ -219,11 +219,11 @@ getRoomId("DOG", function(room) {
                 if(err) {
                     throw(err);
                 } else {
-                    con.query("INSERT INTO outcomes VALUE('a', 'The dog eats your ~item~ then happily joins your side.', " + choice[0].choice_id + ")", function(err, result) {
+                    con.query("INSERT INTO outcomes VALUE('a', 'The dog eats your item then happily joins your side.', " + choice[0].choice_id + ")", function(err, result) {
                         if(err) {
                             throw err;
                         } else {
-                            con.query("INSERT INTO outcomes VALUE('b', 'While the dog bounds after your ~item~, you escape to the next room.', " + choice[0].choice_id + ")", function(err, result) {
+                            con.query("INSERT INTO outcomes VALUE('b', 'While the dog bounds after your item, you escape to the next room.', " + choice[0].choice_id + ")", function(err, result) {
                                 if(err) {
                                     throw err;
                                 } else {
@@ -298,7 +298,7 @@ getRoomId("HOLE", function(room) {
                 if(err) {
                     throw err;
                 } else {
-                    con.query("INSERT INTO outcomes VALUE('a', 'You walk across your ~weapon~, keeping careful balance. Continue to the next room.', " + choice[0].choice_id + ")", function(err, result) {
+                    con.query("INSERT INTO outcomes VALUE('a', 'You walk across your weapon, keeping careful balance. Continue to the next room.', " + choice[0].choice_id + ")", function(err, result) {
                         if(err) {
                             throw(err);
                         } else {
@@ -519,7 +519,7 @@ getRoomId("POTIONS", function(room) {
                 if(err) {
                     throw err;
                 } else {
-                    con.query("INSERT INTO outcomes VALUE('a', 'You feel a burning sensation as you drink it, but when the last drop is downed, you feel a wave a knowledge overcome you. You now possess ~Random~ Magik.', " + choice[0].choice_id + ")", function(err, result) {
+                    con.query("INSERT INTO outcomes VALUE('a', 'You feel a burning sensation as you drink it, but when the last drop is downed, you feel a wave a knowledge overcome you. You now possess a new Magik.', " + choice[0].choice_id + ")", function(err, result) {
                         if(err) {
                             throw err;
                         } else {
@@ -534,11 +534,11 @@ getRoomId("POTIONS", function(room) {
 
 //choices and outcomes for DARKWIZARD
 getRoomId("DARKWIZARD", function(room) {
-    con.query("INSERT INTO choices VALUE(NULL, 'You try to bribe him. You offer him ~ golds pieces.', " + room + ")", function(err, result) {
+    con.query("INSERT INTO choices VALUE(NULL, 'You try to bribe him. You offer him ___ golds pieces.', " + room + ")", function(err, result) {
         if(err) {
             throw err;
         } else {
-            con.query("SELECT choice_id FROM choices WHERE choice = 'You try to bribe him. You offer him ~ golds pieces.'", function(err, choice) {
+            con.query("SELECT choice_id FROM choices WHERE choice = 'You try to bribe him. You offer him ___ golds pieces.'", function(err, choice) {
                 if(err) {
                     throw err;
                 } else {
@@ -837,7 +837,7 @@ getRoomId("CAMPFIRE", function(room) {
                 if(err) {
                     throw err;
                 } else {
-                    con.query("INSERT INTO outcomes VALUE('a', 'You share warmth with the campfire until it goes out a few minutes later. You are grateful for its sacrifice. Heal 50 HP.', " + choice[0].choice_id + ")", function(err, result) {
+                    con.query("INSERT INTO outcomes VALUE('a', 'You share warmth with the campfire until it goes out a few minutes later. You are grateful for its sacrifice.', " + choice[0].choice_id + ")", function(err, result) {
                         if(err){
                             throw err;
                         } else {
@@ -1030,7 +1030,7 @@ getRoomId("SALESMAN", function(room) {
                         if(err) {
                             throw err;
                         } else {
-                            con.query("INSERT INTO outcomes VALUE('b', 'You wound the salesman but are also wounded in the process. You lose 8 HP and decide to cut your losses, continuing to the next room', " + choice[0].choice_id + ")", function(err, result) {
+                            con.query("INSERT INTO outcomes VALUE('b', 'You wound the salesman but are also wounded in the process. You decide to cut your losses, continuing to the next room', " + choice[0].choice_id + ")", function(err, result) {
                                 if(err) {
                                     throw err;
                                 } else {
@@ -1059,7 +1059,13 @@ getRoomId("SALESMAN", function(room) {
                                 if(err) {
                                     throw err;
                                 } else {
-                                    console.log("salesman choice 4");
+                                    con.query("INSERT INTO outcomes VALUE('c', 'The salesman notices you trying to bring out imaginary gold. He sternly tells you to stop trying to get yourself into debt, as it can lead to a life of ruin and permanent poverty. He pats your back as you cry in shame.', " + choice[0].choice_id + ")", function(err, result) {
+                                        if(err) {
+                                            throw err;
+                                        } else {
+                                            console.log("salesman choice 4");
+                                        }
+                                    });
                                 }
                             });
                         }
@@ -1147,11 +1153,11 @@ getRoomId("DRYAD", function(room) {
             });
         }
     });
-    con.query("INSERT INTO choices VALUE(NULL, 'Decline the Dryad’s offer.', " + room + ")", function(err, result) {
+    con.query("INSERT INTO choices VALUE(NULL, 'Decline the Dryad\\\'s offer.', " + room + ")", function(err, result) {
         if(err) {
             throw err;
         } else {
-            con.query("SELECT choice_id FROM choices WHERE choice = 'Decline the Dryad’s offer.'", function(err, choice) {
+            con.query("SELECT choice_id FROM choices WHERE choice = 'Decline the Dryad\\\'s offer.'", function(err, choice) {
                 if(err) {
                     throw err;
                 } else {
@@ -1178,7 +1184,7 @@ getRoomId("FEAST", function(room) {
                 if(err) {
                     throw err;
                 } else {
-                    con.query("INSERT INTO outcomes VALUE('a', 'You eat the food and it restores 15 HP, but you become very drowsy and fall asleep. When you wake up, you realize that you have forgotten all magik that you know.', " + choice[0].choice_id + ")", function(err, result) {
+                    con.query("INSERT INTO outcomes VALUE('a', 'You eat all the food you can, but you become very drowsy and fall asleep. When you wake up, you realize that you have forgotten all magik that you know.', " + choice[0].choice_id + ")", function(err, result) {
                         if(err) {
                             throw err;
                         } else {
@@ -1208,15 +1214,15 @@ getRoomId("FEAST", function(room) {
             });
         }
     });
-    con.query("INSERT INTO choices VALUE(NULL, 'You decide you\\\'re not that hungry, so you only pick up sandwich and put it into your pack.', " + room + ")", function(err, result) {
+    con.query("INSERT INTO choices VALUE(NULL, 'You decide you\\\'re not that hungry, so you only nab a sandwich and get going.', " + room + ")", function(err, result) {
         if(err) {
             throw err;
         } else {
-            con.query("SELECT choice_id FROM choices WHERE choice = 'You decide you\\\'re not that hungry, so you only pick up sandwich and put it into your pack.'", function(err, choice) {
+            con.query("SELECT choice_id FROM choices WHERE choice = 'You decide you\\\'re not that hungry, so you only nab a sandwich and get going.'", function(err, choice) {
                 if(err) {
                     throw err;
                 } else {
-                    con.query("INSERT INTO outcomes VALUE('a', 'You decide you\\\'re not that hungry, so you only pick up sandwich and head out the door. Heal 7 HP', " + choice[0].choice_id + ")", function(err, result) {
+                    con.query("INSERT INTO outcomes VALUE('a', 'You decide you\\\'re not that hungry, so you only nab a sandwich and head out the door.', " + choice[0].choice_id + ")", function(err, result) {
                         if(err) {
                             throw err;
                         } else {
@@ -1235,7 +1241,7 @@ getRoomId("FEAST", function(room) {
                 if(err) {
                     throw err;
                 } else {
-                    con.query("INSERT INTO outcomes VALUE('a', 'You find a scroll which teaches ~random~ magic.', " + choice[0].choice_id + ")", function(err, result) {
+                    con.query("INSERT INTO outcomes VALUE('a', 'You find a scroll which teaches magic.', " + choice[0].choice_id + ")", function(err, result) {
                         if(err) {
                             throw err;
                         } else {
