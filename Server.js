@@ -1240,7 +1240,7 @@ app.get('/outcome', function (req, res) {
                 }
                 else if (req.cookies.curRoom == "SALESMAN") {
                     if (req.query.a != undefined) {
-                        if (req.cookies.gold >= 30) {
+                        if (parseInt(req.cookies.gold) >= 30) {
                             option = "a";
                             getRandom("weapon", function (weep) {
                                 effects = "Lose 30 gold. Gain weapon: " + weep + ".";
@@ -1309,7 +1309,7 @@ app.get('/outcome', function (req, res) {
                         console.log(req.cookies.gold);
                         console.log("BRIBE");
                         console.log(req.query.bribe);
-                        if(req.cookies.gold < req.query.bribe){
+                        if(parseInt(req.cookies.gold) < parseInt(req.query.bribe)){
                             option = "b";
                             if (req.cookies.item == "Chain mail") {
                                 if ((parseInt(req.cookies.health) - 7) > 0) {
@@ -1332,7 +1332,7 @@ app.get('/outcome', function (req, res) {
                                     died = true;
                                 }
                             }
-                        } else if (req.query.bribe >= 25) {
+                        } else if (parseInt(req.query.bribe) >= 25) {
                             option = "a";
                             getRandom("weapon", function (weep) {
                                 effects = "Lose gold: " + req.query.bribe + ". Gain weapon: " + weep + ".";
