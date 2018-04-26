@@ -1313,8 +1313,6 @@ app.get('/outcome', function (req, res) {
                             option = "c";
                             effects = "Your cry it out for a bit before the salesman gives you some friendly advice. Gain 4 HP.";
                             res.cookie('health', parseInt(req.cookies.health) + 4, {maxAge: 9000000});
-
-                            }
                         } else if (parseInt(req.query.bribe) >= 25) {
                             option = "a";
                             getRandom("weapon", function (weep) {
