@@ -837,7 +837,7 @@ getRoomId("CAMPFIRE", function(room) {
                 if(err) {
                     throw err;
                 } else {
-                    con.query("INSERT INTO outcomes VALUE('a', 'You share warmth with the campfire until it goes out a few minutes later. You are grateful for its sacrifice. Heal 50 HP.', " + choice[0].choice_id + ")", function(err, result) {
+                    con.query("INSERT INTO outcomes VALUE('a', 'You share warmth with the campfire until it goes out a few minutes later. You are grateful for its sacrifice. Heal 12 HP.', " + choice[0].choice_id + ")", function(err, result) {
                         if(err){
                             throw err;
                         } else {
