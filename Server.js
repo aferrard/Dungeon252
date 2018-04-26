@@ -867,7 +867,7 @@ app.get('/outcome', function (req, res) {
                 }
                 else if (req.cookies.curRoom == "DARKWIZARD") {
                     if (req.query.a != undefined) {
-                        if (req.cookies.gold < req.query.bribe){
+                        if (parseInt(req.cookies.gold) < parseInt(req.query.bribe)){
                             option = "a";
                             res.cookie('gold', 0, {maxAge: 9000000});
                             effects = "Lose all of your gold.";
