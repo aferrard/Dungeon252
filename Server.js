@@ -36,7 +36,6 @@ app.get('/', function (req, res) {
     res.cookie('magik', '', {expires: new Date(0)});
     res.cookie('roomsCopy', '', {expires: new Date(0)});
     res.cookie('lastPage', "/", {maxAge: 9000000});
-    //console.log(req.cookies);
     res.render('pages/home');
 });
 
@@ -88,7 +87,9 @@ app.get('/start', function (req, res) {
 var nextRoom = "0";
 app.get('/room', function (req, res) {
     res.cookie('lastPage', "/room", {maxAge: 9000000});
+    console.log("Room number: "+req.cookies.roomCounter);
     if (req.cookies.lastPage == "/start" || req.cookies.lastPage == "/outcome") {
+        console.log("COOKIE INFO");
         console.log(req.cookies);
         var roomsCopy = req.cookies.roomsCopy;
         if (nextRoom == "0") {
@@ -125,15 +126,14 @@ app.get('/room', function (req, res) {
                 }
                 if (roomCounter % 10 != 0) {
                     roomsCopy.splice(roomPick, 1);
-                    //console.log(roomPick);
                     console.log("picked room: " + room);
                     res.cookie('curRoom', room, {maxAge: 9000000});
                     res.cookie('roomsCopy', roomsCopy, {maxAge: 9000000});
                     res.cookie('roomCounter', roomCounter, {maxAge: 9000000});
                     Connection.getRoom(room, function (roomInfo) {
-                        console.log(roomInfo.image);
+                        console.log(roomInfo);
                         Connection.getChoices(roomInfo.room_id, function (choices) {
-                            //console.log(choices);
+                            console.log(choices);
                             res.render('pages/room', {
                                 hero: req.cookies.hero,
                                 health: req.cookies.health,
@@ -159,9 +159,9 @@ app.get('/room', function (req, res) {
                     res.cookie('roomsCopy', roomsMaster, {maxAge: 9000000});
                     res.cookie('roomCounter', roomCounter, {maxAge: 9000000});
                     Connection.getRoom("ROOM10", function (roomInfo) {
-                        console.log(roomInfo.image);
+                        console.log(roomInfo);
                         Connection.getChoices(roomInfo.room_id, function (choices) {
-                            //console.log(choices);
+                            console.log(choices);
                             res.render('pages/room', {
                                 hero: req.cookies.hero,
                                 health: req.cookies.health,
@@ -185,6 +185,8 @@ app.get('/room', function (req, res) {
             });
         });
     } else {
+        console.log("COOKIE INFO");
+        console.log(req.cookies);
         getWeight(req.cookies, function (weight) {
             getStrength(req.cookies, function (str) {
                 Connection.getRoom(req.cookies.curRoom, function (roomInfo) {
@@ -231,21 +233,17 @@ app.get('/room', function (req, res) {
 
 function getStrength(cookie, stren) {
     var strength = 0;
-    console.log("STRENGTH");
+    //console.log("STRENGTH");
     if (cookie.item == "Dog tooth") {
         strength += 3;
     }
-    console.log(cookie.weapon);
     Connection.getWeapon(cookie.weapon, function (wep) {
-        console.log(wep);
         strength += wep.strength;
-        console.log(cookie.magik);
         if (cookie.magik != null && cookie.magik != "None") {
             Connection.getMagik(cookie.magik, function (mag) {
-                console.log(mag);
                 strength += mag.effect;
                 strength += parseInt(cookie.health / 10);
-                console.log(strength);
+                //console.log(strength);
                 if ((cookie.item == "Shell" || cookie.item == "Grief Orb" || cookie.item == "Eternal Flame" || cookie.item == "Atomic Bomb" || cookie.item == "Frenzy Seed" || cookie.item == "Fluffy Cloud" || cookie.item == "Pure Orb")) {
                     strength *= 2;
                 }
@@ -253,7 +251,7 @@ function getStrength(cookie, stren) {
             });
         } else {
             strength += parseInt(cookie.health / 10);
-            console.log(strength);
+            //console.log(strength);
             stren(strength);
         }
     });
@@ -261,22 +259,18 @@ function getStrength(cookie, stren) {
 }
 
 function getWeight(cookie, wei) {
-    console.log("WEIGHT");
+    //console.log("WEIGHT");
     var weight = 0;
-    console.log(cookie.weapon);
     Connection.getWeapon(cookie.weapon, function (wep) {
-        console.log(wep);
         weight += wep.weight;
-        console.log(cookie.item);
         if (cookie.item != null && cookie.item != "None") {
             Connection.getItem(cookie.item, function (item) {
-                console.log(item);
                 weight += item.weight;
-                console.log(weight);
+                //console.log(weight);
                 wei(weight);
             })
         } else {
-            console.log(weight);
+            //console.log(weight);
             wei(weight);
         }
     })
@@ -352,7 +346,7 @@ function roomTen(boss, str, weight, cookie, query, ret) {
             effects = "You Died. Next time make sure you're stronger, ya dummy.";
             console.log("A,b");
             calcScore(cookie, function (score) {
-
+                console.log("SCORE");
                 console.log(score);
                 ret(outcome, effects, newGold, newWep, true, score, popup);
             });
@@ -487,9 +481,8 @@ function roomTen(boss, str, weight, cookie, query, ret) {
 
 app.get('/outcome', function (req, res) {
     res.cookie('lastPage', "/outcome", {maxAge: 9000000});
-    //console.log("REQUEST");
-    //console.log(req);
-    //console.log(req.url);
+    console.log("OUTCOME START");
+    console.log("Room number: "+req.cookies.roomCounter);
     if (req.cookies.lastPage == "/room") {
         var roomCounter = req.cookies.roomCounter;
         var option;
@@ -1050,6 +1043,7 @@ app.get('/outcome', function (req, res) {
                             res.cookie('item', "Shell", {maxAge: 9000000});
                         }
                     } else if (req.query.d != undefined) {
+                        console.log("Shell solution:");
                         console.log(req.query.solution);
                         if ((req.query.solution == "SEGV") || (req.query.solution == "EXECVP Error") || (req.query.solution == "EXECVP") || (req.query.solution == "Due Tomorrow") || (req.query.solution == "due tomorrow") || (req.query.solution == "Due tomorrow") || (req.query.solution == "Gustavo")) {
                             option = "a";
@@ -1068,7 +1062,6 @@ app.get('/outcome', function (req, res) {
                     } else if (req.query.b != undefined) {
                         Connection.getWeapon(req.cookies.weapon, function (wep) {
                             if (wep.attribute.includes("Wood")) {
-                                console.log(wep);
                                 option = "a";
                                 effects = "Lose your weapon, Gain 15 HP. Gain magik: Fire.";
                                 res.cookie('weapon', "Fists", {maxAge: 9000000});
@@ -1079,7 +1072,6 @@ app.get('/outcome', function (req, res) {
                                 effects = "Gain weapon: Fire sword.";
                                 res.cookie('weapon', "Fire sword", {maxAge: 9000000});
                             }
-                            console.log(effects);
                         });
                     } else if (req.query.c != undefined) {
                         if (req.cookies.magik == "Nature" || req.cookies.magik == "Air") {
@@ -1581,11 +1573,10 @@ app.get('/outcome', function (req, res) {
                 }
                 if (room10) {
                     Connection.getBoss(function (boss) {
-                        console.log("ROOM10 FUNCTION BEING SENT!!!!!!!");
+                        console.log("ROOM10 START");
                         roomTen(boss, str, weight, req.cookies, req.query, function (outcome, effects, newGold, newWep, died, score, popup) {
                             res.cookie('weapon', newWep, {maxAge: 9000000});
                             res.cookie('gold', newGold, {maxAge: 9000000});
-                            console.log("INSIDE ROOM10 FUNCTION!!!!!!!!");
                             console.log("outcome: " + outcome + ", effects: " + effects + ", newGold: " + newGold + ", newWep: " + newWep + ", died: " + died);
                             var hp = req.cookies.health;
                             if (died) {
@@ -1593,6 +1584,7 @@ app.get('/outcome', function (req, res) {
                                 hp = 0;
                             }
                             Connection.getRoom(req.cookies.curRoom, function (roomInfo) {
+                                console.log(req.cookies.hero+" has clicked on a room10 choice.");
                                 res.cookie('lastOut', outcome, {maxAge: 9000000});
                                 res.cookie('lastEff', effects, {maxAge: 9000000});
                                 res.cookie('lastDie', died, {maxAge: 9000000});
@@ -1625,7 +1617,7 @@ app.get('/outcome', function (req, res) {
                         Connection.getOutcome(req.query.choice_id, option, function (outcome) {
                             if (died) {
                                 calcScore(req.cookies, function (score) {
-                                    console.log("refresh test if died");
+                                    console.log(req.cookies.hero+" has died. Score: "+score);
                                     res.cookie('lastOut', outcome, {maxAge: 9000000});
                                     res.cookie('lastEff', effects, {maxAge: 9000000});
                                     res.cookie('lastDie', true, {maxAge: 9000000});
@@ -1652,7 +1644,7 @@ app.get('/outcome', function (req, res) {
                                     });
                                 });
                             } else {
-                                console.log("refresh test else died");
+                                console.log(req.cookies.hero+" has moved to the next room.");
                                 res.cookie('lastOut', outcome, {maxAge: 9000000});
                                 res.cookie('lastEff', effects, {maxAge: 9000000});
                                 res.cookie('lastDie', false, {maxAge: 9000000});
@@ -1687,6 +1679,7 @@ app.get('/outcome', function (req, res) {
         getStrength(req.cookies, function (str) {
             getWeight(req.cookies, function (weight) {
                 Connection.getRoom(req.cookies.curRoom, function (roomInfo) {
+                    cnsole.log("COOKIE");
                     console.log(req.cookies);
                     res.render('pages/outcome', {
                         hero: req.cookies.hero,

@@ -151,10 +151,12 @@
             </form><br>
         <%}else if(died || died == "true"){ %>
             <form align="left" class="form-horizontal" action="/end">
+                Your score: <%=score%>
                 <input value="To the Graveyard" type="submit" class="btn btn-danger">
             </form><br>
         <%}else{%>
         <form align="left" class="form-horizontal" action="/champ">
+            Your score: <%=score%>
             <input value="Your Throne, My Liege" type="submit" class="btn btn-danger">
         </form><br>
         <%}%>
