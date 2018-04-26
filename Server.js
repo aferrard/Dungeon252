@@ -361,7 +361,11 @@ function roomTen(boss, str, weight, cookie, query, ret) {
         console.log(query.bribe);
         console.log("Boss gold:");
         console.log(boss.gold);
-        if (query.bribe >= (boss.money * 1.5) && cookie.health >= boss.health - 5) {
+        var tempG = query.bribe;
+        if(cookie.gold < tempG){
+            tempG = cookie.gold;
+        }
+        if (tempG >= (boss.money * 1.5) && cookie.health >= boss.health - 5) {
             outcome = "\"Ha! It isn\'t often that I see someone more worthy of being the king here. Have a seat.\" The being gets up and steps aside. As you sit on the throne, you watch the shadows leap from the being to you, revealing a person with a grateful smile. The instant the last speck of shadow leaves them, they vanish, taking your gold with them. You realize it now. Here you will remain, until another takes your place.";
             effects = "You are victorious, but at what cost?";
             console.log("B,a");
@@ -371,24 +375,24 @@ function roomTen(boss, str, weight, cookie, query, ret) {
                     ret(outcome, effects, newGold, newWep, false, score, popup);
                 });
             });
-        } else if ((query.bribe > boss.money) && (cookie.health < (boss.health - 5))) {
+        } else if ((tempG > boss.money) && (cookie.health < (boss.health - 5))) {
             outcome = "The being approaches you with what you think is a smile behind all the shadows. \"I see you’ve done well with yourself in my dungeon.\" \nThey stop in front of you. It is then you notice a pain in your chest. \"But what good is a king without strength?\" They whisper into your ear, and you finally notice their weapon, pierced through you entirely.\n You fall, joining the pile of bodies as your vision fades to black.";
             effects = "You Died. The Boss took your gold too. That was dumb.";
             console.log("B,b");
-            Connection.addGoldToBoss(query.bribe, function (errg) {
+            Connection.addGoldToBoss(tempG, function (errg) {
                 console.log(errg);
                 calcScore(cookie, function (score) {
-                    ret(outcome, effects, (newGold - query.bribe), newWep, true, score, popup);
+                    ret(outcome, effects, (newGold - tempG), newWep, true, score, popup);
                 });
             });
-        } else if (cookie.health >= boss.health - 5 && (query.bribe < (boss.money * 1.5))) {
+        } else if (cookie.health >= boss.health - 5 && (tempG < (boss.money * 1.5))) {
             outcome = "\"You\'ve clearly faced less trials than me.\" The being frowns at you, eyebrows made of shadows furrowed. \"You had potential\" Before you can react, you notice a pain in your chest. \"A shame really. Your wealth will barely add to my collection in the least.\" They whisper into your ear, and you finally notice their weapon, pierced through you entirely. You fall, joining the pile of bodies as your vision fades to black.";
             effects = "You Died. The Boss took your gold too. That was dumb.";
             console.log("B,c");
-            Connection.addGoldToBoss(query.bribe, function (errg) {
+            Connection.addGoldToBoss(tempG, function (errg) {
                 console.log(errg);
                 calcScore(cookie, function (score) {
-                    ret(outcome, effects, (newGold - query.bribe), newWep, true, score, popup);
+                    ret(outcome, effects, (newGold - tempG), newWep, true, score, popup);
                 });
             });
         } else {
@@ -862,7 +866,11 @@ app.get('/outcome', function (req, res) {
                 }
                 else if (req.cookies.curRoom == "DARKWIZARD") {
                     if (req.query.a != undefined) {
-                        if (parseInt(req.query.bribe) >= 30) {
+                        if (req.cookies.gold < req.query.bribe){
+                            option = "a";
+                            res.cookie('gold', 0, {maxAge: 9000000});
+                            effects = "Lose all of your gold.";
+                        } else if (parseInt(req.query.bribe) >= 30) {
                             option = "a";
                             res.cookie('gold', (parseInt(req.cookies.gold) - parseInt(req.query.bribe)), {maxAge: 9000000});
                             effects = "Lose " + req.query.bribe + " gold.";
@@ -1135,7 +1143,7 @@ app.get('/outcome', function (req, res) {
                             option = "a";
                         } else {
                             option = "b";
-                            res.cookie('gold', (parseInt(req.cookies.gold) - (parseInt(req.cookies.gold))), {maxAge: 9000000});
+                            res.cookie('gold', 0, {maxAge: 9000000});
                             effects = "Lose all of your gold. You want your hair to look good, right?";
                         }
                     } else if (req.query.c != undefined) {
@@ -1296,7 +1304,30 @@ app.get('/outcome', function (req, res) {
                             }
                         }
                     } else if (req.query.d != undefined) {
-                        if (req.query.bribe >= 25) {
+                        if(req.cookies.gold < req.query.bribe){
+                            option = "b";
+                            if (req.cookies.item == "Chain mail") {
+                                if ((parseInt(req.cookies.health) - 7) > 0) {
+                                    effects = "Lose 7 HP from a disgusted shopkeeper.";
+                                    res.cookie('health', parseInt(req.cookies.health) - 7, {maxAge: 9000000});
+                                }
+                                else {
+                                    effects = "You have died from a disgusted shopkeeper.";
+                                    res.cookie('health', 0, {maxAge: 9000000});
+                                    died = true;
+                                }
+                            } else {
+                                if ((parseInt(req.cookies.health) - 10) > 0) {
+                                    effects = "Lose 10 HP from a disgusted shopkeeper.";
+                                    res.cookie('health', parseInt(req.cookies.health) - 10, {maxAge: 9000000});
+                                }
+                                else {
+                                    effects = "You have died from a disgusted shopkeeper.";
+                                    res.cookie('health', 0, {maxAge: 9000000});
+                                    died = true;
+                                }
+                            }
+                        } else if (req.query.bribe >= 25) {
                             option = "a";
                             getRandom("weapon", function (weep) {
                                 effects = "Lose gold: " + req.query.bribe + ". Gain weapon: " + weep + ".";
