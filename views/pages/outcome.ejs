@@ -9,7 +9,11 @@
             background-repeat: no-repeat;
             resize: both;
             background-origin: content-box;
-            color: darkgrey;
+            <%if (curRoom == "HOLE" || curRoom == "FEAST" || curRoom == "POTIONS") {%>
+                color: white;
+            <%} else {%>
+                color: darkgrey;
+            <%}%>
             background-position: top;
             background-origin: content-box;
         }

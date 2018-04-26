@@ -148,7 +148,8 @@ app.get('/room', function (req, res) {
                                 event: roomInfo.event,
                                 choices: choices,
                                 poem: poem,
-                                image: roomInfo.image
+                                image: roomInfo.image,
+                                curRoom: roomInfo.title
                             });
                         });
                     });
@@ -217,7 +218,8 @@ app.get('/room', function (req, res) {
                             event: roomInfo.event,
                             choices: choices,
                             poem: poem,
-                            image: roomInfo.image
+                            image: roomInfo.image,
+                            curRoom: roomInfo.title
                         });
                     });
                 });
@@ -1650,7 +1652,7 @@ app.get('/outcome', function (req, res) {
                                     str: str,
                                     weight: weight,
                                     roomCounter: roomCounter,
-                                    curRoom: req.cookies.curRoom,
+                                    curRoom: roomInfo.title,
                                     outcome: outcome,
                                     image: roomInfo.image,
                                     effects: effects,
@@ -1679,7 +1681,7 @@ app.get('/outcome', function (req, res) {
                         str: str,
                         weight: weight,
                         roomCounter: req.cookies.roomCounter,
-                        curRoom: req.cookies.curRoom,
+                        curRoom: roomInfo.title,
                         outcome: req.cookies.lastOut,
                         image: roomInfo.image,
                         effects: req.cookies.lastEff,
