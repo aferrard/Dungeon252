@@ -136,7 +136,8 @@ app.get('/room', function (req, res) {
                             event: roomInfo.event,
                             choices: choices,
                             poem: poem,
-                            image: roomInfo.image
+                            image: roomInfo.image,
+                            curRoom: roomInfo.title
                         });
                     });
                 });

@@ -9,9 +9,14 @@
             background-repeat: no-repeat;
             resize: both;
             background-origin: content-box;
-            color: darkgray;
+            <%if (curRoom == "HOLE" || curRoom == "FEAST" || curRoom == "POTIONS") {%>
+                color: white;
+            <%} else {%>
+                color: darkgrey;
+            <%}%>
             background-position: top;
             background-origin: content-box;
+            font-size: 16px;
         }
     </style>
 </head>
@@ -41,7 +46,7 @@
             <font size="5">Room <%=roomCounter%>: <%=room%></font>
         </p><br>
         <p align="left">
-            <font size="3"><%=event%></font><br>
+            <%=event%><br>
             <%if(room == "GNOME" || room == "CHOOSEAROOM"){%>
             <br>
             <%=poem%>
