@@ -425,7 +425,8 @@ function roomTen(boss, str, weight, cookie, query, ret) {
 }
 
 app.get('/outcome', function (req, res) {
-    console.log(req.query);
+    console.log("Request check: !!!!!!!!!!");
+    console.log(req);
     var roomCounter = req.cookies.roomCounter;
     var option;
     var effects = "Nothing happens.";
