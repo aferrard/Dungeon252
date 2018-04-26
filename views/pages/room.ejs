@@ -53,7 +53,7 @@
             <br>
             <%}%>
         </p><br>
-        <%if((room == "DOG" && weapon != "fists") || (room == "HELICOPTER" && weapon != "Fists") || (room != "DOG" || room != "HELICOPTER")){%>
+        <%if((room == "DOG" && weapon != "Fists") || (room == "HELICOPTER" && weapon != "Fists") || (room != "DOG" && room != "HELICOPTER")){%>
         <form align="left" class="form-horizontal" action="/outcome">
             <input hidden id="choice_id" name="choice_id" value="<%=choices[0].choice_id %>">
             <input value="Option A" name="a" type="submit" class="btn btn-danger">
