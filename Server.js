@@ -309,12 +309,15 @@ function getRandom(type, ran) {
     var magiks = ["Fire", "Water", "Nature", "Air", "Light", "Dark", "Explosion"];
     if (type == "item") {
         var pick = Math.round((parseInt(items.length) - 1) * Math.random());
+        console.log("random item: "+pick);
         ran(items[pick]);
     } else if (type == "magik") {
         var pick = Math.round((parseInt(magiks.length) - 1) * Math.random());
+        console.log("random magik: "+pick);
         ran(magiks[pick]);
     } else if (type == "weapon") {
         var pick = Math.round((parseInt(weapons.length) - 1) * Math.random());
+        console.log("random weapon: "+pick);
         ran(weapons[pick]);
     }
 }

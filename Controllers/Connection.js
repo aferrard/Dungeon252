@@ -148,8 +148,8 @@ function getChoices(roomid, cb) {
 exports.getOutcome = getOutcome;
 
 function getOutcome(choiceid, path, cb) {
-    //console.log("choiceid: " + choiceid);
-    //console.log("path: "+path);
+    console.log("choiceid: " + choiceid);
+    console.log("path: "+path);
     con.query("SELECT outcome FROM outcomes WHERE choices_choice_id = " + choiceid + " AND outcome_path = '" + path + "'", function (err, outcome) {
         if (err) {
             cb(err);
@@ -162,6 +162,7 @@ function getOutcome(choiceid, path, cb) {
 
 exports.getWeapon = getWeapon;
 function getWeapon(name, cb) {
+    console.log("getWeapon: "+name);
     con.query("SELECT strength, attribute, weight FROM weapons WHERE name = '" + name + "'", function (err, result) {
         if (err) {
             cb(err);
@@ -174,7 +175,7 @@ function getWeapon(name, cb) {
 
 exports.getMagik = getMagik;
 function getMagik(name, cb) {
-    //console.log("name: "+name);
+    console.log("getMagik: "+name);
     con.query("SELECT effect, goodagainst FROM magiks WHERE name = '" + name + "'", function (err, result) {
         if (err) {
             cb(err);
@@ -187,6 +188,7 @@ function getMagik(name, cb) {
 
 exports.getItem = getItem;
 function getItem(name, cb) {
+    console.log("getItem: "+name);
     con.query("SELECT attribute, weight FROM items WHERE name = '" + name + "'", function (err, result) {
         if (err) {
             throw err;
