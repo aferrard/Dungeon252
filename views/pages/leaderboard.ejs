@@ -61,10 +61,11 @@
 <main>
     <div class ="container-fluid">
         <h1 align="center">
-            <b>Top Heroes</b><br>
+            <b>Top 100 Heroes</b><br>
         </h1>
         <table align="center">
             <tr>
+                <th>#</th>
                 <th>Username</th>
                 <th>Score</th>
                 <th>Health</th>
@@ -74,25 +75,31 @@
                 <th>Magik</th>
                 <th>Rooms Completed</th>
             </tr>
-            <%for (var i = 0; i < userInfo.length; i++) {%>
+            <%for (var i = 0; i < 100; i++) {%>
             <%if (userInfo[i].user_id != winnerInfo[0].user_id) {%>
-                <tr class="normal-row"><td text-align="left"><%=userInfo[i].username%></td>
+                <tr class="normal-row">
+                    <td text-align="left"><%=i%></td>
+                    <td text-align="left"><%=userInfo[i].username%></td>
                     <td text-align="left"><%=userInfo[i].score%></td>
                     <td text-align="left"><%=userInfo[i].health%></td>
                     <td text-align="left"><%=userInfo[i].money%></td>
                     <td text-align="left"><%=userInfo[i].weapons_weapon_id%></td>
                     <td text-align="left"><%=userInfo[i].items_item_id%></td>
                     <td text-align="left"><%=userInfo[i].magiks_magik_id%></td>
-                    <td text-align="left"><%=userInfo[i].numrooms%></td></tr>
+                    <td text-align="left"><%=userInfo[i].numrooms%></td>
+                </tr>
             <%} else { %>
-                <tr class="special-row"><td text-align="left"><%=userInfo[i].username%></td>
+                <tr class="special-row">
+                    <td text-align="left"><%=i%></td>
+                    <td text-align="left"><%=userInfo[i].username%></td>
                     <td text-align="left">?</td>
                     <td text-align="left">?</td>
                     <td text-align="left">?</td>
                     <td text-align="left">?</td>
                     <td text-align="left">?</td>
                     <td text-align="left">?</td>
-                    <td text-align="left">?</td></tr>
+                    <td text-align="left">?</td>
+                </tr>
             <%}
             }%>
 
