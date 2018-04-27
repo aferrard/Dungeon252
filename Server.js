@@ -584,7 +584,7 @@ app.get('/outcome', function (req, res) {
                                     died = true;
                                 }
                             } else {
-                                if ((parseInt(req.cookies.health) - 10) > 0) {
+                                if ((parseInt(req.cookies.health) - 15) > 0) {
                                     effects = ("Lose 15 HP.");
                                     res.cookie('health', parseInt(req.cookies.health) - 15, {maxAge: 9000000});
                                 }
