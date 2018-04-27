@@ -78,7 +78,7 @@
             <%for (var i = 0; i < 100; i++) {%>
             <%if (userInfo[i].user_id != winnerInfo[0].user_id) {%>
                 <tr class="normal-row">
-                    <td text-align="left"><%=i%></td>
+                    <td text-align="left"><%=(i+1)%></td>
                     <td text-align="left"><%=userInfo[i].username%></td>
                     <td text-align="left"><%=userInfo[i].score%></td>
                     <td text-align="left"><%=userInfo[i].health%></td>
@@ -90,7 +90,7 @@
                 </tr>
             <%} else { %>
                 <tr class="special-row">
-                    <td text-align="left"><%=i%></td>
+                    <td text-align="left"><%=(i+1)%></td>
                     <td text-align="left"><%=userInfo[i].username%></td>
                     <td text-align="left">?</td>
                     <td text-align="left">?</td>
