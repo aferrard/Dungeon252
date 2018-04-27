@@ -134,6 +134,8 @@ app.get('/room', function (req, res) {
                         console.log(roomInfo);
                         Connection.getChoices(roomInfo.room_id, function (choices) {
                             console.log(choices);
+                            console.log("HERO:");
+                            console.log(req.cookies.hero);
                             res.render('pages/room', {
                                 hero: req.cookies.hero,
                                 health: req.cookies.health,
@@ -162,6 +164,8 @@ app.get('/room', function (req, res) {
                         console.log(roomInfo);
                         Connection.getChoices(roomInfo.room_id, function (choices) {
                             console.log(choices);
+                            console.log("HERO:");
+                            console.log(req.cookies.hero);
                             res.render('pages/room', {
                                 hero: req.cookies.hero,
                                 health: req.cookies.health,
@@ -207,6 +211,8 @@ app.get('/room', function (req, res) {
                                 "Where the sands and frosts of ages\n" +
                                 "can never hope to touch or reach.";
                         }
+                        console.log("HERO:");
+                        console.log(req.cookies.hero);
                         res.render('pages/room', {
                             hero: req.cookies.hero,
                             health: req.cookies.health,
@@ -355,7 +361,7 @@ function roomTen(boss, str, weight, cookie, query, ret) {
         console.log("Bribe:");
         console.log(query.bribe);
         console.log("Boss gold:");
-        console.log(boss.gold);
+        console.log(boss.money);
         var tempG = query.bribe;
         if(cookie.gold < tempG){
             tempG = cookie.gold;
@@ -1591,6 +1597,8 @@ app.get('/outcome', function (req, res) {
                                 res.cookie('lastSco', score, {maxAge: 9000000});
                                 res.cookie('lastPop', popup, {maxAge: 9000000});
                                 res.cookie('lastGol', newGold, {maxAge: 9000000});
+                                console.log("HERO:");
+                                console.log(req.cookies.hero);
                                 res.render('pages/outcome', {
                                     hero: req.cookies.hero,
                                     health: hp,
@@ -1681,6 +1689,8 @@ app.get('/outcome', function (req, res) {
                 Connection.getRoom(req.cookies.curRoom, function (roomInfo) {
                     cnsole.log("COOKIE");
                     console.log(req.cookies);
+                    console.log("HERO:");
+                    console.log(req.cookies.hero);
                     res.render('pages/outcome', {
                         hero: req.cookies.hero,
                         health: req.cookies.health,
