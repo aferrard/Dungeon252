@@ -31,18 +31,24 @@
         td {
             text-align: left;
             font-size: 18px;
-            color: #E3C495;
             font-family: "Bodoni 72 Oldstyle";
             text-align: center;
         }
         table {
             border-collapse: collapse;
-            width: 70%;
+            width: 80%;
             border: none;
 
         }
         th, td {
             padding: 2px;
+        }
+        .normal-row {
+            color: #E3C495;
+        }
+        .special-row {
+            color: #FF0000;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -70,7 +76,7 @@
             </tr>
             <%for (var i = 0; i < userInfo.length; i++) {%>
             <%if (userInfo[i].user_id != winnerInfo[0].user_id) {%>
-                <tr><td text-align="left"><%=userInfo[i].username%></td>
+                <tr class="normal-row"><td text-align="left"><%=userInfo[i].username%></td>
                     <td text-align="left"><%=userInfo[i].score%></td>
                     <td text-align="left"><%=userInfo[i].health%></td>
                     <td text-align="left"><%=userInfo[i].money%></td>
@@ -79,7 +85,7 @@
                     <td text-align="left"><%=userInfo[i].magiks_magik_id%></td>
                     <td text-align="left"><%=userInfo[i].numrooms%></td></tr>
             <%} else { %>
-                <tr><td text-align="left"><%=userInfo[i].username%></td>
+                <tr class="special-row"><td text-align="left"><%=userInfo[i].username%></td>
                     <td text-align="left">?</td>
                     <td text-align="left">?</td>
                     <td text-align="left">?</td>
