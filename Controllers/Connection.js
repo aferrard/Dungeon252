@@ -210,7 +210,7 @@ function convertToString(weaponid, itemid, magikid, cb) {
 exports.getUsers = getUsers;
 function getUsers(cb) {
     var async = require('async');
-    con.query("SELECT * FROM users ORDER BY score DESC", function(err, users) {
+    con.query("SELECT * FROM users ORDER BY score DESC LIMIT 0, 100", function(err, users) {
         if(err) {
             cb(err);
         } else {

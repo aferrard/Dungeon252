@@ -75,7 +75,7 @@
                 <th>Magik</th>
                 <th>Rooms Completed</th>
             </tr>
-            <%for (var i = 0; i < 100; i++) {%>
+            <%for (var i = 0; i < userInfo.length; i++) {%>
             <%if (userInfo[i].user_id != winnerInfo[0].user_id) {%>
                 <tr class="normal-row">
                     <td text-align="left"><%=(i+1)%></td>
