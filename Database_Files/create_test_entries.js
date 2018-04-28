@@ -414,11 +414,11 @@ getRoomId("CHEST", function(room) {
                 if(err) {
                     throw err;
                 } else {
-                    con.query("INSERT INTO outcomes VALUE('a', 'The chest breaks open when you strike it, revealing an item as well as some gold!', " + choice[0].choice_id + ")", function(err, result) {
+                    con.query("INSERT INTO outcomes VALUE('a', 'The chest breaks open when you strike it, revealing gold and a fully intact item!', " + choice[0].choice_id + ")", function(err, result) {
                         if(err) {
                             throw err;
                         } else {
-                            con.query("INSERT INTO outcomes VALUE('b', 'You smash the chest to pieces. Inside is a broken item, and a bag of gold.', " + choice[0].choice_id + ")", function(err, result) {
+                            con.query("INSERT INTO outcomes VALUE('b', 'You smash the chest to pieces. Inside is a bag of gold and what seems to be a broken item.', " + choice[0].choice_id + ")", function(err, result) {
                                 if(err) {
                                     throw err;
                                 } else {
