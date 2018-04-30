@@ -10,16 +10,20 @@
             width:100%;
             background-repeat: no-repeat;
             overflow: hidden;
-            resize: horizontal;
+            resize: both;
         }
         h1 {
             color: gray();
-            font-family: "Apple Chancery";
             font-size: 25px;
             background-image: url('images/extras/old_scroll.png');
             background-repeat: no-repeat;
-            margin-right: 340px;
-            margin-left: 340px;
+            font-family: "Apple Chancery";
+
+            background-position: top;
+            background-origin: content-box;
+        }
+        div {
+            width: 440px;
         }
     </style>
 </head>
@@ -29,8 +33,8 @@
     <div class ="container-fluid">
         <br>
         <h1 align="center">
-            <br>You fought valiantly but have fallen during your journey through the dungeon.
-            Do you have the strength to try again?<br><br><br>
+            <br><br>You fought valiantly but have fallen during your journey through the dungeon.
+            Do you have the strength to try again?<br><br><br><br>
         </h1><br>
         <form align="center" class="form-horizontal" action="/">
             <input value="Return Home" type="submit" class="btn btn-danger">
