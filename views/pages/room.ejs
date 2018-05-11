@@ -4,19 +4,23 @@
     <% include ../partials/head %>
     <link rel="shortcut icon" type="image/png" href="images/favicon.png">
     <style>
+
         body {
             background-size: cover;
             background-image: url('images/final/<%=image%>');
             background-repeat: no-repeat;
             resize: both;
-            background-origin: content-box;
             <%if (curRoom == "HOLE" || curRoom == "FEAST" || curRoom == "POTIONS") {%>
                 color: white;
             <%} else {%>
                 color: darkgrey;
             <%}%>
+            height: 100%;
+            width:100%;
             background-position: top;
             background-origin: content-box;
+            background-attachment: fixed;
+            overflow: hidden;
             font-size: 16px;
         }
     </style>
